@@ -1,0 +1,2938 @@
+{
+  "api": {
+    "devices": {
+      "items": {
+        "{serial}": {
+          "firmware": {
+            "Access Specifier": "R/O",
+            "Details": "Current device firmware version",
+            "Name": "Device Firmware",
+            "Summary": "Current device firmware version",
+            "Type": "String"
+          },
+          "type": {
+            "Access Specifier": "R/O",
+            "Details": "Device type name",
+            "Name": "Device Type",
+            "Summary": "Device type name",
+            "Type": "String"
+          }
+        }
+      },
+      "statistics": {
+        "associated-count": {
+          "Access Specifier": "R/O",
+          "Details": "The number of devices currently being controlled by the processor",
+          "Name": "Associated Devices Count",
+          "Summary": "Number of associated devices",
+          "Type": "Integer (range: 0 - 2200)"
+        },
+        "error-count": {
+          "Access Specifier": "R/O",
+          "Details": "The number of online devices currently reporting an error state",
+          "Name": "Error Devices Count",
+          "Summary": "Number of devices reporting errors",
+          "Type": "Integer (range: 0 - 2048)"
+        },
+        "online-count": {
+          "Access Specifier": "R/O",
+          "Details": "The number of online devices currently detected by the processor",
+          "Name": "Online Device Count",
+          "Summary": "Number of online devices",
+          "Type": "Integer (range: 0 - 2048)"
+        }
+      }
+    },
+    "groups": {
+      "items": {
+        "{number}": {
+          "brightness": {
+            "Access Specifier": "R/W",
+            "Details": "Gets or sets the group output brightness/luminance",
+            "Name": "Group Brightness",
+            "Summary": "Group output brightness/luminance",
+            "Type": "Integer (range: 0 - 10000)"
+          },
+          "brightness-limit": {
+            "enabled": {
+              "Access Specifier": "R/O",
+              "Details": "Enables or disables group brightness limit",
+              "Name": "Group Brightness Limit",
+              "Summary": "Enables group brightness limit",
+              "Type": "Boolean"
+            },
+            "value": {
+              "Access Specifier": "R/O",
+              "Details": "Current group maximum brightness value if brightness limit enabled",
+              "Name": "Group Brightness Limit Value",
+              "Summary": "Current group brightness limit",
+              "Type": "Integer (range: 0 - 10000)"
+            }
+          },
+          "colour-temperature": {
+            "Access Specifier": "R/W",
+            "Details": "Gets or sets the group colour temperature",
+            "Name": "Group Colour Temperature",
+            "Summary": "Group colour temperature",
+            "Type": "Integer (range: 2000 - 11000)"
+          },
+          "dark-magic": {
+            "enabled": {
+              "Access Specifier": "R/W",
+              "Details": "Enables or disables group Dark Magic",
+              "Name": "Group Dark Magic Enabled",
+              "Summary": "Enable group Dark Magic",
+              "Type": "Boolean"
+            }
+          },
+          "extended-bit-depth": {
+            "enabled": {
+              "Access Specifier": "R/W",
+              "Details": "Enables or disables group extended bit depth",
+              "Name": "Group Extended Bit Depth",
+              "Summary": "Group extended bit depth",
+              "Type": "Boolean"
+            }
+          },
+          "gains": {
+            "blue": {
+              "Access Specifier": "R/W",
+              "Details": "Gets or sets the value of the group blue gain",
+              "Name": "Group Blue Gain",
+              "Summary": "Current group blue gain",
+              "Type": "Float (range: 0 - 100)"
+            },
+            "green": {
+              "Access Specifier": "R/W",
+              "Details": "Gets or sets the value of the group green gain",
+              "Name": "Group Green Gain",
+              "Summary": "Current group green gain",
+              "Type": "Float (range: 0 - 100)"
+            },
+            "intensity": {
+              "Access Specifier": "R/W",
+              "Details": "Gets or sets the value of the group intensity gain",
+              "Name": "Group Intensity Gain",
+              "Summary": "Current group intensity gain",
+              "Type": "Float (range: 0 - 100)"
+            },
+            "red": {
+              "Access Specifier": "R/W",
+              "Details": "Gets or sets the value of the group red gain",
+              "Name": "Group Red Gain",
+              "Summary": "Current group red gain",
+              "Type": "Float (range: 0 - 100)"
+            }
+          },
+          "gamma": {
+            "Access Specifier": "R/W",
+            "Details": "Gets or sets the group gamma value",
+            "Name": "Group Output Gamma",
+            "Summary": "Group gamma value",
+            "Type": "Float (range: 0.2 - 4)"
+          },
+          "global-colour-override": {
+            "Access Specifier": "R/W",
+            "Details": "Enables or disables group global colour override",
+            "Name": "Group Global Colour Override",
+            "Summary": "Group global colour override",
+            "Type": "Boolean"
+          },
+          "global-gains-override": {
+            "Access Specifier": "R/W",
+            "Details": "Enables or disables group global gains override",
+            "Name": "Group Global Gains Override",
+            "Summary": "Group global gains override",
+            "Type": "Boolean"
+          },
+          "global-startracker-override": {
+            "Access Specifier": "R/W",
+            "Details": "Enables or disables global StarTracker override for this group",
+            "Name": "Group Global StarTracker Override",
+            "Summary": "Enable global StarTracker override for group",
+            "Type": "Boolean"
+          },
+          "name": {
+            "Access Specifier": "R/W",
+            "Details": "Gets or sets the group name",
+            "Name": "Group Name",
+            "Summary": "Group name",
+            "Type": "String"
+          },
+          "overdrive": {
+            "enabled": {
+              "Access Specifier": "R/W",
+              "Details": "Enables or disables group brightness overdrive",
+              "Name": "Group Overdrive Enabled",
+              "Summary": "Enables group brightness overdrive",
+              "Type": "Boolean"
+            }
+          },
+          "puretone": {
+            "enabled": {
+              "Access Specifier": "R/W",
+              "Details": "Enables or disables group PureTone",
+              "Name": "Group Pure Tone Enabled",
+              "Summary": "Enable group PureTone",
+              "Type": "Boolean"
+            }
+          },
+          "startracker": {
+            "enabled": {
+              "Access Specifier": "R/W",
+              "Details": "Enables or disables markers in group StarTracker override",
+              "Name": "Group StarTracker Enabled",
+              "Summary": "Enable group StarTracker markers",
+              "Type": "Boolean"
+            }
+          }
+        }
+      }
+    },
+    "input": {
+      "active": {
+        "source": {
+          "port-number": {
+            "Access Specifier": "R/W",
+            "Details": "Which physical port instance is currently enabled for video input. For example, SDI A = port 1, SDI B = port 2. The available number of port instances for any port type will vary based on the processor hardware variant.",
+            "Name": "Input Port Number",
+            "Summary": "Active video input port number",
+            "Type": "Integer (range: 1 - 2)"
+          },
+          "port-type": {
+            "Access Specifier": "R/W",
+            "Details": "Which physical port instance is currently enabled for video input. The available types will vary based on the processor hardware variant.",
+            "Name": "Input Port Type",
+            "Summary": "Active video input port type",
+            "Type": "Enum (allowed values: dvi,hdmi,sdi)"
+          }
+        }
+      },
+      "ports": {
+        "dvi": {
+          "{dvi-port-number}": {
+            "controls": {
+              "colour-space": {
+                "colour": {
+                  "Access Specifier": "R/W",
+                  "Details": "Gets or sets the colour space used for the incoming DVI content",
+                  "Name": "DVI Input Colour Space",
+                  "Summary": "DVI input colour space",
+                  "Type": "Enum (allowed values: rec-2020,dci-p3,rec-709,aces-cg,custom)"
+                }
+              },
+              "dvi-colour-format": {
+                "Access Specifier": "R/W",
+                "Details": "Gets or sets the colour format applied by the processor to the input for DVI input",
+                "Name": "Input DVI Colour Format",
+                "Summary": "Input DVI colour format",
+                "Type": "Enum (allowed values: rgb,ypbpr601,ypbpr709)"
+              }
+            },
+            "dynacal": {
+              "blue": {
+                "gamut": {
+                  "Access Specifier": "R/W",
+                  "Details": "Blue component of DVI input colour space",
+                  "Name": "DVI Dynacal Blue Gamut",
+                  "Summary": "DVI input blue gamut point",
+                  "Type": "Enum (allowed values: rec-2020,dci-p3,rec-709,aces-cg,custom)"
+                },
+                "x": {
+                  "Access Specifier": "R/W",
+                  "Details": "Blue component X value of DVI input colour space",
+                  "Name": "DVI Dynacal Blue X",
+                  "Summary": "DVI input blue component X value",
+                  "Type": "Float (range: 0 - 0.8)"
+                },
+                "y": {
+                  "Access Specifier": "R/W",
+                  "Details": "DVI component Y value of video input colour space",
+                  "Name": "DVI Dynacal Blue Y",
+                  "Summary": "DVI input blue component Y value",
+                  "Type": "Float (range: 0 - 0.9)"
+                }
+              },
+              "green": {
+                "gamut": {
+                  "Access Specifier": "R/W",
+                  "Details": "Green component of DVI input colour space",
+                  "Name": "DVI Dynacal Green Gamut",
+                  "Summary": "DVI input green gamut point",
+                  "Type": "Enum (allowed values: rec-2020,dci-p3,rec-709,aces-cg,custom)"
+                },
+                "x": {
+                  "Access Specifier": "R/W",
+                  "Details": "Green component X value of DVI input colour space",
+                  "Name": "DVI Dynacal Green X",
+                  "Summary": "DVI input green component X value",
+                  "Type": "Float (range: 0 - 0.8)"
+                },
+                "y": {
+                  "Access Specifier": "R/W",
+                  "Details": "Green component Y value of DVI input colour space",
+                  "Name": "DVI Dynacal Green Y",
+                  "Summary": "DVI input green component Y value",
+                  "Type": "Float (range: 0 - 0.9)"
+                }
+              },
+              "red": {
+                "gamut": {
+                  "Access Specifier": "R/W",
+                  "Details": "Red component of DVI input colour space",
+                  "Name": "DVI Dynacal Red Gamut",
+                  "Summary": "DVI input red gamut point",
+                  "Type": "Enum (allowed values: rec-2020,dci-p3,rec-709,aces-cg,custom)"
+                },
+                "x": {
+                  "Access Specifier": "R/W",
+                  "Details": "Red component X value of DVI input colour space",
+                  "Name": "DVI Dynacal Red X",
+                  "Summary": "DVI input red component X value",
+                  "Type": "Float (range: 0 - 0.8)"
+                },
+                "y": {
+                  "Access Specifier": "R/W",
+                  "Details": "Red component Y value of DVI input colour space",
+                  "Name": "DVI Dynacal Red Y",
+                  "Summary": "DVI input red component Y value",
+                  "Type": "Float (range: 0 - 0.9)"
+                }
+              },
+              "white": {
+                "colour-temperature": {
+                  "Access Specifier": "R/W",
+                  "Details": "DVI input white component colour temperature",
+                  "Name": "DVI Dynacal White Colour Temperature",
+                  "Summary": "DVI input white gamut point colour temperature",
+                  "Type": "Integer (range: 2000 - 11000)"
+                },
+                "gamut": {
+                  "Access Specifier": "R/W",
+                  "Details": "White component of DVI input colour space. Set to 'Colour Temperature' to control this white-only parameter",
+                  "Name": "DVI Dynacal White Gamut",
+                  "Summary": "DVI input white gamut point",
+                  "Type": "Enum (allowed values: d65,aces,colour-temperature,custom)"
+                },
+                "x": {
+                  "Access Specifier": "R/W",
+                  "Details": "White component X value of DVI input colour space",
+                  "Name": "DVI Dynacal White X",
+                  "Summary": "DVI input white component X value",
+                  "Type": "Float (range: 0 - 0.8)"
+                },
+                "y": {
+                  "Access Specifier": "R/W",
+                  "Details": "DVI input white component Y value",
+                  "Name": "DVI Dynacal White Y",
+                  "Summary": "White component Y value of DVI input colour space",
+                  "Type": "Float (range: 0 - 0.9)"
+                }
+              }
+            },
+            "meta-data": {
+              "refresh-rate": {
+                "Access Specifier": "R/O",
+                "Details": "DVI input refresh rate",
+                "Name": "DVI Input Refresh Rate",
+                "Summary": "DVI input refresh rate",
+                "Type": "Float (range: 24 - 250)"
+              },
+              "resolution": {
+                "height": {
+                  "Access Specifier": "R/O",
+                  "Details": "DVI input height",
+                  "Name": "DVI Input Resolution Height",
+                  "Summary": "DVI input height",
+                  "Type": "Integer (range: 32 - 4095)"
+                },
+                "width": {
+                  "Access Specifier": "R/O",
+                  "Details": "DVI input width",
+                  "Name": "DVI Input Resolution Width",
+                  "Summary": "DVI input width",
+                  "Type": "Integer (range: 32 - 4096)"
+                }
+              }
+            },
+            "proc-amp": {
+              "black-level": {
+                "Access Specifier": "R/W",
+                "Details": "Gets or sets black level of a DVI video input. 100% is the passthough value",
+                "Name": "DVI Input Black Level",
+                "Summary": "Current black level of a DVI video input in percent",
+                "Type": "Integer (range: 0 - 200)"
+              },
+              "contrast": {
+                "Access Specifier": "R/W",
+                "Details": "Gets or sets contrast of a DVI video input. 100% is the passthough value",
+                "Name": "DVI Input Contrast",
+                "Summary": "Current contrast of a DVI video input in percent",
+                "Type": "Integer (range: 0 - 200)"
+              },
+              "highlight": {
+                "blue": {
+                  "Access Specifier": "R/W",
+                  "Details": "Gets or sets blue highlight of a DVI input. 100% is the passthough value",
+                  "Name": "DVI Blue Highlight",
+                  "Summary": "Current blue highlight of a DVI input in percent",
+                  "Type": "Integer (range: 0 - 200)"
+                },
+                "green": {
+                  "Access Specifier": "R/W",
+                  "Details": "Gets or sets green highlight of a DVI input. 100% is the passthough value",
+                  "Name": "DVI Green Highlight",
+                  "Summary": "Current green highlight of a DVI input in percent",
+                  "Type": "Integer (range: 0 - 200)"
+                },
+                "red": {
+                  "Access Specifier": "R/W",
+                  "Details": "Gets or sets red highlight of a DVI video input. 100% is the passthough value",
+                  "Name": "DVI Red Highlight",
+                  "Summary": "Current red highlight of a DVI video input in percent",
+                  "Type": "Integer (range: 0 - 200)"
+                }
+              },
+              "hue": {
+                "Access Specifier": "R/W",
+                "Details": "Gets or sets hue of a DVI video input. 0° is the passthough value",
+                "Name": "DVI Input Hue",
+                "Summary": "Current hue of a DVI video input in degrees",
+                "Type": "Integer (range: -180 - 180)"
+              },
+              "saturation": {
+                "Access Specifier": "R/W",
+                "Details": "Gets or sets saturation of a DVI video input. 100% is the passthough value",
+                "Name": "DVI Input Saturation",
+                "Summary": "Current saturation of a DVI video input in percent",
+                "Type": "Integer (range: 0 - 200)"
+              },
+              "shadow": {
+                "blue": {
+                  "Access Specifier": "R/W",
+                  "Details": "Gets or sets blue shadow of a DVI input. 100% is the passthough value",
+                  "Name": "DVI Blue Shadow",
+                  "Summary": "Current blue shadow of a DVI input in percent",
+                  "Type": "Integer (range: 0 - 200)"
+                },
+                "green": {
+                  "Access Specifier": "R/W",
+                  "Details": "Gets or sets green shadow of a DVI input. 100% is the passthough value",
+                  "Name": "DVI Green Shadow",
+                  "Summary": "Current green shadow of a DVI input in percent",
+                  "Type": "Integer (range: 0 - 200)"
+                },
+                "red": {
+                  "Access Specifier": "R/W",
+                  "Details": "Gets or sets red shadow of a DVI video input. 100% is the passthough value",
+                  "Name": "Red Shadow",
+                  "Summary": "Current red shadow of a DVI video input in percent",
+                  "Type": "Integer (range: 0 - 200)"
+                }
+              }
+            }
+          }
+        },
+        "hdmi": {
+          "{hdmi-port-number}": {
+            "controls": {
+              "colour-space": {
+                "colour": {
+                  "Access Specifier": "R/W",
+                  "Details": "Gets or sets the colour space used for the incoming HDMI content",
+                  "Name": "HDMI Input Colour Space",
+                  "Summary": "HDMI input colour space",
+                  "Type": "Enum (allowed values: rec-2020,dci-p3,rec-709,aces-cg,custom)"
+                },
+                "info-frame-override-enabled": {
+                  "Access Specifier": "R/W",
+                  "Details": "Enables or disables InfoFrame override",
+                  "Name": "InfoFrame Override Enabled",
+                  "Summary": "HDMI InfoFrames override colour space when present",
+                  "Type": "Boolean"
+                }
+              },
+              "hdmi-colour-format": {
+                "Access Specifier": "R/W",
+                "Details": "Gets or sets the colour format applied by the processor to the input for HDMI input",
+                "Name": "HDMI Input Colour Format",
+                "Summary": "HDMI input colour format",
+                "Type": "Enum (allowed values: from-input,rgb,ycbcr)"
+              },
+              "hdr": {
+                "format": {
+                  "Access Specifier": "R/W",
+                  "Details": "Gets or sets the HDR format applied by the processor to the input for HDMI input",
+                  "Name": "HDMI Input HDR Format Override",
+                  "Summary": "HDMI input HDR format override",
+                  "Type": "Enum (allowed values: from-input,standard-dynamic-range,perceptual-quantiser,hybrid-log-gamma)"
+                },
+                "pq": {
+                  "auto-brighten": {
+                    "Access Specifier": "R/W",
+                    "Details": "Enables or disables PQ auto brighten for HDMI input",
+                    "Name": "HDMI PQ Auto Brighten",
+                    "Summary": "Enable PQ auto brighten for HDMI input",
+                    "Type": "Boolean"
+                  },
+                  "gain": {
+                    "Access Specifier": "R/W",
+                    "Details": "Gets or sets the value of the PQ gain for HDMI input",
+                    "Name": "HDMI PQ Gain",
+                    "Summary": "Current PQ gain for HDMI input",
+                    "Type": "Float (range: 0.1 - 10)"
+                  },
+                  "max-cll-override": {
+                    "enabled": {
+                      "Access Specifier": "R/W",
+                      "Details": "Enables or disables PQ MaxCLL override for HDMI input",
+                      "Name": "HDMI PQ MaxCLL Override Enabled",
+                      "Summary": "Enable PQ MaxCLL Override for HDMI input",
+                      "Type": "Boolean"
+                    },
+                    "luminance": {
+                      "Access Specifier": "R/W",
+                      "Details": "Gets or sets the value of the PQ MaxCLL override luminance for HDMI input",
+                      "Name": "HDMI PQ MaxCLL Override Luminance",
+                      "Summary": "Current PQ MaxCLL override luminance for HDMI input",
+                      "Type": "Integer (range: 1 - 10000)"
+                    }
+                  }
+                }
+              },
+              "quantisation-range": {
+                "Access Specifier": "R/W",
+                "Details": "Gets or sets the quantisation range applied by the processor to the HDMI input",
+                "Name": "HDMI Input Quantisation Range",
+                "Summary": "HDMI input quantisation range",
+                "Type": "Enum (allowed values: from-input,full,limited)"
+              }
+            },
+            "dynacal": {
+              "blue": {
+                "gamut": {
+                  "Access Specifier": "R/W",
+                  "Details": "Blue component of HDMI input colour space",
+                  "Name": "HDMI Dynacal Blue Gamut",
+                  "Summary": "HDMI input blue gamut point",
+                  "Type": "Enum (allowed values: rec-2020,dci-p3,rec-709,aces-cg,custom)"
+                },
+                "x": {
+                  "Access Specifier": "R/W",
+                  "Details": "Blue component X value of HDMI input colour space",
+                  "Name": "HDMI Dynacal Blue X",
+                  "Summary": "HDMI input blue component X value",
+                  "Type": "Float (range: 0 - 0.8)"
+                },
+                "y": {
+                  "Access Specifier": "R/W",
+                  "Details": "Blue component Y value of HDMI input colour space",
+                  "Name": "HDMI Dynacal Blue Y",
+                  "Summary": "HDMI input blue component Y value",
+                  "Type": "Float (range: 0 - 0.9)"
+                }
+              },
+              "green": {
+                "gamut": {
+                  "Access Specifier": "R/W",
+                  "Details": "Green component of HDMI input colour space",
+                  "Name": "HDMI Dynacal Green Gamut",
+                  "Summary": "HDMI input green gamut point",
+                  "Type": "Enum (allowed values: rec-2020,dci-p3,rec-709,aces-cg,custom)"
+                },
+                "x": {
+                  "Access Specifier": "R/W",
+                  "Details": "Green component X value of HDMI input colour space",
+                  "Name": "HDMI Dynacal Green X",
+                  "Summary": "HDMI input green component X value",
+                  "Type": "Float (range: 0 - 0.8)"
+                },
+                "y": {
+                  "Access Specifier": "R/W",
+                  "Details": "Green component Y value of HDMI input colour space",
+                  "Name": "HDMI Dynacal Green Y",
+                  "Summary": "HDMI input green component Y value",
+                  "Type": "Float (range: 0 - 0.9)"
+                }
+              },
+              "red": {
+                "gamut": {
+                  "Access Specifier": "R/W",
+                  "Details": "Red component of HDMI input colour space",
+                  "Name": "HDMI Dynacal Red Gamut",
+                  "Summary": "HDMI input red gamut point",
+                  "Type": "Enum (allowed values: rec-2020,dci-p3,rec-709,aces-cg,custom)"
+                },
+                "x": {
+                  "Access Specifier": "R/W",
+                  "Details": "Red component X value of HDMI input colour space",
+                  "Name": "HDMI Dynacal Red X",
+                  "Summary": "HDMI input red component X value",
+                  "Type": "Float (range: 0 - 0.8)"
+                },
+                "y": {
+                  "Access Specifier": "R/W",
+                  "Details": "Red component Y value of HDMI input colour space",
+                  "Name": "HDMI Dynacal Red Y",
+                  "Summary": "HDMI input red component Y value",
+                  "Type": "Float (range: 0 - 0.9)"
+                }
+              },
+              "white": {
+                "colour-temperature": {
+                  "Access Specifier": "R/W",
+                  "Details": "HDMI input white component colour temperature",
+                  "Name": "HDMI Dynacal White Colour Temperature",
+                  "Summary": "HDMI input white gamut point colour temperature",
+                  "Type": "Integer (range: 2000 - 11000)"
+                },
+                "gamut": {
+                  "Access Specifier": "R/W",
+                  "Details": "White component of HDMI input colour space. Set to 'Colour Temperature' to control this white-only parameter",
+                  "Name": "HDMI Dynacal White Gamut",
+                  "Summary": "HDMI input white gamut point",
+                  "Type": "Enum (allowed values: d65,aces,colour-temperature,custom)"
+                },
+                "x": {
+                  "Access Specifier": "R/W",
+                  "Details": "White component X value of HDMI input colour space",
+                  "Name": "HDMI Dynacal White X",
+                  "Summary": "HDMI input white component X value",
+                  "Type": "Float (range: 0 - 0.8)"
+                },
+                "y": {
+                  "Access Specifier": "R/W",
+                  "Details": "HDMI input white component Y value",
+                  "Name": "HDMI Dynacal White Y",
+                  "Summary": "White component Y value of HDMI input colour space",
+                  "Type": "Float (range: 0 - 0.9)"
+                }
+              }
+            },
+            "meta-data": {
+              "bit-depth": {
+                "Access Specifier": "R/O",
+                "Details": "Gets bit depth of HDMI video input. Valid values are 8, 10, and 12",
+                "Name": "HDMI Input Bit Depth",
+                "Summary": "Current bit depth of HDMI video input",
+                "Type": "Integer (range: 8 - 12)"
+              },
+              "hdr": {
+                "format": {
+                  "Access Specifier": "R/O",
+                  "Details": "HDR format reported by the HDMI input",
+                  "Name": "HDMI Input HDR Format",
+                  "Summary": "HDMI input HDR format",
+                  "Type": "Enum (allowed values: standard-dynamic-range,perceptual-quantiser,hybrid-log-gamma)"
+                }
+              },
+              "refresh-rate": {
+                "Access Specifier": "R/O",
+                "Details": "Hdmi input refresh rate",
+                "Name": "Hdmi Input Refresh Rate",
+                "Summary": "Hdmi input refresh rate",
+                "Type": "Float (range: 24 - 250)"
+              },
+              "resolution": {
+                "height": {
+                  "Access Specifier": "R/O",
+                  "Details": "HDMI input height",
+                  "Name": "HDMI Input Resolution Height",
+                  "Summary": "HDMI input height",
+                  "Type": "Integer (range: 32 - 4095)"
+                },
+                "width": {
+                  "Access Specifier": "R/O",
+                  "Details": "HDMI input width",
+                  "Name": "HDMI Input Resolution Width",
+                  "Summary": "HDMI input width",
+                  "Type": "Integer (range: 32 - 4096)"
+                }
+              },
+              "sampling": {
+                "Access Specifier": "R/O",
+                "Details": "Gets current HDMI sampling scheme",
+                "Name": "HDMI Input Sampling",
+                "Summary": "HDMI Input sampling",
+                "Type": "Enum (allowed values: rgb,ycbcr422,ycbcr444,ycbcr420)"
+              }
+            },
+            "proc-amp": {
+              "black-level": {
+                "Access Specifier": "R/W",
+                "Details": "Gets or sets black level of an HDMI video input. 100% is the passthough value",
+                "Name": "HDMI Input Black Level",
+                "Summary": "Current black level of an HDMI video input in percent",
+                "Type": "Integer (range: 0 - 200)"
+              },
+              "contrast": {
+                "Access Specifier": "R/W",
+                "Details": "Gets or sets contrast of an HDMI video input. 100% is the passthough value",
+                "Name": "HDMI Input Contrast",
+                "Summary": "Current contrast of an HDMI video input in percent",
+                "Type": "Integer (range: 0 - 200)"
+              },
+              "highlight": {
+                "blue": {
+                  "Access Specifier": "R/W",
+                  "Details": "Gets or sets blue highlight of an HDMI input. 100% is the passthough value",
+                  "Name": "HDMI Blue Highlight",
+                  "Summary": "Current blue highlight of an HDMI input in percent",
+                  "Type": "Integer (range: 0 - 200)"
+                },
+                "green": {
+                  "Access Specifier": "R/W",
+                  "Details": "Gets or sets green highlight of an HDMI input. 100% is the passthough value",
+                  "Name": "HDMI Green Highlight",
+                  "Summary": "Current green highlight of an HDMI input in percent",
+                  "Type": "Integer (range: 0 - 200)"
+                },
+                "red": {
+                  "Access Specifier": "R/W",
+                  "Details": "Gets or sets red highlight of an HDMI video input. 100% is the passthough value",
+                  "Name": "HDMI Red Highlight",
+                  "Summary": "Current red highlight of an HDMI video input in percent",
+                  "Type": "Integer (range: 0 - 200)"
+                }
+              },
+              "hue": {
+                "Access Specifier": "R/W",
+                "Details": "Gets or sets hue of an HDMI video input. 0° is the passthough value",
+                "Name": "HDMI Input Hue",
+                "Summary": "Current hue of an HDMI video input in degrees",
+                "Type": "Integer (range: -180 - 180)"
+              },
+              "saturation": {
+                "Access Specifier": "R/W",
+                "Details": "Gets or sets saturation of an HDMI video input. 100% is the passthough value",
+                "Name": "HDMI Input Saturation",
+                "Summary": "Current saturation of an HDMI video input in percent",
+                "Type": "Integer (range: 0 - 200)"
+              },
+              "shadow": {
+                "blue": {
+                  "Access Specifier": "R/W",
+                  "Details": "Gets or sets blue shadow of an HDMI input. 100% is the passthough value",
+                  "Name": "HDMI Blue Shadow",
+                  "Summary": "Current blue shadow of an HDMI input in percent",
+                  "Type": "Integer (range: 0 - 200)"
+                },
+                "green": {
+                  "Access Specifier": "R/W",
+                  "Details": "Gets or sets green shadow of an HDMI video input. 100% is the passthough value",
+                  "Name": "HDMI Green Shadow",
+                  "Summary": "Current green shadow of an HDMI video input in percent",
+                  "Type": "Integer (range: 0 - 200)"
+                },
+                "red": {
+                  "Access Specifier": "R/W",
+                  "Details": "Gets or sets red shadow of an HDMI video input. 100% is the passthough value",
+                  "Name": "HDMI Red Shadow",
+                  "Summary": "Current red shadow of an HDMI video input in percent",
+                  "Type": "Integer (range: 0 - 200)"
+                }
+              }
+            }
+          }
+        },
+        "sdi": {
+          "{sdi-port-number}": {
+            "controls": {
+              "colour-space": {
+                "colour": {
+                  "Access Specifier": "R/W",
+                  "Details": "Gets or sets the colour space used for the incoming SDI content",
+                  "Name": "SDI Input Colour Space",
+                  "Summary": "SDI input colour space",
+                  "Type": "Enum (allowed values: rec-2020,dci-p3,rec-709,aces-cg,custom)"
+                }
+              },
+              "hdr": {
+                "format": {
+                  "Access Specifier": "R/W",
+                  "Details": "Gets or sets the HDR format applied by the processor to the input for SDI input",
+                  "Name": "SDI Input HDR Format Override",
+                  "Summary": "SDI input HDR format override",
+                  "Type": "Enum (allowed values: from-input,standard-dynamic-range,perceptual-quantiser,hybrid-log-gamma)"
+                },
+                "pq": {
+                  "auto-brighten": {
+                    "Access Specifier": "R/W",
+                    "Details": "Enables or disables PQ auto brighten for SDI input",
+                    "Name": "SDI PQ Auto Brighten",
+                    "Summary": "Enable PQ auto brighten for SDI input",
+                    "Type": "Boolean"
+                  },
+                  "gain": {
+                    "Access Specifier": "R/W",
+                    "Details": "Gets or sets the value of the PQ gain for SDI input",
+                    "Name": "SDI PQ Gain",
+                    "Summary": "Current PQ gain for SDI input",
+                    "Type": "Float (range: 0.1 - 10)"
+                  },
+                  "max-cll-override": {
+                    "enabled": {
+                      "Access Specifier": "R/W",
+                      "Details": "Enables or disables PQ MaxCLL override for SDI input",
+                      "Name": "SDI PQ MaxCLL Override Enabled",
+                      "Summary": "Enable PQ MaxCLL Override for SDI input",
+                      "Type": "Boolean"
+                    },
+                    "luminance": {
+                      "Access Specifier": "R/W",
+                      "Details": "Gets or sets the value of the PQ MaxCLL override luminance for SDI input",
+                      "Name": "SDI PQ MaxCLL Override Luminance",
+                      "Summary": "Current PQ MaxCLL override luminance for SDI input",
+                      "Type": "Integer (range: 1 - 10000)"
+                    }
+                  }
+                }
+              }
+            },
+            "dynacal": {
+              "blue": {
+                "gamut": {
+                  "Access Specifier": "R/W",
+                  "Details": "Blue component of SDI input colour space",
+                  "Name": "SDI Dynacal Blue Gamut",
+                  "Summary": "SDI input blue gamut point",
+                  "Type": "Enum (allowed values: rec-2020,dci-p3,rec-709,aces-cg,custom)"
+                },
+                "x": {
+                  "Access Specifier": "R/W",
+                  "Details": "Blue component X value of SDI input colour space",
+                  "Name": "SDI Dynacal Blue X",
+                  "Summary": "SDI input blue component X value",
+                  "Type": "Float (range: 0 - 0.8)"
+                },
+                "y": {
+                  "Access Specifier": "R/W",
+                  "Details": "Blue component Y value of SDI input colour space",
+                  "Name": "SDI Dynacal Blue Y",
+                  "Summary": "SDI input blue component Y value",
+                  "Type": "Float (range: 0 - 0.9)"
+                }
+              },
+              "green": {
+                "gamut": {
+                  "Access Specifier": "R/W",
+                  "Details": "Green component of SDI input colour space",
+                  "Name": "SDI Dynacal Green Gamut",
+                  "Summary": "SDI input green gamut point",
+                  "Type": "Enum (allowed values: rec-2020,dci-p3,rec-709,aces-cg,custom)"
+                },
+                "x": {
+                  "Access Specifier": "R/W",
+                  "Details": "Green component X value of SDI input colour space",
+                  "Name": "SDI Dynacal Green X",
+                  "Summary": "SDI input green component X value",
+                  "Type": "Float (range: 0 - 0.8)"
+                },
+                "y": {
+                  "Access Specifier": "R/W",
+                  "Details": "Green component Y value of SDI input colour space",
+                  "Name": "SDI Dynacal Green Y",
+                  "Summary": "SDI input green component Y value",
+                  "Type": "Float (range: 0 - 0.9)"
+                }
+              },
+              "red": {
+                "gamut": {
+                  "Access Specifier": "R/W",
+                  "Details": "Red component of SDI input colour space",
+                  "Name": "SDI Dynacal Red Gamut",
+                  "Summary": "SDI input red gamut point",
+                  "Type": "Enum (allowed values: rec-2020,dci-p3,rec-709,aces-cg,custom)"
+                },
+                "x": {
+                  "Access Specifier": "R/W",
+                  "Details": "Red component X value of SDI input colour space",
+                  "Name": "SDI Dynacal Red X",
+                  "Summary": "SDI input red component X value",
+                  "Type": "Float (range: 0 - 0.8)"
+                },
+                "y": {
+                  "Access Specifier": "R/W",
+                  "Details": "Red component Y value of SDI input colour space",
+                  "Name": "SDI Dynacal Red Y",
+                  "Summary": "SDI input red component Y value",
+                  "Type": "Float (range: 0 - 0.9)"
+                }
+              },
+              "white": {
+                "colour-temperature": {
+                  "Access Specifier": "R/W",
+                  "Details": "SDI input white component colour temperature",
+                  "Name": "SDI Dynacal White Colour Temperature",
+                  "Summary": "SDI input white gamut point colour temperature",
+                  "Type": "Integer (range: 2000 - 11000)"
+                },
+                "gamut": {
+                  "Access Specifier": "R/W",
+                  "Details": "White component of SDI input colour space. Set to 'Colour Temperature' to control this white-only parameter",
+                  "Name": "SDI Dynacal White Gamut",
+                  "Summary": "SDI input white gamut point",
+                  "Type": "Enum (allowed values: d65,aces,colour-temperature,custom)"
+                },
+                "x": {
+                  "Access Specifier": "R/W",
+                  "Details": "White component X value of SDI input colour space",
+                  "Name": "SDI Dynacal White X",
+                  "Summary": "SDI input white component X value",
+                  "Type": "Float (range: 0 - 0.8)"
+                },
+                "y": {
+                  "Access Specifier": "R/W",
+                  "Details": "SDI input white component Y value",
+                  "Name": "SDI Dynacal White Y",
+                  "Summary": "White component Y value of SDI input colour space",
+                  "Type": "Float (range: 0 - 0.9)"
+                }
+              }
+            },
+            "meta-data": {
+              "refresh-rate": {
+                "Access Specifier": "R/O",
+                "Details": "SDI input refresh rate",
+                "Name": "SDI Input Refresh Rate",
+                "Summary": "SDI input refresh rate",
+                "Type": "Float (range: 24 - 250)"
+              },
+              "resolution": {
+                "height": {
+                  "Access Specifier": "R/O",
+                  "Details": "SDI input height",
+                  "Name": "SDI Input Resolution Height",
+                  "Summary": "SDI input height",
+                  "Type": "Integer (range: 32 - 4095)"
+                },
+                "width": {
+                  "Access Specifier": "R/O",
+                  "Details": "SDI input width",
+                  "Name": "SDI Input Resolution Width",
+                  "Summary": "SDI input width",
+                  "Type": "Integer (range: 32 - 4096)"
+                }
+              }
+            },
+            "proc-amp": {
+              "black-level": {
+                "Access Specifier": "R/W",
+                "Details": "Gets or sets black level of an SDI video input. 100% is the passthough value",
+                "Name": "SDI Input Black Level",
+                "Summary": "Current black level of an SDI video input in percent",
+                "Type": "Integer (range: 0 - 200)"
+              },
+              "contrast": {
+                "Access Specifier": "R/W",
+                "Details": "Gets or sets contrast of an SDI video input. 100% is the passthough value",
+                "Name": "SDI Input Contrast",
+                "Summary": "Current contrast of an SDI video input in percent",
+                "Type": "Integer (range: 0 - 200)"
+              },
+              "highlight": {
+                "blue": {
+                  "Access Specifier": "R/W",
+                  "Details": "Gets or sets blue highlight of an SDI input. 100% is the passthough value",
+                  "Name": "SDI Blue Highlight",
+                  "Summary": "Current blue highlight of an SDI input in percent",
+                  "Type": "Integer (range: 0 - 200)"
+                },
+                "green": {
+                  "Access Specifier": "R/W",
+                  "Details": "Gets or sets green highlight of an SDI input. 100% is the passthough value",
+                  "Name": "SDI Green Highlight",
+                  "Summary": "Current green highlight of an SDI input in percent",
+                  "Type": "Integer (range: 0 - 200)"
+                },
+                "red": {
+                  "Access Specifier": "R/W",
+                  "Details": "Gets or sets red highlight of an SDI video input. 100% is the passthough value",
+                  "Name": "SDI Red Highlight",
+                  "Summary": "Current red highlight of an SDI video input in percent",
+                  "Type": "Integer (range: 0 - 200)"
+                }
+              },
+              "hue": {
+                "Access Specifier": "R/W",
+                "Details": "Gets or sets hue of an SDI video input. 0° is the passthough value",
+                "Name": "SDI Input Hue",
+                "Summary": "Current hue of an SDI video input in degrees",
+                "Type": "Integer (range: -180 - 180)"
+              },
+              "saturation": {
+                "Access Specifier": "R/W",
+                "Details": "Gets or sets saturation of an SDI video input. 100% is the passthough value",
+                "Name": "SDI Input Saturation",
+                "Summary": "Current saturation of an SDI video input in percent",
+                "Type": "Integer (range: 0 - 200)"
+              },
+              "shadow": {
+                "blue": {
+                  "Access Specifier": "R/W",
+                  "Details": "Gets or sets blue shadow of an SDI input. 100% is the passthough value",
+                  "Name": "SDI Blue Shadow",
+                  "Summary": "Current blue shadow of an SDI input in percent",
+                  "Type": "Integer (range: 0 - 200)"
+                },
+                "green": {
+                  "Access Specifier": "R/W",
+                  "Details": "Gets or sets green shadow of an SDI input. 100% is the passthough value",
+                  "Name": "SDI Green Shadow",
+                  "Summary": "Current green shadow of an SDI input in percent",
+                  "Type": "Integer (range: 0 - 200)"
+                },
+                "red": {
+                  "Access Specifier": "R/W",
+                  "Details": "Gets or sets red shadow of an SDI video input. 100% is the passthough value",
+                  "Name": "SDI Red Shadow",
+                  "Summary": "Current red shadow of an SDI video input in percent",
+                  "Type": "Integer (range: 0 - 200)"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "output": {
+      "dynacal": {
+        "{panel-type}": {
+          "blue": {
+            "mode": {
+              "Access Specifier": "R/W",
+              "Details": "Gets or sets the blue component of panel output colour space",
+              "Name": "Output Dynacal Blue Mode",
+              "Summary": "Mode for blue component of panel output colour space on a given panel type",
+              "Type": "Enum (allowed values: achievable,custom)"
+            },
+            "x": {
+              "Access Specifier": "R/W",
+              "Details": "X value of panel output colour space blue component",
+              "Name": "Output Dynacal Blue X",
+              "Summary": "Gets or sets X value of panel output colour space blue component",
+              "Type": "Float (range: 0 - 0.8)"
+            },
+            "y": {
+              "Access Specifier": "R/W",
+              "Details": "Y value of panel output colour space blue component",
+              "Name": "Output Dynacal Blue Y",
+              "Summary": "Gets or sets Y value of panel output colour space blue component",
+              "Type": "Float (range: 0 - 0.9)"
+            }
+          },
+          "green": {
+            "mode": {
+              "Access Specifier": "R/W",
+              "Details": "Gets or sets the green component of panel output colour space",
+              "Name": "Output Dynacal Green Mode",
+              "Summary": "Mode for green component of panel output colour space on a given panel type",
+              "Type": "Enum (allowed values: achievable,custom)"
+            },
+            "x": {
+              "Access Specifier": "R/W",
+              "Details": "X value of panel output colour space green component",
+              "Name": "Output Dynacal Green X",
+              "Summary": "Gets or sets X value of panel output colour space green component",
+              "Type": "Float (range: 0 - 0.8)"
+            },
+            "y": {
+              "Access Specifier": "R/W",
+              "Details": "Y value of panel output colour space green component",
+              "Name": "Output Dynacal Green Y",
+              "Summary": "Gets or sets Y value of panel output colour space green component",
+              "Type": "Float (range: 0 - 0.9)"
+            }
+          },
+          "luminance-only-fraction": {
+            "Access Specifier": "R/W",
+            "Details": "Gets or sets the percentage mix of output calibration",
+            "Name": "Output Dynacal Luminance Only Fraction",
+            "Summary": "Percentage mix of output calibration, where 0% means full colour, and 100% means luminance only",
+            "Type": "Integer (range: 0 - 100)"
+          },
+          "mode": {
+            "Access Specifier": "R/W",
+            "Details": "Gets or sets the panel output colour space",
+            "Name": "Output Dynacal Mode",
+            "Summary": "Mode for panel output colour space on a given panel type",
+            "Type": "Enum (allowed values: match-input,achievable,custom)"
+          },
+          "red": {
+            "mode": {
+              "Access Specifier": "R/W",
+              "Details": "Gets or sets the red component of panel output colour space",
+              "Name": "Output Dynacal Red Mode",
+              "Summary": "Mode for red component of panel output colour space on a given panel type",
+              "Type": "Enum (allowed values: achievable,custom)"
+            },
+            "x": {
+              "Access Specifier": "R/W",
+              "Details": "X value of panel output colour space red component",
+              "Name": "Output Dynacal Red X",
+              "Summary": "Gets or sets X value of panel output colour space red component",
+              "Type": "Float (range: 0 - 0.8)"
+            },
+            "y": {
+              "Access Specifier": "R/W",
+              "Details": "Y value of panel output colour space red component",
+              "Name": "Output Dynacal Red Y",
+              "Summary": "Gets or sets Y value of panel output colour space red component",
+              "Type": "Float (range: 0 - 0.9)"
+            }
+          }
+        }
+      },
+      "global-colour": {
+        "brightness": {
+          "Access Specifier": "R/W",
+          "Details": "Write -1 to reset output brightness to calculated common maximum for available fixtures.",
+          "Name": "Output Brightness",
+          "Summary": "Current output brightness/luminance.",
+          "Type": "Integer (range: -1 - 10000)"
+        },
+        "brightness-limit": {
+          "enabled": {
+            "Access Specifier": "R/O",
+            "Details": "Enables or disables global brightness limit",
+            "Name": "Brightness Limit Enabled",
+            "Summary": "Enables global brightness limit",
+            "Type": "Boolean"
+          },
+          "value": {
+            "Access Specifier": "R/O",
+            "Details": "Current maximum brightness value if brightness limit enabled",
+            "Name": "Brightness Limit Value",
+            "Summary": "Current brightness limit",
+            "Type": "Integer (range: 0 - 10000)"
+          }
+        },
+        "colour-temperature": {
+          "Access Specifier": "R/W",
+          "Details": "Gets or sets the output colour temperature",
+          "Name": "Output Colour Temperature",
+          "Summary": "Current output colour temperature",
+          "Type": "Integer (range: 2000 - 11000)"
+        },
+        "dark-magic": {
+          "enabled": {
+            "Access Specifier": "R/W",
+            "Details": "Enables or disables the processor's Dark Magic feature",
+            "Name": "Dark Magic Enabled",
+            "Summary": "Enable Dark Magic",
+            "Type": "Boolean"
+          }
+        },
+        "dynacal": {
+          "highlight-out-of-gamut-pixels-enabled": {
+            "Access Specifier": "R/W",
+            "Details": "Enables or disables DynaCal's out-of-gamut pixel feature",
+            "Name": "Highlight Out Of Gamut Pixels Enabled",
+            "Summary": "Enable out-of-gamut pixel highlight",
+            "Type": "Boolean"
+          },
+          "highlight-overbright-pixels-enabled": {
+            "Access Specifier": "R/W",
+            "Details": "Enables or disables DynaCal's overbright pixel feature",
+            "Name": "Highlight Overbright Pixels Enabled",
+            "Summary": "Enable overbright pixel highlight",
+            "Type": "Boolean"
+          }
+        },
+        "extended-bit-depth": {
+          "enabled": {
+            "Access Specifier": "R/W",
+            "Details": "Enables or disables extended bit depth",
+            "Name": "Extended Bit Depth Enabled",
+            "Summary": "Enable extended bit depth",
+            "Type": "Boolean"
+          }
+        },
+        "gains": {
+          "blue": {
+            "Access Specifier": "R/W",
+            "Details": "Gets or sets the value of the output blue gain",
+            "Name": "Blue Gain",
+            "Summary": "Current output blue gain",
+            "Type": "Float (range: 0 - 100)"
+          },
+          "green": {
+            "Access Specifier": "R/W",
+            "Details": "Gets or sets the value of the output green gain",
+            "Name": "Green Gain",
+            "Summary": "Current output green gain",
+            "Type": "Float (range: 0 - 100)"
+          },
+          "intensity": {
+            "Access Specifier": "R/W",
+            "Details": "Gets or sets the value of the output intensity gain",
+            "Name": "Intensity Gain",
+            "Summary": "Current output intensity gain",
+            "Type": "Float (range: 0 - 100)"
+          },
+          "red": {
+            "Access Specifier": "R/W",
+            "Details": "Gets or sets the value of the output red gain",
+            "Name": "Red Gain",
+            "Summary": "Current output red gain",
+            "Type": "Float (range: 0 - 100)"
+          }
+        },
+        "gamma": {
+          "Access Specifier": "R/W",
+          "Details": "Gets or sets the value of the output gamma",
+          "Name": "Output Gamma",
+          "Summary": "Current output gamma value",
+          "Type": "Float (range: 0.2 - 4)"
+        },
+        "overdrive": {
+          "enabled": {
+            "Access Specifier": "R/W",
+            "Details": "Enables or disables global brightness overdrive",
+            "Name": "Overdrive Enabled",
+            "Summary": "Enables global brightness overdrive",
+            "Type": "Boolean"
+          }
+        },
+        "puretone": {
+          "enabled": {
+            "Access Specifier": "R/W",
+            "Details": "Enables or disables PureTone",
+            "Name": "Pure Tone Enabled",
+            "Summary": "Enable PureTone",
+            "Type": "Boolean"
+          }
+        }
+      },
+      "network": {
+        "bit-depth": {
+          "Access Specifier": "R/W",
+          "Details": "Gets or sets bit depth of video output. Valid values are 8, 10, and 12",
+          "Name": "Network Bit Depth",
+          "Summary": "Current bit depth of video output",
+          "Type": "Integer (range: 8 - 12)"
+        },
+        "cable-redundancy": {
+          "loops": {
+            "{loop-number}": {
+              "state": {
+                "Access Specifier": "R/O",
+                "Details": "Current state of cable loop redundancy on the processor in the format <state>: <source port>-><receiving port>, where <state> can be: 'loop-found', 'no-loop-found', 'incorrect-loop-found', or 'one-to-many-error' <source port>. <receiving port> is the connected trunk followed by the XD port number (e.g. 'A1'). If <state> is 'no-loop-found', <receiving port> can be 'No connection'.",
+                "Name": "Redundant Cable Loop State",
+                "Summary": "Cable loop redundancy state",
+                "Type": "String"
+              }
+            }
+          }
+        },
+        "failover": {
+          "actions": {
+            "request-failover": {
+              "Access Specifier": "W/O",
+              "Details": "Send an empty string to activate processor redundancy",
+              "Name": "Request Failover",
+              "Summary": "Trigger to request failover",
+              "Type": "String"
+            }
+          },
+          "settings": {
+            "enabled": {
+              "Access Specifier": "R/W",
+              "Details": "Enables or disables failover mode on the processor",
+              "Name": "Failover Enabled",
+              "Summary": "Enable processor failover",
+              "Type": "Boolean"
+            },
+            "modes": {
+              "on-button-press": {
+                "Access Specifier": "R/W",
+                "Details": "Enables or disables failover to backup processor when the processor's Blackout/Freeze buttons are pushed",
+                "Name": "Button Press Failover Mode Enabled",
+                "Summary": "Enable failover when front panel buttons pressed",
+                "Type": "Boolean"
+              },
+              "on-partner-fail": {
+                "Access Specifier": "R/W",
+                "Details": "Enables or disables partner processor failover when processor failure is detected (e.g. the processor loses power)",
+                "Name": "Partner Failover Mode Enabled",
+                "Summary": "Enable partner processor failover mode",
+                "Type": "Boolean"
+              },
+              "on-partner-video-fail": {
+                "Access Specifier": "R/W",
+                "Details": "Enables or disables partner processor failover on video signal loss",
+                "Name": "Partner Video Failover Mode Enabled",
+                "Summary": "Enable backup processor video failover mode",
+                "Type": "Boolean"
+              },
+              "prefer-primary": {
+                "Access Specifier": "R/W",
+                "Details": "If prefer primary processor failover mode is activated, when primary processor is functioning correctly, it will be automatically always be the active processor",
+                "Name": "Prefer Primary Failover Mode Enabled",
+                "Summary": "Enable prefer primary processor failover mode",
+                "Type": "Boolean"
+              }
+            },
+            "role": {
+              "Access Specifier": "R/O",
+              "Details": "Is processor's failover role Primary or Backup",
+              "Name": "Failover Role",
+              "Summary": "Failover role of the processor",
+              "Type": "Enum (allowed values: primary,backup)"
+            }
+          },
+          "state": {
+            "is-active": {
+              "Access Specifier": "R/O",
+              "Details": "Whether failover is active on the processor",
+              "Name": "Failover Is Active",
+              "Summary": "Failover active check",
+              "Type": "Boolean"
+            },
+            "is-partner-present": {
+              "Access Specifier": "R/O",
+              "Details": "Whether the backup processor is currently online and detected",
+              "Name": "Failover Partner Is Online",
+              "Summary": "Backup processor online status",
+              "Type": "Boolean"
+            },
+            "partner-absence-duration": {
+              "Access Specifier": "R/O",
+              "Details": "How long the backup processor has been absent for",
+              "Name": "Failover Partner Absence Duration",
+              "Summary": "Time since backup processor was last detected",
+              "Type": "String"
+            },
+            "partner-name": {
+              "Access Specifier": "R/O",
+              "Details": "Name of the backup processor",
+              "Name": "Failover Partner Name",
+              "Summary": "Name of the backup processor",
+              "Type": "String"
+            },
+            "partner-serial": {
+              "Access Specifier": "R/O",
+              "Details": "Serial number of the backup processor",
+              "Name": "Failover Partner Serial",
+              "Summary": "Serial number of the backup processor",
+              "Type": "String"
+            },
+            "partner-video-absence-duration": {
+              "Access Specifier": "R/O",
+              "Details": "Time since backup processor video source was last detected",
+              "Name": "Failover Partner Video Absence Duration",
+              "Summary": "Time since backup processor video source was last detected",
+              "Type": "String"
+            }
+          }
+        },
+        "frame-rate-multiplier": {
+          "Access Specifier": "R/W",
+          "Details": "Gets or sets frame rate multiplier of video output. Set value to 1 to disable frame rate multiplication.",
+          "Name": "Network Frame Rate Multiplier",
+          "Summary": "Current frame rate multiplier of video output",
+          "Type": "Integer (range: 1 - 10)"
+        },
+        "frame-remapping": {
+          "enabled": {
+            "Access Specifier": "R/W",
+            "Details": "Is frame remapping globally enabled or disabled",
+            "Name": "Frame Remapping Enabled",
+            "Summary": "Frame Remapping Enabled",
+            "Type": "Boolean"
+          },
+          "frames": {
+            "{frame}": {
+              "blue": {
+                "Access Specifier": "R/W",
+                "Details": "Gets or sets blue value of frame colour",
+                "Name": "Frame Remapping Blue",
+                "Summary": "Current blue value of frame colour",
+                "Type": "Integer (range: 0 - 255)"
+              },
+              "green": {
+                "Access Specifier": "R/W",
+                "Details": "Gets or sets green value of frame colour",
+                "Name": "Frame Remapping Green",
+                "Summary": "Current green value of frame colour",
+                "Type": "Integer (range: 0 - 255)"
+              },
+              "mode": {
+                "Access Specifier": "R/W",
+                "Details": "Is frame mode Colour or Video",
+                "Name": "Frame Remapping Mode",
+                "Summary": "Current frame mode",
+                "Type": "Enum (allowed values: colour,video)"
+              },
+              "red": {
+                "Access Specifier": "R/W",
+                "Details": "Gets or sets red value of frame colour",
+                "Name": "Frame Remapping Red",
+                "Summary": "Current red value of frame colour",
+                "Type": "Integer (range: 0 - 255)"
+              },
+              "x-offset": {
+                "Access Specifier": "R/W",
+                "Details": "Gets or sets x offset of frame",
+                "Name": "Frame Remapping X Offset",
+                "Summary": "Current x offset of frame",
+                "Type": "Integer (range: -4095 - 4095)"
+              },
+              "y-offset": {
+                "Access Specifier": "R/W",
+                "Details": "Gets or sets y offset of frame",
+                "Name": "Frame Remapping Y Offset",
+                "Summary": "Current y offset of frame",
+                "Type": "Integer (range: -4095 - 4095)"
+              }
+            }
+          }
+        },
+        "genlock": {
+          "internal-rate": {
+            "Access Specifier": "R/W",
+            "Details": "Gets or sets current refresh rate for internal genlock source",
+            "Name": "GenlockInternalSourceRate",
+            "Summary": "Current refresh rate for internal genlock source",
+            "Type": "Float (range: 23.5 - 251)"
+          },
+          "phase-offset": {
+            "absolute": {
+              "lines": {
+                "Access Specifier": "R/W",
+                "Details": "Gets or sets genlock phase offset absolute lines value for the processor",
+                "Name": "Genlock Phase Offset Lines",
+                "Summary": "Current genlock phase offset absolute value for the processor in lines",
+                "Type": "Integer (range: -9999 - 9999)"
+              },
+              "pixels": {
+                "Access Specifier": "R/W",
+                "Details": "Gets or sets genlock phase offset absolute pixels value for the processor",
+                "Name": "Genlock Phase Offset Pixels",
+                "Summary": "Current genlock phase offset absolute value for the processor in pixels",
+                "Type": "Integer (range: -9999 - 9999)"
+              }
+            },
+            "angle": {
+              "Access Specifier": "R/W",
+              "Details": "Gets or sets genlock phase offset angle for the processor",
+              "Name": "Genlock Phase Offset Angle",
+              "Summary": "Current genlock phase offset angle for the processor",
+              "Type": "Float (range: -360 - 360)"
+            },
+            "fraction": {
+              "Access Specifier": "R/W",
+              "Details": "Gets or sets genlock phase offset fraction for the processor",
+              "Name": "Genlock Phase Offset Fraction",
+              "Summary": "Current genlock phase offset fraction for the processor",
+              "Type": "Float (range: -100 - 100)"
+            },
+            "mode": {
+              "Access Specifier": "R/W",
+              "Details": "Gets or sets genlock phase offset mode for the processor",
+              "Name": "Genlock Phase Offset Mode",
+              "Summary": "Current genlock phase offset mode for the processor",
+              "Type": "Enum (allowed values: none,angle,fraction,absolute)"
+            }
+          },
+          "source": {
+            "Access Specifier": "R/W",
+            "Details": "Gets or sets the current genlock source for the processor",
+            "Name": "Genlock Source",
+            "Summary": "Current genlock source for the processor",
+            "Type": "Enum (allowed values: internal,sdi,sdi-a,sdi-b,hdmi,dvi,ref-in,active-input)"
+          }
+        },
+        "hidden-markers": {
+          "background-gain": {
+            "Access Specifier": "R/W",
+            "Details": "Gets or sets brightness of the video underneath hidden markers as a percentage",
+            "Name": "HiddenMarkers Background Gain",
+            "Summary": "Brightness value of the video underneath hidden markers",
+            "Type": "Integer (range: 0 - 100)"
+          },
+          "blackout-affects-markers": {
+            "Access Specifier": "R/W",
+            "Details": "Gets or sets whether blackout affects markers as well as video",
+            "Name": "HiddenMarkers Blackout Affects Markers",
+            "Summary": "Make blackout function affect markers or just the video",
+            "Type": "Boolean"
+          },
+          "closed-shutter-markers": {
+            "Access Specifier": "R/W",
+            "Details": "Gets or sets whether markers are only shown when camera shutter is closed",
+            "Name": "Closed Shutter Markers",
+            "Summary": "Make markers only visible when the camera shutter is closed",
+            "Type": "Boolean"
+          },
+          "custom": {
+            "data": {
+              "Access Specifier": "R/W",
+              "Details": "Send bulk data in image file format to upload custom markers",
+              "Name": "Custom Markers Data",
+              "Summary": "Endpoint to post custom markers data to",
+              "Type": "ByteArray"
+            },
+            "filename": {
+              "Access Specifier": "R/O",
+              "Details": "The name of the stored custom markers file",
+              "Name": "Custom Markers Filename",
+              "Summary": "Name of custom markers file",
+              "Type": "String"
+            },
+            "marker-gain": {
+              "blue": {
+                "Access Specifier": "R/W",
+                "Details": "Gets or sets the current brightness of the blue custom markers as a percentage",
+                "Name": "Custom Markers Blue Gain",
+                "Summary": "Current brightness of the blue custom markers",
+                "Type": "Integer (range: 0 - 100)"
+              },
+              "green": {
+                "Access Specifier": "R/W",
+                "Details": "Gets or sets the current brightness of the green custom markers as a percentage",
+                "Name": "Custom Markers Green Gain",
+                "Summary": "Current brightness of the green custom markers",
+                "Type": "Integer (range: 0 - 100)"
+              },
+              "red": {
+                "Access Specifier": "R/W",
+                "Details": "Gets or sets the current brightness of the red custom markers as a percentage",
+                "Name": "Custom Markers Red Gain",
+                "Summary": "Current brightness of the red custom markers",
+                "Type": "Integer (range: 0 - 100)"
+              }
+            },
+            "scaling": {
+              "Access Specifier": "R/W",
+              "Details": "Gets or sets current scaling for hidden markers",
+              "Name": "Custom Markers Scaling",
+              "Summary": "Scaling for hidden markers",
+              "Type": "Enum (allowed values: 1:1,stretch,fit,fill)"
+            }
+          },
+          "enabled": {
+            "Access Specifier": "R/W",
+            "Details": "Enables or disables hidden markers",
+            "Name": "HiddenMarkers Enabled",
+            "Summary": "Enable hidden markers",
+            "Type": "Boolean"
+          },
+          "frames-enabled-on": {
+            "Access Specifier": "R/W",
+            "Details": "A valid array must contain ints in the range between 1 and the max supported frame rate multiplier for the platform",
+            "Name": "HiddenMarkers Frames Enabled On",
+            "Summary": "Array of ints specifying which frames the hidden markers are enabled on",
+            "Type": "Array"
+          },
+          "mode": {
+            "Access Specifier": "R/W",
+            "Details": "Gets or sets current hidden markers mode",
+            "Name": "Hidden Markers Mode",
+            "Summary": "Active hidden markers mode",
+            "Type": "Enum (allowed values: none,redspy,startracker,custom)"
+          },
+          "redspy": {
+            "distance-to-tracker": {
+              "Access Specifier": "R/W",
+              "Details": "Gets or sets distance to tracker for RedSpy markers in metres",
+              "Name": "RedSpy Distance To Tracker",
+              "Summary": "Distance to tracker for RedSpy markers",
+              "Type": "Float (range: 0.1 - 100)"
+            },
+            "marker-gain": {
+              "Access Specifier": "R/W",
+              "Details": "Gets or sets the current brightness of the RedSpy markers as a percentage",
+              "Name": "RedSpy Marker Gain",
+              "Summary": "Current brightness of the RedSpy markers",
+              "Type": "Integer (range: 0 - 100)"
+            },
+            "marker-seed": {
+              "Access Specifier": "R/W",
+              "Details": "Gets or sets seed value for RedSpy marker positions",
+              "Name": "RedSpy Marker Seed",
+              "Summary": "Seed value used to randomly generate position of RedSpy markers",
+              "Type": "Integer (range: 1 - 65535)"
+            },
+            "marker-size-scaler": {
+              "Access Specifier": "R/W",
+              "Details": "Gets or sets the size scaling for RedSpy markers as a percentage",
+              "Name": "RedSpy Marker Size Scaler",
+              "Summary": "Size scaler for RedSpy markers",
+              "Type": "Integer (range: 10 - 200)"
+            }
+          },
+          "startracker": {
+            "blue": {
+              "distance-to-tracker": {
+                "Access Specifier": "R/W",
+                "Details": "Gets or sets distance to tracker for blue StarTracker markers in metres",
+                "Name": "StarTracker Blue Distance To Tracker",
+                "Summary": "Distance to tracker for blue StarTracker markers",
+                "Type": "Float (range: 0.1 - 100)"
+              },
+              "enabled": {
+                "Access Specifier": "R/W",
+                "Details": "Enables or disables blue markers for StarTracker",
+                "Name": "StarTracker Blue Enabled",
+                "Summary": "Enable blue markers for StarTracker",
+                "Type": "Boolean"
+              },
+              "marker-gain": {
+                "Access Specifier": "R/W",
+                "Details": "Gets or sets the current brightness of the blue StarTracker markers as a percentage",
+                "Name": "StarTracker Blue Marker Gain",
+                "Summary": "Current brightness of the blue StarTracker markers",
+                "Type": "Integer (range: 0 - 100)"
+              },
+              "marker-seed": {
+                "Access Specifier": "R/W",
+                "Details": "Gets or sets seed value for blue StarTracker marker positions",
+                "Name": "StarTracker Blue Marker Seed",
+                "Summary": "Seed value used to randomly generate position of blue StarTracker markers",
+                "Type": "Integer (range: 1 - 65535)"
+              },
+              "marker-size-scaler": {
+                "Access Specifier": "R/W",
+                "Details": "Gets or sets the size scaling for blue StarTracker markers as a percentage",
+                "Name": "StarTracker Blue Marker Size Scaler",
+                "Summary": "Size scaler for blue StarTracker markers",
+                "Type": "Integer (range: 10 - 200)"
+              }
+            },
+            "green": {
+              "distance-to-tracker": {
+                "Access Specifier": "R/W",
+                "Details": "Gets or sets distance to tracker for green StarTracker markers in metres",
+                "Name": "StarTracker Green Distance To Tracker",
+                "Summary": "Distance to tracker for green StarTracker markers",
+                "Type": "Float (range: 0.1 - 100)"
+              },
+              "enabled": {
+                "Access Specifier": "R/W",
+                "Details": "Enables or disables green markers for StarTracker",
+                "Name": "StarTracker Green Enabled",
+                "Summary": "Enable green markers for StarTracker",
+                "Type": "Boolean"
+              },
+              "marker-gain": {
+                "Access Specifier": "R/W",
+                "Details": "Gets or sets the current brightness of the green StarTracker markers as a percentage",
+                "Name": "StarTracker Green Marker Gain",
+                "Summary": "Current brightness of the green StarTracker markers",
+                "Type": "Integer (range: 0 - 100)"
+              },
+              "marker-seed": {
+                "Access Specifier": "R/W",
+                "Details": "Gets or sets seed value for green StarTracker marker positions",
+                "Name": "StarTracker Green Marker Seed",
+                "Summary": "Seed value used to randomly generate position of green StarTracker markers",
+                "Type": "Integer (range: 1 - 65535)"
+              },
+              "marker-size-scaler": {
+                "Access Specifier": "R/W",
+                "Details": "Gets or sets the size scaling for green StarTracker markers as a percentage",
+                "Name": "StarTracker Green Marker Size Scaler",
+                "Summary": "Size scaler for green StarTracker markers",
+                "Type": "Integer (range: 10 - 200)"
+              }
+            },
+            "red": {
+              "distance-to-tracker": {
+                "Access Specifier": "R/W",
+                "Details": "Gets or sets distance to tracker for red StarTracker markers in metres",
+                "Name": "StarTracker Red Distance To Tracker",
+                "Summary": "Distance to tracker for red StarTracker markers",
+                "Type": "Float (range: 0.1 - 100)"
+              },
+              "enabled": {
+                "Access Specifier": "R/W",
+                "Details": "Enables or disables red markers for StarTracker",
+                "Name": "StarTracker Red Enabled",
+                "Summary": "Enable red markers for StarTracker",
+                "Type": "Boolean"
+              },
+              "marker-gain": {
+                "Access Specifier": "R/W",
+                "Details": "Gets or sets the current brightness of the red StarTracker markers as a percentage",
+                "Name": "StarTracker Red Marker Gain",
+                "Summary": "Current brightness of the red StarTracker markers",
+                "Type": "Integer (range: 0 - 100)"
+              },
+              "marker-seed": {
+                "Access Specifier": "R/W",
+                "Details": "Gets or sets seed value for red StarTracker marker positions",
+                "Name": "StarTracker Red Marker Seed",
+                "Summary": "Seed value used to randomly generate position of red StarTracker markers",
+                "Type": "Integer (range: 1 - 65535)"
+              },
+              "marker-size-scaler": {
+                "Access Specifier": "R/W",
+                "Details": "Gets or sets the size scaling for red StarTracker markers as a percentage",
+                "Name": "StarTracker Red Marker Size Scaler",
+                "Summary": "Size scaler for red StarTracker markers",
+                "Type": "Integer (range: 10 - 200)"
+              }
+            }
+          }
+        },
+        "shuttersync": {
+          "angle-settings": {
+            "custom-frame-rate": {
+              "Access Specifier": "R/W",
+              "Details": "Gets or sets the value of the ShutterSync custom frame rate",
+              "Name": "ShutterSync Custom Frame Rate",
+              "Summary": "ShutterSync custom frame rate",
+              "Type": "Float (range: 1 - 250)"
+            },
+            "shutter-angle": {
+              "Access Specifier": "R/W",
+              "Details": "Gets or sets the value of the shutter angle",
+              "Name": "ShutterSync Angle",
+              "Summary": "Current shutter angle",
+              "Type": "Float (range: 1 - 360)"
+            },
+            "use-custom-frame-rate": {
+              "Access Specifier": "R/W",
+              "Details": "Enables or disables ShutterSync Custom Frame Rate",
+              "Name": "ShutterSync Use Custom Frame Rate",
+              "Summary": "Enable ShutterSync Custom Frame Rate",
+              "Type": "Boolean"
+            }
+          },
+          "dark-time": {
+            "Access Specifier": "R/W",
+            "Details": "Gets or sets the value of the ShutterSync dark time in milliseconds. Value stored independently of percentage value.",
+            "Name": "ShutterSync Dark Time",
+            "Summary": "ShutterSync dark time in millisecodns",
+            "Type": "Float (range: 0 - 100)"
+          },
+          "dark-time-mode": {
+            "Access Specifier": "R/W",
+            "Details": "Gets or sets the ShutterSync dark time mode. The processor can hold the dark time mode as a percentage and a time in milliseconds. This endpoint selects which value the processor uses.",
+            "Name": "ShutterSync Dark Time Mode",
+            "Summary": "ShutterSync dark time mode",
+            "Type": "Enum (allowed values: time,percentage)"
+          },
+          "dark-time-percentage": {
+            "Access Specifier": "R/W",
+            "Details": "Gets or sets the value of the ShutterSync dark time as a percentage of a frame. Value stored independently of milliseconds value.",
+            "Name": "ShutterSync Dark Time Percentage",
+            "Summary": "ShutterSync dark time as a percentage of a frame",
+            "Type": "Float (range: 0 - 100)"
+          },
+          "insert-dark-time": {
+            "Access Specifier": "R/W",
+            "Details": "Enables or disables insertion of dark time. Inserting dark time corresponds to displaying black frames in-between camera exposures.",
+            "Name": "ShutterSync Insert Dark Time",
+            "Summary": "Add dark time when camera shutter is closed",
+            "Type": "Boolean"
+          },
+          "mode": {
+            "Access Specifier": "R/W",
+            "Details": "Gets or sets ShutterSync operation mode",
+            "Name": "ShutterSync Mode",
+            "Summary": "Current ShutterSync Operation mode",
+            "Type": "Enum (allowed values: none,speed,angle)"
+          },
+          "prioritise-refresh-rate": {
+            "Access Specifier": "R/W",
+            "Details": "Enables or disables ShutterSync prioritise refresh rate setting",
+            "Name": "ShutterSync Prioritise Refresh Rate",
+            "Summary": "Prioritise refresh rate on ShutterSync",
+            "Type": "Boolean"
+          },
+          "sensor-readout-time": {
+            "Access Specifier": "R/W",
+            "Details": "Gets or sets sensor readout time",
+            "Name": "ShutterSync Sensor Readout Time",
+            "Summary": "ShutterSync sensor readout time",
+            "Type": "Float (range: 0 - 42)"
+          },
+          "sensor-type": {
+            "Access Specifier": "R/W",
+            "Details": "Gets or sets ShutterSync sensor type",
+            "Name": "ShutterSync Sensor Type",
+            "Summary": "ShutterSync sensor type",
+            "Type": "Enum (allowed values: any,global-shutter,rolling-shutter)"
+          },
+          "speed-settings": {
+            "shutter-speed": {
+              "Access Specifier": "R/W",
+              "Details": "Gets or sets the denominator value of ShutterSync speed, numerator is 1",
+              "Name": "ShutterSync Speed",
+              "Summary": "ShutterSync speed denominator value",
+              "Type": "Float (range: 10 - 250)"
+            },
+            "time": {
+              "Access Specifier": "R/W",
+              "Details": "Gets or sets the time value of ShutterSync time",
+              "Name": "ShutterSync Time",
+              "Summary": "ShutterSync time",
+              "Type": "Float (range: 4 - 100)"
+            }
+          },
+          "viewer": {
+            "Access Specifier": "R/W",
+            "Details": "Gets or sets the ShutterSync viewer mode",
+            "Name": "ShutterSync Viewer",
+            "Summary": "ShutterSync Viewer Mode",
+            "Type": "Enum (allowed values: eye,camera)"
+          }
+        },
+        "startracker": {
+          "background-gain": {
+            "Access Specifier": "R/W",
+            "Details": "Gets or sets brightness of the video underneath StarTracker markers as a percentage",
+            "Name": "Old StarTracker Background Gain",
+            "Summary": "Brightness value of the video underneath StarTracker markers",
+            "Type": "Integer (range: 0 - 100)"
+          },
+          "blackout-affects-markers": {
+            "Access Specifier": "R/W",
+            "Details": "Gets or sets whether blackout affects markers as well as video",
+            "Name": "Old StarTracker Blackout Affects Markers",
+            "Summary": "Make blackout function affect markers or just the video",
+            "Type": "Boolean"
+          },
+          "blue": {
+            "distance-to-tracker": {
+              "Access Specifier": "R/W",
+              "Details": "Gets or sets distance to tracker for blue StarTracker markers in metres",
+              "Name": "Old StarTracker Blue Distance To Tracker",
+              "Summary": "Distance to tracker for blue StarTracker markers",
+              "Type": "Float (range: 0.1 - 100)"
+            },
+            "enabled": {
+              "Access Specifier": "R/W",
+              "Details": "Enables or disables blue markers for StarTracker",
+              "Name": "Old StarTracker Blue Enabled",
+              "Summary": "Enable blue markers for StarTracker",
+              "Type": "Boolean"
+            },
+            "marker-gain": {
+              "Access Specifier": "R/W",
+              "Details": "Gets or sets the current brightness of the blue StarTracker markers as a percentage",
+              "Name": "Old StarTracker Blue Marker Gain",
+              "Summary": "Current brightness of the blue StarTracker markers",
+              "Type": "Integer (range: 0 - 100)"
+            },
+            "marker-size-scaler": {
+              "Access Specifier": "R/W",
+              "Details": "Gets or sets the size scaling for blue StarTracker markers as a percentage",
+              "Name": "Old StarTracker Blue Marker Size Scaler",
+              "Summary": "Size scaler for blue StarTracker markers",
+              "Type": "Integer (range: 10 - 200)"
+            },
+            "star-map-seed": {
+              "Access Specifier": "R/W",
+              "Details": "Gets or sets seed value for blue StarTracker marker positions",
+              "Name": "Old StarTracker Blue Marker Seed",
+              "Summary": "Seed value used to randomly generate position of blue StarTracker markers",
+              "Type": "Integer (range: 1 - 65535)"
+            }
+          },
+          "enabled": {
+            "Access Specifier": "R/W",
+            "Details": "Enables or disables StarTracker markers",
+            "Name": "Old StarTracker Enabled",
+            "Summary": "Enable StarTracker markers",
+            "Type": "Boolean"
+          },
+          "frames-enabled-on": {
+            "Access Specifier": "R/W",
+            "Details": "A valid array must contain ints in the range between 1 and the max supported frame rate multiplier for the platform",
+            "Name": "Old StarTracker Frames Enabled On",
+            "Summary": "Array of ints specifying which frames StarTracker is enabled on",
+            "Type": "Array"
+          },
+          "green": {
+            "distance-to-tracker": {
+              "Access Specifier": "R/W",
+              "Details": "Gets or sets distance to tracker for green StarTracker markers in metres",
+              "Name": "Old StarTracker Green Distance To Tracker",
+              "Summary": "Distance to tracker for green StarTracker markers",
+              "Type": "Float (range: 0.1 - 100)"
+            },
+            "enabled": {
+              "Access Specifier": "R/W",
+              "Details": "Enables or disables green markers for StarTracker",
+              "Name": "Old StarTracker Green Enabled",
+              "Summary": "Enable green markers for StarTracker",
+              "Type": "Boolean"
+            },
+            "marker-gain": {
+              "Access Specifier": "R/W",
+              "Details": "Gets or sets the current brightness of the green StarTracker markers as a percentage",
+              "Name": "Old StarTracker Green Marker Gain",
+              "Summary": "Current brightness of the green StarTracker markers",
+              "Type": "Integer (range: 0 - 100)"
+            },
+            "marker-size-scaler": {
+              "Access Specifier": "R/W",
+              "Details": "Gets or sets the size scaling for green StarTracker markers as a percentage",
+              "Name": "Old StarTracker Green Marker Size Scaler",
+              "Summary": "Size scaler for green StarTracker markers",
+              "Type": "Integer (range: 10 - 200)"
+            },
+            "star-map-seed": {
+              "Access Specifier": "R/W",
+              "Details": "Gets or sets seed value for green StarTracker marker positions",
+              "Name": "Old StarTracker Green Marker Seed",
+              "Summary": "Seed value used to randomly generate position of green StarTracker markers",
+              "Type": "Integer (range: 1 - 65535)"
+            }
+          },
+          "red": {
+            "distance-to-tracker": {
+              "Access Specifier": "R/W",
+              "Details": "Gets or sets distance to tracker for red StarTracker markers in metres",
+              "Name": "Old StarTracker Red Distance To Tracker",
+              "Summary": "Distance to tracker for red StarTracker markers",
+              "Type": "Float (range: 0.1 - 100)"
+            },
+            "enabled": {
+              "Access Specifier": "R/W",
+              "Details": "Enables or disables red markers for StarTracker",
+              "Name": "Old StarTracker Red Enabled",
+              "Summary": "Enable red markers for StarTracker",
+              "Type": "Boolean"
+            },
+            "marker-gain": {
+              "Access Specifier": "R/W",
+              "Details": "Gets or sets the current brightness of the red StarTracker markers as a percentage",
+              "Name": "Old StarTracker Red Marker Gain",
+              "Summary": "Current brightness of the red StarTracker markers",
+              "Type": "Integer (range: 0 - 100)"
+            },
+            "marker-size-scaler": {
+              "Access Specifier": "R/W",
+              "Details": "Gets or sets the size scaling for red StarTracker markers as a percentage",
+              "Name": "Old StarTracker Red Marker Size Scaler",
+              "Summary": "Size scaler for red StarTracker markers",
+              "Type": "Integer (range: 10 - 200)"
+            },
+            "star-map-seed": {
+              "Access Specifier": "R/W",
+              "Details": "Gets or sets seed value for red StarTracker marker positions",
+              "Name": "Old StarTracker Red Marker Seed",
+              "Summary": "Seed value used to randomly generate position of red StarTracker markers",
+              "Type": "Integer (range: 1 - 65535)"
+            }
+          }
+        }
+      }
+    },
+    "override": {
+      "blackout": {
+        "enabled": {
+          "Access Specifier": "R/W",
+          "Details": "Enables or disables blackout",
+          "Name": "Blackout Enabled",
+          "Summary": "Enable blackout",
+          "Type": "Boolean"
+        },
+        "fade-time": {
+          "Access Specifier": "R/W",
+          "Details": "The value of the blackout fade time. The fade time may be adjusted between zero (snap) and 10 seconds",
+          "Name": "Blackout Fade Time",
+          "Summary": "Time taken to fade to black when blackout enabled",
+          "Type": "Float (range: 0 - 10)"
+        }
+      },
+      "freeze": {
+        "enabled": {
+          "Access Specifier": "R/W",
+          "Details": "Enables or disables video freeze",
+          "Name": "Freeze Enabled",
+          "Summary": "Enable video freeze",
+          "Type": "Boolean"
+        }
+      },
+      "test-pattern": {
+        "custom-colour": {
+          "blue": {
+            "Access Specifier": "R/W",
+            "Details": "Gets or sets the custom colour test pattern blue value",
+            "Name": "Test Pattern Custom Colour Blue",
+            "Summary": "Custom colour test pattern blue value",
+            "Type": "Integer (range: 0 - 4095)"
+          },
+          "green": {
+            "Access Specifier": "R/W",
+            "Details": "Gets or sets the custom colour test pattern green value",
+            "Name": "Test Pattern Custom Colour Green",
+            "Summary": "Custom colour test pattern green value",
+            "Type": "Integer (range: 0 - 4095)"
+          },
+          "red": {
+            "Access Specifier": "R/W",
+            "Details": "Gets or sets the custom colour test pattern red value",
+            "Name": "Test Pattern Custom Colour Red",
+            "Summary": "Custom colour test pattern red value",
+            "Type": "Integer (range: 0 - 4095)"
+          }
+        },
+        "custom-gradient": {
+          "end-colour": {
+            "blue": {
+              "Access Specifier": "R/W",
+              "Details": "Gets or sets blue component of custom gradient test pattern end colour as a 12 bit integer",
+              "Name": "Test Pattern Custom Gradient End Blue",
+              "Summary": "Custom gradient test pattern end colour blue component",
+              "Type": "Integer (range: 0 - 4095)"
+            },
+            "green": {
+              "Access Specifier": "R/W",
+              "Details": "Gets or sets green component of custom gradient test pattern end colour as a 12 bit integer",
+              "Name": "Test Pattern Custom Gradient End Green",
+              "Summary": "Custom gradient test pattern end colour green component",
+              "Type": "Integer (range: 0 - 4095)"
+            },
+            "red": {
+              "Access Specifier": "R/W",
+              "Details": "Gets or sets red component of custom gradient test pattern end colour as a 12 bit integer",
+              "Name": "Test Pattern Custom Gradient End Red",
+              "Summary": "Custom gradient test pattern end colour red component",
+              "Type": "Integer (range: 0 - 4095)"
+            }
+          },
+          "orientation": {
+            "Access Specifier": "R/W",
+            "Details": "Gets or sets the custom gradient test pattern orientation",
+            "Name": "Test Pattern Custom Gradient Orientation",
+            "Summary": "Custom gradient test pattern orientation",
+            "Type": "Enum (allowed values: horizontal,vertical)"
+          },
+          "start-colour": {
+            "blue": {
+              "Access Specifier": "R/W",
+              "Details": "Gets or sets green component of custom gradient test pattern start colour as a 12 bit integer",
+              "Name": "Test Pattern Custom Gradient Start Green",
+              "Summary": "Custom gradient test pattern start colour green component",
+              "Type": "Integer (range: 0 - 4095)"
+            },
+            "green": {
+              "Access Specifier": "R/W",
+              "Details": "Gets or sets blue component of custom gradient test pattern start colour as a 12 bit integer",
+              "Name": "Test Pattern Custom Gradient Start Blue",
+              "Summary": "Custom gradient test pattern start colour blue component",
+              "Type": "Integer (range: 0 - 4095)"
+            },
+            "red": {
+              "Access Specifier": "R/W",
+              "Details": "Gets or sets red component of custom gradient test pattern start colour as a 12 bit integer",
+              "Name": "Test Pattern Custom Gradient Start Red",
+              "Summary": "Custom gradient test pattern start colour red component",
+              "Type": "Integer (range: 0 - 4095)"
+            }
+          }
+        },
+        "enabled": {
+          "Access Specifier": "R/W",
+          "Details": "Enables or disables test pattern output function",
+          "Name": "Test Pattern Enabled",
+          "Summary": "Enable test pattern output function",
+          "Type": "Boolean"
+        },
+        "format": {
+          "Access Specifier": "R/W",
+          "Details": "Format of the generated test pattern",
+          "Name": "Test Pattern Format",
+          "Summary": "Format of the generated test pattern",
+          "Type": "Enum (allowed values: from-input,standard-dynamic-range,perceptual-quantiser,hybrid-log-gamma)"
+        },
+        "frame-store": {
+          "capture-frame": {
+            "Access Specifier": "W/O",
+            "Details": "Captures the current frame and saves it to the frame store with the user number provided. (Warning: Specifying a user number that already exists will overwrite the existing frame. This operation cannot be undone.)",
+            "Name": "Capture Frame",
+            "Summary": "Capture a Frame from current video",
+            "Type": "Integer (range: 1 - 50)"
+          },
+          "delete-frame": {
+            "Access Specifier": "W/O",
+            "Details": "Delete the frame store frame at the user number provided.",
+            "Name": "Delete Frame",
+            "Summary": "Delete a Frame Store frame",
+            "Type": "Integer (range: 1 - 50)"
+          },
+          "frames": {
+            "{frame-user-number}": {
+              "colour-space": {
+                "Access Specifier": "W/O",
+                "Details": "Set colour space for the frame",
+                "Name": "Frame Store Colour Space",
+                "Summary": "Set colour space for the frame",
+                "Type": "Enum (allowed values: rec-2020,dci-p3,rec-709,aces-cg,custom)"
+              },
+              "enable-alpha": {
+                "Access Specifier": "R/W",
+                "Details": "Set alpha mode for the frame",
+                "Name": "Frame Store Alpha Enabled",
+                "Summary": "Set alpha mode for the frame",
+                "Type": "Boolean"
+              },
+              "format": {
+                "Access Specifier": "W/O",
+                "Details": "Set format for the frame",
+                "Name": "Frame Store Format",
+                "Summary": "Set format for the frame",
+                "Type": "Enum (allowed values: from-input,standard-dynamic-range,perceptual-quantiser,hybrid-log-gamma)"
+              },
+              "name": {
+                "Access Specifier": "R/W",
+                "Details": "Name of the Frame",
+                "Name": "Frame Name",
+                "Summary": "Name of the Frame",
+                "Type": "String"
+              },
+              "scaling-mode": {
+                "Access Specifier": "W/O",
+                "Details": "Set scaling mode for the frame",
+                "Name": "Frame Store Scaling Mode",
+                "Summary": "Set scaling mode for the frame",
+                "Type": "Enum (allowed values: 1:1,stretch,fit,fill)"
+              }
+            }
+          }
+        },
+        "restrict-to-achievable-colours": {
+          "Access Specifier": "R/W",
+          "Details": "Enables or disables restrict to achievable colours switch",
+          "Name": "Test Pattern Restrict To Achievable Colours",
+          "Summary": "Enables restrict to achievable colours switch",
+          "Type": "Boolean"
+        },
+        "type": {
+          "Access Specifier": "R/W",
+          "Details": "Determines which test pattern or frame store image will be shown when the test pattern widget is activated. Accepts either a frame store user number, or test pattern title. Defaults to SMPTE bars.",
+          "Name": "Test Pattern Type",
+          "Summary": "Type of test pattern or frame store image to set as active.",
+          "Type": "TestPatternType (allowed values: brompton,red,green,blue,cyan,magenta,yellow,white,black,grid,scrolling-grid,checkerboard,scrolling-checkerboard,colour-bars,scrolling-colour-bars,gradient,scrolling-gradient,strobe,smpte-bars,scrolling-smpte-bars,custom-colour,custom,forty-five-degree-grid,scrolling-forty-five-degree-grid,custom-gradient,scrolling-custom-gradient) (range: 1 - 50)"
+        }
+      }
+    },
+    "presets": {
+      "active": {
+        "name": {
+          "Access Specifier": "R/O",
+          "Details": "Name of the currently active preset",
+          "Name": "Active Preset Name",
+          "Summary": "Name of the currently active preset",
+          "Type": "String"
+        },
+        "number": {
+          "Access Specifier": "R/W",
+          "Details": "Set to activate a preset",
+          "Name": "Active Preset Number",
+          "Summary": "Number of the currently active preset",
+          "Type": "Integer (range: 1 - 128)"
+        }
+      },
+      "items": {
+        "{number}": {
+          "name": {
+            "Access Specifier": "R/W",
+            "Details": "Processor preset name",
+            "Name": "Preset Name",
+            "Summary": "Processor preset name",
+            "Type": "String"
+          },
+          "status": {
+            "Access Specifier": "R/O",
+            "Details": "Preset activation status",
+            "Name": "Preset Status",
+            "Summary": "Preset activation status",
+            "Type": "Boolean"
+          }
+        }
+      }
+    },
+    "processing": {
+      "3d-lut": {
+        "data": {
+          "Access Specifier": "R/W",
+          "Details": "Send bulk data in .cube file format to upload 3D LUT",
+          "Name": "3D LUT Data",
+          "Summary": "Endpoint to post 3D LUT data to",
+          "Type": "ByteArray"
+        },
+        "enabled": {
+          "Access Specifier": "R/W",
+          "Details": "Enables or disables 3D LUT mapping",
+          "Name": "3D LUT Enabled",
+          "Summary": "Enable 3D LUT",
+          "Type": "Boolean"
+        },
+        "filename": {
+          "Access Specifier": "R/O",
+          "Details": "The name of the stored 3D LUT file",
+          "Name": "3D LUT Filename",
+          "Summary": "Name of 3D LUT file",
+          "Type": "String"
+        },
+        "strength": {
+          "Access Specifier": "R/W",
+          "Details": "Intensity/opacity of 3D LUT",
+          "Name": "3D LUT Strength",
+          "Summary": "Intensity/opacity of 3D LUT",
+          "Type": "Float (range: 0 - 100)"
+        }
+      },
+      "colour-correct": {
+        "black": {
+          "blue": {
+            "Access Specifier": "R/W",
+            "Details": "Gets or sets the value of the black blue",
+            "Name": "14-Way Colour Correct Black Blue",
+            "Summary": "Current Colour Correct black blue",
+            "Type": "Float (range: -100 - 100)"
+          },
+          "green": {
+            "Access Specifier": "R/W",
+            "Details": "Gets or sets the value of the black green",
+            "Name": "14-Way Colour Correct Black Green",
+            "Summary": "Current Colour Correct black green",
+            "Type": "Float (range: -100 - 100)"
+          },
+          "red": {
+            "Access Specifier": "R/W",
+            "Details": "Gets or sets the value of the black red",
+            "Name": "14-Way Colour Correct Black Red",
+            "Summary": "Current Colour Correct black red",
+            "Type": "Float (range: -100 - 100)"
+          }
+        },
+        "blue": {
+          "brightness": {
+            "Access Specifier": "R/W",
+            "Details": "Gets or sets the value of the blue brightness",
+            "Name": "14-Way Colour Correct Blue Brightness",
+            "Summary": "Current Colour Correct blue brightness",
+            "Type": "Float (range: -100 - 100)"
+          },
+          "hue": {
+            "Access Specifier": "R/W",
+            "Details": "Gets or sets the value of the blue hue",
+            "Name": "14-Way Colour Correct Blue Hue",
+            "Summary": "Current Colour Correct blue hue",
+            "Type": "Float (range: -180 - 180)"
+          },
+          "saturation": {
+            "Access Specifier": "R/W",
+            "Details": "Gets or sets the value of the blue saturation",
+            "Name": "14-Way Colour Correct Blue Saturation",
+            "Summary": "Current Colour Correct blue saturation",
+            "Type": "Float (range: -100 - 100)"
+          }
+        },
+        "cobalt": {
+          "brightness": {
+            "Access Specifier": "R/W",
+            "Details": "Gets or sets the value of the cobalt brightness",
+            "Name": "14-Way Colour Correct Cobalt Brightness",
+            "Summary": "Current Colour Correct cobalt brightness",
+            "Type": "Float (range: -100 - 100)"
+          },
+          "hue": {
+            "Access Specifier": "R/W",
+            "Details": "Gets or sets the value of the cobalt hue",
+            "Name": "14-Way Colour Correct Cobalt Hue",
+            "Summary": "Current Colour Correct cobalt hue",
+            "Type": "Float (range: -180 - 180)"
+          },
+          "saturation": {
+            "Access Specifier": "R/W",
+            "Details": "Gets or sets the value of the cobalt saturation",
+            "Name": "14-Way Colour Correct Cobalt Saturation",
+            "Summary": "Current Colour Correct cobalt saturation",
+            "Type": "Float (range: -100 - 100)"
+          }
+        },
+        "crimson": {
+          "brightness": {
+            "Access Specifier": "R/W",
+            "Details": "Gets or sets the value of the crimson brightness",
+            "Name": "14-Way Colour Correct Crimson Brightness",
+            "Summary": "Current Colour Correct crimsone brightness",
+            "Type": "Float (range: -100 - 100)"
+          },
+          "hue": {
+            "Access Specifier": "R/W",
+            "Details": "Gets or sets the value of the crimson hue",
+            "Name": "14-Way Colour Correct Crimson Hue",
+            "Summary": "Current Colour Correct crimson hue",
+            "Type": "Float (range: -180 - 180)"
+          },
+          "saturation": {
+            "Access Specifier": "R/W",
+            "Details": "Gets or sets the value of the crimson saturation",
+            "Name": "14-Way Colour Correct Crimson Saturation",
+            "Summary": "Current Colour Correct crimson saturation",
+            "Type": "Float (range: -100 - 100)"
+          }
+        },
+        "cyan": {
+          "brightness": {
+            "Access Specifier": "R/W",
+            "Details": "Gets or sets the value of the cyan brightness",
+            "Name": "14-Way Colour Correct Cyan Brightness",
+            "Summary": "Current Colour Correct cyan brightness",
+            "Type": "Float (range: -100 - 100)"
+          },
+          "hue": {
+            "Access Specifier": "R/W",
+            "Details": "Gets or sets the value of the cyan hue",
+            "Name": "14-Way Colour Correct Cyan Hue",
+            "Summary": "Current Colour Correct cyan hue",
+            "Type": "Float (range: -180 - 180)"
+          },
+          "saturation": {
+            "Access Specifier": "R/W",
+            "Details": "Gets or sets the value of the cyan saturation",
+            "Name": "14-Way Colour Correct Cyan Saturation",
+            "Summary": "Current Colour Correct cyan saturation",
+            "Type": "Float (range: -100 - 100)"
+          }
+        },
+        "enabled": {
+          "Access Specifier": "R/W",
+          "Details": "Enables or disables the processor's 14-Way Colour Correct feature",
+          "Name": "14-Way Colour Correct Enabled",
+          "Summary": "Enable 14-Way Colour Correct",
+          "Type": "Boolean"
+        },
+        "green": {
+          "brightness": {
+            "Access Specifier": "R/W",
+            "Details": "Gets or sets the value of the green brightness",
+            "Name": "14-Way Colour Correct Green Brightness",
+            "Summary": "Current Colour Correct green brightness",
+            "Type": "Float (range: -100 - 100)"
+          },
+          "hue": {
+            "Access Specifier": "R/W",
+            "Details": "Gets or sets the value of the green hue",
+            "Name": "14-Way Colour Correct Green Hue",
+            "Summary": "Current Colour Correct green hue",
+            "Type": "Float (range: -180 - 180)"
+          },
+          "saturation": {
+            "Access Specifier": "R/W",
+            "Details": "Gets or sets the value of the green saturation",
+            "Name": "14-Way Colour Correct Green Saturation",
+            "Summary": "Current Colour Correct green saturation",
+            "Type": "Float (range: -100 - 100)"
+          }
+        },
+        "lime": {
+          "brightness": {
+            "Access Specifier": "R/W",
+            "Details": "Gets or sets the value of the lime brightness",
+            "Name": "14-Way Colour Correct Lime Brightness",
+            "Summary": "Current Colour Correct lime brightness",
+            "Type": "Float (range: -100 - 100)"
+          },
+          "hue": {
+            "Access Specifier": "R/W",
+            "Details": "Gets or sets the value of the lime hue",
+            "Name": "14-Way Colour Correct Lime Hue",
+            "Summary": "Current Colour Correct lime hue",
+            "Type": "Float (range: -180 - 180)"
+          },
+          "saturation": {
+            "Access Specifier": "R/W",
+            "Details": "Gets or sets the value of the lime saturation",
+            "Name": "14-Way Colour Correct Lime Saturation",
+            "Summary": "Current Colour Correct lime saturation",
+            "Type": "Float (range: -100 - 100)"
+          }
+        },
+        "magenta": {
+          "brightness": {
+            "Access Specifier": "R/W",
+            "Details": "Gets or sets the value of the magenta brightness",
+            "Name": "14-Way Colour Correct Magenta Brightness",
+            "Summary": "Current Colour Correct magenta brightness",
+            "Type": "Float (range: -100 - 100)"
+          },
+          "hue": {
+            "Access Specifier": "R/W",
+            "Details": "Gets or sets the value of the magenta hue",
+            "Name": "14-Way Colour Correct Magenta Hue",
+            "Summary": "Current Colour Correct magenta hue",
+            "Type": "Float (range: -180 - 180)"
+          },
+          "saturation": {
+            "Access Specifier": "R/W",
+            "Details": "Gets or sets the value of the magenta saturation",
+            "Name": "14-Way Colour Correct Magenta Saturation",
+            "Summary": "Current Colour Correct magenta saturation",
+            "Type": "Float (range: -100 - 100)"
+          }
+        },
+        "orange": {
+          "brightness": {
+            "Access Specifier": "R/W",
+            "Details": "Gets or sets the value of the orange brightness",
+            "Name": "14-Way Colour Correct Orange Brightness",
+            "Summary": "Current Colour Correct orange brightness",
+            "Type": "Float (range: -100 - 100)"
+          },
+          "hue": {
+            "Access Specifier": "R/W",
+            "Details": "Gets or sets the value of the orange hue",
+            "Name": "14-Way Colour Correct Orange Hue",
+            "Summary": "Current Colour Correct orange hue",
+            "Type": "Float (range: -180 - 180)"
+          },
+          "saturation": {
+            "Access Specifier": "R/W",
+            "Details": "Gets or sets the value of the orange saturation",
+            "Name": "14-Way Colour Correct Orange Saturation",
+            "Summary": "Current Colour Correct orange saturation",
+            "Type": "Float (range: -100 - 100)"
+          }
+        },
+        "red": {
+          "brightness": {
+            "Access Specifier": "R/W",
+            "Details": "Gets or sets the value of the red brightness",
+            "Name": "14-Way Colour Correct Red Brightness",
+            "Summary": "Current Colour Correct red brightness",
+            "Type": "Float (range: -100 - 100)"
+          },
+          "hue": {
+            "Access Specifier": "R/W",
+            "Details": "Gets or sets the value of the red hue",
+            "Name": "14-Way Colour Correct Red Hue",
+            "Summary": "Current Colour Correct red hue",
+            "Type": "Float (range: -180 - 180)"
+          },
+          "saturation": {
+            "Access Specifier": "R/W",
+            "Details": "Gets or sets the value of the red saturation",
+            "Name": "14-Way Colour Correct Red Saturation",
+            "Summary": "Current Colour Correct red saturation",
+            "Type": "Float (range: -100 - 100)"
+          }
+        },
+        "turquoise": {
+          "brightness": {
+            "Access Specifier": "R/W",
+            "Details": "Gets or sets the value of the turquoise brightness",
+            "Name": "14-Way Colour Correct Turquoise Brightness",
+            "Summary": "Current Colour Correct turquoise brightness",
+            "Type": "Float (range: -100 - 100)"
+          },
+          "hue": {
+            "Access Specifier": "R/W",
+            "Details": "Gets or sets the value of the turquoise hue",
+            "Name": "14-Way Colour Correct Turquoise Hue",
+            "Summary": "Current Colour Correct turquoise hue",
+            "Type": "Float (range: -180 - 180)"
+          },
+          "saturation": {
+            "Access Specifier": "R/W",
+            "Details": "Gets or sets the value of the turquoise saturation",
+            "Name": "14-Way Colour Correct Turquoise Saturation",
+            "Summary": "Current Colour Correct turquoise saturation",
+            "Type": "Float (range: -100 - 100)"
+          }
+        },
+        "violet": {
+          "brightness": {
+            "Access Specifier": "R/W",
+            "Details": "Gets or sets the value of the violet brightness",
+            "Name": "14-Way Colour Correct Violet Brightness",
+            "Summary": "Current Colour Correct violet brightness",
+            "Type": "Float (range: -100 - 100)"
+          },
+          "hue": {
+            "Access Specifier": "R/W",
+            "Details": "Gets or sets the value of the violet hue",
+            "Name": "14-Way Colour Correct Violet Hue",
+            "Summary": "Current Colour Correct violet hue",
+            "Type": "Float (range: -180 - 180)"
+          },
+          "saturation": {
+            "Access Specifier": "R/W",
+            "Details": "Gets or sets the value of the violet saturation",
+            "Name": "14-Way Colour Correct Violet Saturation",
+            "Summary": "Current Colour Correct violet saturation",
+            "Type": "Float (range: -100 - 100)"
+          }
+        },
+        "white": {
+          "blue": {
+            "Access Specifier": "R/W",
+            "Details": "Gets or sets the value of the white blue",
+            "Name": "14-Way Colour Correct White Blue",
+            "Summary": "Current Colour Correct white blue",
+            "Type": "Float (range: -100 - 100)"
+          },
+          "green": {
+            "Access Specifier": "R/W",
+            "Details": "Gets or sets the value of the white green",
+            "Name": "14-Way Colour Correct White Green",
+            "Summary": "Current Colour Correct white green",
+            "Type": "Float (range: -100 - 100)"
+          },
+          "red": {
+            "Access Specifier": "R/W",
+            "Details": "Gets or sets the value of the white red",
+            "Name": "14-Way Colour Correct White Red",
+            "Summary": "Current Colour Correct white red",
+            "Type": "Float (range: -100 - 100)"
+          }
+        },
+        "yellow": {
+          "brightness": {
+            "Access Specifier": "R/W",
+            "Details": "Gets or sets the value of the yellow brightness",
+            "Name": "14-Way Colour Correct Yellow Brightness",
+            "Summary": "Current Colour Correct yellow brightness",
+            "Type": "Float (range: -100 - 100)"
+          },
+          "hue": {
+            "Access Specifier": "R/W",
+            "Details": "Gets or sets the value of the yellow hue",
+            "Name": "14-Way Colour Correct Yellow Hue",
+            "Summary": "Current Colour Correct yellow hue",
+            "Type": "Float (range: -180 - 180)"
+          },
+          "saturation": {
+            "Access Specifier": "R/W",
+            "Details": "Gets or sets the value of the yellow saturation",
+            "Name": "14-Way Colour Correct Yellow Saturation",
+            "Summary": "Current Colour Correct yellow saturation",
+            "Type": "Float (range: -100 - 100)"
+          }
+        }
+      },
+      "colour-replace": {
+        "apply-to-brightness": {
+          "Access Specifier": "R/W",
+          "Details": "Enables or disables apply to brightness switch for colour replace",
+          "Name": "Colour Replace Apply To Brightness",
+          "Summary": "Enable colour replace apply to brightness switch",
+          "Type": "Boolean"
+        },
+        "apply-to-hue": {
+          "Access Specifier": "R/W",
+          "Details": "Enables or disables apply to hue switch for colour replace",
+          "Name": "Colour Replace Apply To Hue",
+          "Summary": "Enable colour replace apply to hue switch",
+          "Type": "Boolean"
+        },
+        "apply-to-saturation": {
+          "Access Specifier": "R/W",
+          "Details": "Enables or disables apply to saturation switch for colour replace",
+          "Name": "Colour Replace Apply To Saturation",
+          "Summary": "Enable colour replace apply to saturation switch",
+          "Type": "Boolean"
+        },
+        "brightness-tolerance": {
+          "Access Specifier": "R/W",
+          "Details": "Gets or sets the value of the brightness tolerance for colour replace",
+          "Name": "Colour Replace Brightness Tolerance",
+          "Summary": "Colour replace brightness tolerance",
+          "Type": "Float (range: 10 - 100)"
+        },
+        "colour-from": {
+          "blue": {
+            "Access Specifier": "R/W",
+            "Details": "Gets or sets the blue component of the colour replace source colour",
+            "Name": "Colour Replace From Blue",
+            "Summary": "Colour replace source colour blue component",
+            "Type": "Integer (range: 0 - 255)"
+          },
+          "green": {
+            "Access Specifier": "R/W",
+            "Details": "Gets or sets the green component of the colour replace source colour",
+            "Name": "Colour Replace From Green",
+            "Summary": "Colour replace source colour green component",
+            "Type": "Integer (range: 0 - 255)"
+          },
+          "red": {
+            "Access Specifier": "R/W",
+            "Details": "Gets or sets the red component of the colour replace source colour",
+            "Name": "Colour Replace From Red",
+            "Summary": "Colour replace source colour red component",
+            "Type": "Integer (range: 0 - 255)"
+          }
+        },
+        "colour-to": {
+          "blue": {
+            "Access Specifier": "R/W",
+            "Details": "Gets or sets the blue component of the colour replace target colour",
+            "Name": "Colour Replace To Blue",
+            "Summary": "Colour replace target colour blue component",
+            "Type": "Integer (range: 0 - 255)"
+          },
+          "green": {
+            "Access Specifier": "R/W",
+            "Details": "Gets or sets the green component of the colour replace target colour",
+            "Name": "Colour Replace To Green",
+            "Summary": "Colour replace target colour green component",
+            "Type": "Integer (range: 0 - 255)"
+          },
+          "red": {
+            "Access Specifier": "R/W",
+            "Details": "Gets or sets the red component of the colour replace target colour",
+            "Name": "Colour Replace To Red",
+            "Summary": "Colour replace target colour red component",
+            "Type": "Integer (range: 0 - 255)"
+          }
+        },
+        "colour-tolerance": {
+          "Access Specifier": "R/W",
+          "Details": "Gets or sets the value of the colour tolerance for colour replace",
+          "Name": "Colour Replace Colour Tolerance",
+          "Summary": "Colour replace colour tolerance",
+          "Type": "Float (range: 10 - 100)"
+        },
+        "enabled": {
+          "Access Specifier": "R/W",
+          "Details": "Enables or disables the processor's Colour Replace feature",
+          "Name": "Colour Replace Enabled",
+          "Summary": "Enable Colour Replace",
+          "Type": "Boolean"
+        },
+        "method": {
+          "Access Specifier": "R/W",
+          "Details": "Gets or sets the method applied by the processor for colour replacement",
+          "Name": "Colour Replace Method",
+          "Summary": "Colour replace method",
+          "Type": "Enum (allowed values: set-to-colour,transform-to-colour)"
+        },
+        "softness": {
+          "Access Specifier": "R/W",
+          "Details": "Gets or sets the value of the softness for colour replace",
+          "Name": "Colour Replace Softness",
+          "Summary": "Colour replace softness",
+          "Type": "Float (range: 6 - 100)"
+        },
+        "strength": {
+          "Access Specifier": "R/W",
+          "Details": "Gets or sets the value of the strength for colour replace",
+          "Name": "Colour Replace Strength",
+          "Summary": "Colour replace strength",
+          "Type": "Float (range: 6 - 100)"
+        },
+        "view-matte": {
+          "Access Specifier": "R/W",
+          "Details": "Enables or disables view matte for colour replace",
+          "Name": "Colour Replace View Matte",
+          "Summary": "Enable colour replace view matte",
+          "Type": "Boolean"
+        }
+      },
+      "curves": {
+        "blue": {
+          "points": {
+            "Access Specifier": "R/W",
+            "Details": "A valid array must contain JSON objects with x and y values specified in the range [0,1] e.g. [{x:0.2, y:0.2}, {x:0.64, y:0.77}], or send an empty array to clear all points. Minimum separation between points is 0.0625",
+            "Name": "Curves Blue Points",
+            "Summary": "Endpoint taking an array of objects that define the points of the blue colour curve, up to a maximum of 9 including (0,0) and (1,1)",
+            "Type": "Array"
+          }
+        },
+        "enabled": {
+          "Access Specifier": "R/W",
+          "Details": "Enables or disables the processor's Colour Curves feature",
+          "Name": "Curves Enabled",
+          "Summary": "Enable Colour Curves",
+          "Type": "Boolean"
+        },
+        "green": {
+          "points": {
+            "Access Specifier": "R/W",
+            "Details": "A valid array must contain JSON objects with x and y values specified in the range [0,1] e.g. [{x:0.2, y:0.2}, {x:0.64, y:0.77}], or send an empty array to clear all points. Minimum separation between points is 0.0625",
+            "Name": "Curves Green Points",
+            "Summary": "Endpoint taking an array of objects that define the points of the green colour curve, up to a maximum of 9 including (0,0) and (1,1)",
+            "Type": "Array"
+          }
+        },
+        "red": {
+          "points": {
+            "Access Specifier": "R/W",
+            "Details": "A valid array must contain JSON objects with x and y values specified in the range [0,1] e.g. [{x:0.2, y:0.2}, {x:0.64, y:0.77}], or send an empty array to clear all points. Minimum separation between points is 0.0625",
+            "Name": "Curves Red Points",
+            "Summary": "Endpoint taking an array of objects that define the points of the red colour curve, up to a maximum of 9 including (0,0) and (1,1)",
+            "Type": "Array"
+          }
+        },
+        "white": {
+          "points": {
+            "Access Specifier": "R/W",
+            "Details": "A valid array must contain JSON objects with x and y values specified in the range [0,1] e.g. [{x:0.2, y:0.2}, {x:0.64, y:0.77}], or send an empty array to clear all points. Minimum separation between points is 0.0625",
+            "Name": "Curves White Points",
+            "Summary": "Endpoint taking an array of objects that define the points of the white colour curve, up to a maximum of 9 including (0,0) and (1,1)",
+            "Type": "Array"
+          }
+        }
+      },
+      "osca": {
+        "module-correction-enabled": {
+          "Access Specifier": "R/W",
+          "Details": "Enables or disables OSCA module correction",
+          "Name": "OSCA Module Correction Enabled",
+          "Summary": "Enable OSCA module correction",
+          "Type": "Boolean"
+        },
+        "seam-correction-enabled": {
+          "Access Specifier": "R/W",
+          "Details": "Enables or disables OSCA seam correction",
+          "Name": "OSCA Seam Correction Enabled",
+          "Summary": "Enable OSCA seam correction",
+          "Type": "Boolean"
+        }
+      },
+      "scaler": {
+        "enabled": {
+          "Access Specifier": "R/W",
+          "Details": "Enables or disables scaler",
+          "Name": "Scaler",
+          "Summary": "Enable scaler",
+          "Type": "Boolean"
+        }
+      }
+    },
+    "project": {
+      "name": {
+        "Access Specifier": "R/O",
+        "Details": "Gets the name of the Project",
+        "Name": "Project Name",
+        "Summary": "Name of the Project",
+        "Type": "String"
+      }
+    },
+    "system": {
+      "actions": {
+        "reboot": {
+          "Access Specifier": "W/O",
+          "Details": "If the processor password is set then this must be sent in the body. Otherwise send a blank string to trigger the reboot.",
+          "Name": "System Reboot",
+          "Summary": "Reboot the processor",
+          "Type": "String"
+        },
+        "shutdown": {
+          "Access Specifier": "W/O",
+          "Details": "If the processor password is set then this must be sent in the body. Otherwise send a blank string to trigger the shutdown.",
+          "Name": "System Shutdown",
+          "Summary": "Shutdown the processor",
+          "Type": "String"
+        }
+      },
+      "current-date-time": {
+        "Access Specifier": "R/O",
+        "Details": "Current date/time of processor in yyyy-MM-dd hh:mm:ss 24 hour format",
+        "Name": "Current Date And Time",
+        "Summary": "Current Time (24hr clock)",
+        "Type": "String"
+      },
+      "fan": {
+        "case": {
+          "one": {
+            "speed": {
+              "Access Specifier": "R/O",
+              "Details": "Current speed of the Case Fan",
+              "Name": "Case Fan 1 Speed",
+              "Summary": "Current Case Fan Speed",
+              "Type": "Float (range: 0 - 5000)"
+            },
+            "status": {
+              "Access Specifier": "R/O",
+              "Details": "Current activation status of Case Fan 1",
+              "Name": "Case Fan 1 Status",
+              "Summary": "Current activation status of Case Fan 1",
+              "Type": "Boolean"
+            }
+          },
+          "two": {
+            "speed": {
+              "Access Specifier": "R/O",
+              "Details": "Current speed of Case Fan 2",
+              "Name": "Case Fan 2 Speed",
+              "Summary": "Current Case Fan 2 Speed",
+              "Type": "Float (range: 0 - 5000)"
+            },
+            "status": {
+              "Access Specifier": "R/O",
+              "Details": "Current activation status of Case Fan 2",
+              "Name": "Case Fan 2 Status",
+              "Summary": "Current activation status of Case Fan 2",
+              "Type": "Boolean"
+            }
+          }
+        },
+        "fpga": {
+          "speed": {
+            "Access Specifier": "R/O",
+            "Details": "Current speed of the FPGA Fan. Supported only on SX40, S8.",
+            "Name": "FPGA Fan Speed",
+            "Summary": "Current FPGA Fan Speed",
+            "Type": "Float (range: 0 - 5000)"
+          },
+          "status": {
+            "Access Specifier": "R/O",
+            "Details": "Current activation status of the FPGA Fan. Supported only on SX40, S8.",
+            "Name": "FPGA Fan Status",
+            "Summary": "Current activation status of the FPGA Fan",
+            "Type": "Boolean"
+          }
+        }
+      },
+      "processor-name": {
+        "Access Specifier": "R/O",
+        "Details": "The name of the processor",
+        "Name": "Processor Name",
+        "Summary": "Processor name",
+        "Type": "String"
+      },
+      "processor-type": {
+        "Access Specifier": "R/O",
+        "Details": "Processor hardware model",
+        "Name": "Processor Type",
+        "Summary": "Processor hardware model",
+        "Type": "Enum (allowed values: m2,s4,s8,t1,t8,sx40)"
+      },
+      "serial-number": {
+        "Access Specifier": "R/O",
+        "Details": "Gets the Serial Number of the processor",
+        "Name": "Serial Number",
+        "Summary": "Serial number of the processor",
+        "Type": "String"
+      },
+      "software-version": {
+        "Access Specifier": "R/O",
+        "Details": "Current version of software in format x.y.z",
+        "Name": "Software Version",
+        "Summary": "Loaded software version",
+        "Type": "String"
+      },
+      "temperature": {
+        "ambient": {
+          "Access Specifier": "R/O",
+          "Details": "Current Ambient Temperature. Supported by SX40, S8.",
+          "Name": "Ambient Temperature",
+          "Summary": "Current Ambient Temperature",
+          "Type": "Float (range: 0 - 200)"
+        },
+        "cpu": {
+          "Access Specifier": "R/O",
+          "Details": "Current temperature of the main CPU core. Supported by SX40, S8.",
+          "Name": "CPU Temperature",
+          "Summary": "Current main CPU temperature",
+          "Type": "Float (range: 0 - 200)"
+        },
+        "dsp": {
+          "Access Specifier": "R/O",
+          "Details": "Current Temperature of the DSP. Supported by M2, T1, S4.",
+          "Name": "DSP Temperature",
+          "Summary": "Current DSP Temperature",
+          "Type": "Float (range: 0 - 200)"
+        },
+        "ethernet": {
+          "copper": {
+            "a": {
+              "Access Specifier": "R/O",
+              "Details": "Current Temperature of Ethernet Copper Physical Interface A. Supported by SX40, S8.",
+              "Name": "Ethernet Copper Phy A Temperature",
+              "Summary": "Current Ethernet Copper Physical Interface A Temperature",
+              "Type": "Float (range: 0 - 200)"
+            },
+            "b": {
+              "Access Specifier": "R/O",
+              "Details": "Current Temperature of Ethernet Copper Physical Interface B. Supported by SX40, S8.",
+              "Name": "Ethernet Copper Phy B Temperature",
+              "Summary": "Current Ethernet Copper Physical Interface B Temperature",
+              "Type": "Float (range: 0 - 200)"
+            }
+          },
+          "sfp": {
+            "a": {
+              "Access Specifier": "R/O",
+              "Details": "Current Temperature of Ethernet SFP A. Supported by SX40, S8.",
+              "Name": "Ethernet SFP A Temperature",
+              "Summary": "Current Ethernet SFP A Temperature",
+              "Type": "Float (range: 0 - 200)"
+            },
+            "b": {
+              "Access Specifier": "R/O",
+              "Details": "Current Temperature of Ethernet SFP B. Supported by SX40, S8.",
+              "Name": "Ethernet SFP B Temperature",
+              "Summary": "Current Ethernet SFP B Temperature",
+              "Type": "Float (range: 0 - 200)"
+            },
+            "c": {
+              "Access Specifier": "R/O",
+              "Details": "Current Temperature of Ethernet SFP C. Supported by SX40, S8.",
+              "Name": "Ethernet SFP C Temperature",
+              "Summary": "Current Ethernet SFP C Temperature",
+              "Type": "Float (range: 0 - 200)"
+            },
+            "d": {
+              "Access Specifier": "R/O",
+              "Details": "Current Temperature of Ethernet SFP D. Supported by SX40, S8.",
+              "Name": "Ethernet SFP D Temperature",
+              "Summary": "Current Ethernet SFP D Temperature",
+              "Type": "Float (range: 0 - 200)"
+            }
+          }
+        },
+        "fpga": {
+          "Access Specifier": "R/O",
+          "Details": "Current temperature of the FPGA core. Supported by SX40, S8, M2.",
+          "Name": "FPGA Temperature",
+          "Summary": "Current FPGA temperature",
+          "Type": "Float (range: 0 - 200)"
+        },
+        "front": {
+          "Access Specifier": "R/O",
+          "Details": "Current Temperature of the Front Panel. Supported by M2.",
+          "Name": "Front Temperature",
+          "Summary": "Current Front Panel Temperature",
+          "Type": "Float (range: 0 - 200)"
+        },
+        "gpu": {
+          "Access Specifier": "R/O",
+          "Details": "Current Temperature of the GPU. Supported by SX40, S8.",
+          "Name": "GPU Temperature",
+          "Summary": "Current GPU Temperature",
+          "Type": "Float (range: 0 - 200)"
+        },
+        "main": {
+          "Access Specifier": "R/O",
+          "Details": "Current Temperature of the Main Board. Supported by SX40, S8.",
+          "Name": "Main Board Temperature",
+          "Summary": "Current Main Board Temperature",
+          "Type": "Float (range: 0 - 200)"
+        },
+        "psu": {
+          "Access Specifier": "R/O",
+          "Details": "Current Temperature of the PSU. Supported by SX40, S8.",
+          "Name": "PSU Temperature",
+          "Summary": "Current PSU Temperature",
+          "Type": "Float (range: 0 - 200)"
+        },
+        "rear": {
+          "Access Specifier": "R/O",
+          "Details": "Current Temperature of the Rear Panel. Supported by M2.",
+          "Name": "Rear Temperature",
+          "Summary": "Current Rear Panel Temperature",
+          "Type": "Float (range: 0 - 200)"
+        }
+      },
+      "uptime": {
+        "Access Specifier": "R/O",
+        "Details": "Time since processor boot in DDd HHh MMm SSs format",
+        "Name": "Uptime",
+        "Summary": "Current processor uptime",
+        "Type": "String"
+      }
+    }
+  }
+}
