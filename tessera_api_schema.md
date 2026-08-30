@@ -1,4 +1,5 @@
-Querying a processor with the ```override?help=1``` flag returns a handy, human readable, schema for reference. Below you can find what a Tessera SX40 v3.5.2 has available.
+# API schema returned from a Tessera SX40 v3.5.2
+### Querying a processor with the ```override?help=1``` flag returns a handy, human readable, schema for reference.
 
 ```bash
 curl -s 'http://172.17.90.81/api/override?help=1' | jq .
