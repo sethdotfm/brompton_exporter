@@ -8,12 +8,7 @@ Tested against Tessera SX40 processors running firmware **3.5.2**.
 
 ## Quick start
 
-```bash
-pip install pyyaml
-python tessera_exporter.py --web.listen-address :19800
-```
-
-Or with Docker Compose — edit `targets/tessera.yml` with your processor IPs and run:
+Edit `targets/tessera.yml` with your processor IPs and run:
 
 ```bash
 docker compose up
@@ -26,10 +21,10 @@ docker compose up
 Add your processors to `targets/tessera.yml`. Prometheus picks up changes to this file automatically with no reload needed.
 
 ```yaml
-- targets: ["192.0.2.10"]
+- targets: ["192.2.0.50"]
   labels:
-    site: "studio-a"
-    location: "LED WALL LEFT"
+    site: "STUDIO-1"
+    location: "MAIN"
 ```
 
 Add to `prometheus.yml`:
@@ -69,13 +64,13 @@ volumes:
 
 **IP control must be enabled on each processor.** Go to the Live Control tile in the Tessera UI and enable IP control for the loaded project. If `/probe` returns `tessera_up 0` with `reason="ip_control_disabled"`, this is why.
 
-**Keep scrape_interval at 30s.** Brompton warns that frequent polling may cause adverse performance on live video hardware.
+**Start with scrape_interval at 30s.** Brompton warns that frequent polling may cause "adverse performance" on the Tessera hardware. I have been able to push this much harder, but your milage may vary.
 
-**`/metrics` will look empty.** Processor data is on `/probe`. `/metrics` is exporter self-instrumentation only. Use `/probe?target=192.0.2.10&debug=1` for a human-readable summary of a single scrape.
+**`/metrics` may look empty.** Processor data is on `/probe`. `/metrics` is exporter self-instrumentation only. Use `/probe?target=192.0.2.10&debug=1` for a human-readable summary of a single scrape.
 
 ---
 
-## Not available via the API
+## Not currently available via the API
 
 The Tessera IP Control API (3.5.2) sadly does not currently expose per-panel telemetry. `devices/items/{serial}` provides only `firmware` and `type`. Panel temperature, voltage, and per-panel error detail are visible in the Tessera UI but are not queryable via IP control.
 
@@ -83,4 +78,4 @@ The Tessera IP Control API (3.5.2) sadly does not currently expose per-panel tel
 
 ## Disclosure
 
-Parts of this code were written or assisted by generative large language models. The structure of this project, as well as all READMEs and docs, have been written entirely by hand, but some models were used to assist with the writing of code.
+Parts of this code were written or assisted by generative large language models. The structure of this project, as well as all READMEs and docs, have been written entirely by hand.
