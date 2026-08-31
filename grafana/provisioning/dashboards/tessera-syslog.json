@@ -67,9 +67,7 @@
         "datasource": { "type": "prometheus", "uid": "prometheus" },
         "query": "label_values(tessera_info{serial=~\"$serial\", processor_name=~\"$processor_name\", processor_type=~\"$processor_type\", software_version=~\"$software_version\", project=~\"$project\"}, instance)",
         "refresh": 2,
-        "multi": true,
-        "includeAll": true,
-        "allValue": ".*"
+        "multi": true
       }
     ]
   },
@@ -89,7 +87,7 @@
         {
           "refId": "A",
           "datasource": { "type": "loki", "uid": "loki" },
-          "expr": "{job=\"tessera_syslog\", connection_ip_address=~\"${instance:regex}\"}"
+          "expr": "{job=\"tessera_syslog\", connection_ip_address=~\"^(${instance:pipe})$\"}"
         }
       ]
     }
