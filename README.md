@@ -28,6 +28,83 @@ provided `prometheus.yml`.
 
 ---
 
+## Adding to an existing Prometheus installation
+
+### 1. Run the exporter
+
+```bash
+docker run -d \
+  --name tessera-exporter \
+  -p 19800:19800 \
+  -v /etc/tessera_targets:/app/targets:ro \
+  ghcr.io/your-org/brompton_exporter:latest
+```
+
+Or with Docker Compose, add to your existing `compose.yml`:
+
+```yaml
+services:
+  tessera-exporter:
+    image: ghcr.io/your-org/brompton_exporter:latest
+    ports:
+      - "19800:19800"
+    volumes:
+      - ./targets:/app/targets:ro
+    restart: unless-stopped
+```
+
+### 2. Create a targets file
+
+Create `targets/tessera.yml` (Prometheus reloads this automatically — no restart needed when adding or removing processors):
+
+```yaml
+- targets: ["192.0.2.10"]
+  labels:
+    site: "studio-a"
+    location: "LED WALL LEFT"
+
+- targets: ["192.0.2.11"]
+  labels:
+    site: "studio-a"
+    location: "LED WALL RIGHT"
+```
+
+### 3. Add to `prometheus.yml`
+
+```yaml
+scrape_configs:
+  - job_name: tessera
+    scrape_interval: 30s
+    metrics_path: /probe
+    file_sd_configs:
+      - files:
+          - /etc/prometheus/tessera_targets/*.yml
+        refresh_interval: 30s
+    relabel_configs:
+      - source_labels: [__address__]
+        target_label: __param_target
+      - source_labels: [__param_target]
+        target_label: instance
+        regex: "([^:]+)(:\\d+)?"
+        replacement: "$1"
+      - target_label: __address__
+        replacement: "tessera-exporter:19800"   # hostname of the exporter container
+
+  # Exporter self-metrics (optional but useful for health checks)
+  - job_name: tessera_exporter
+    static_configs:
+      - targets: ["tessera-exporter:19800"]
+```
+
+Mount the targets directory into your Prometheus container:
+
+```yaml
+volumes:
+  - ./targets:/etc/prometheus/tessera_targets:ro
+```
+
+---
+
 ## Prerequisites
 
 ### IP control must be enabled on each processor

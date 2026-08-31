@@ -1,8 +1,34 @@
-- targets:
-    - "172.17.90.81"
-    - "172.17.90.82"
-    - "172.17.90.83"
-    - "172.17.90.84"
-    - "172.17.90.91"
+# Tessera processor targets for Prometheus file_sd.
+# Edit this file to add/remove processors without touching prometheus.yaml.
+# Prometheus picks up changes automatically (no reload needed).
+#
+# Format:
+#   - targets: ["<ip>"]          # bare IP uses default port 80
+#     labels:
+#       site: "<site-id>"
+#       location: "<human label>"
+
+- targets: ["172.17.90.81"]
+  labels:
+    site: "studio-1"
+    location: "MAIN LEFT"
+
+- targets: ["172.17.90.82"]
+  labels:
+    site: "studio-1"
+    location: "MAIN RIGHT"
+
+- targets: ["172.17.90.83"]
+  labels:
+    site: "studio-1"
+    location: "MAIN FLOOR"
+
+- targets: ["172.17.90.84"]
+  labels:
+    site: "studio-1"
+    location: "MAIN SPARE"
+
+- targets: ["172.17.90.91"]
   labels:
     site: "studio-2"
+    location: "STUDIO 2"
