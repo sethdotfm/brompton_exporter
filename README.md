@@ -6,6 +6,12 @@ Tested against Tessera SX40 processors running firmware **3.5.2**.
 
 ---
 
+## Disclosure
+
+Parts of this code have been created or assisted by generative large language models. The structure of this project, as well as all READMEs and docs, have been written entirely by hand.
+
+---
+
 ## Quick start
 
 Edit `targets/tessera.yml` with your processor IPs and run:
@@ -80,8 +86,3 @@ volumes:
 
 The Tessera IP Control API (3.5.2) sadly does not currently expose per-panel telemetry. `devices/items/{serial}` provides only `firmware` and `type`. Panel temperature, voltage, and per-panel error detail are visible in the Tessera UI but are not queryable via IP control.
 
----
-
-## Disclosure
-
-Parts of this code were written or assisted by generative large language models. The structure of this project, as well as all READMEs and docs, have been written entirely by hand.
