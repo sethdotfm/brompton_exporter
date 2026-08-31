@@ -1,0 +1,11 @@
+# tessera_exporter grafana/provisioning/dashboards/dashboards.yaml // Version 1.0
+# https://github.com/sethdotfm/tessera_exporter
+apiVersion: 1
+
+providers:
+  - name: tessera_exporter
+    type: file
+    updateIntervalSeconds: 30
+    allowUiUpdates: true
+    options:
+      path: /etc/grafana/provisioning/dashboards
