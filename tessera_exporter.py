@@ -370,7 +370,7 @@ def build_metrics(
                 numeric_value = numeric_value * scale
 
         # ── Sanitise labels ────────────────────────────────────────────────
-        labels = {name: val for name, val in (raw_labels or [])}
+        labels = {**identity_labels, **{name: val for name, val in (raw_labels or [])}}
 
         # ── Info metrics: move value into label ────────────────────────────
         # Also demote to info if schema says gauge but firmware returned a string
