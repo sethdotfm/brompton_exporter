@@ -1,0 +1,165 @@
+# tessera_exporter configuration
+# Pinned to Tessera firmware 3.5.2. Review after any firmware upgrade.
+#
+# Note: disabling a collector does NOT reduce load on the processor.
+# The full /api/ tree is always fetched. Collector flags only reduce
+# what is forwarded to Prometheus and stored.
+
+collectors:
+  system: true      # processor temps, fans, identity (serial, name, type, version)
+  input: true       # signal present, resolution, refresh rate, proc-amp
+  output: true      # brightness, gamma, genlock, shuttersync, failover, cable loops
+  override: true    # blackout, freeze, test pattern
+  presets: true     # active preset number and name
+  project: true     # project name (included in tessera_info)
+  processing: true  # 3D LUT, curves, colour correct
+  groups: true      # per-group overrides
+  devices: true     # per-panel firmware/type
+
+# Override collector settings for specific paths (glob patterns, / is not special in *).
+# include takes priority over collector off; exclude takes priority over collector on.
+include: []
+  # - "devices/statistics/*"   # enable panel counts even with devices: false
+
+exclude: []
+  # - "output/network/hidden-markers/**"  # example: suppress noisy hidden-marker fields
+
+# Unit suffixes and scale factors. Path globs matched against the value path
+# (api prefix stripped). First matching entry wins.
+# name: suffix appended to the metric name
+# scale: multiply the raw value by this factor before emitting (default 1.0)
+#
+# Units not in the API schema are derived from the firmware 3.5.2 PDF.
+# Update this section when upgrading firmware.
+suffix:
+  # Temperatures
+  "system/temperature/*":
+    name: "_celsius"
+
+  # Fan speeds
+  "system/fan/*/speed":
+    name: "_rpm"
+
+  # Time fields
+  "output/network/shuttersync/dark-time":
+    name: "_milliseconds"   # raw value is already in ms; keep as ms to avoid false precision
+
+  "output/network/shuttersync/sensor-readout-time":
+    name: "_microseconds"
+
+  "output/network/shuttersync/speed-settings/time":
+    name: "_seconds"
+
+  "output/network/failover/state/partner-absence-duration":
+    name: "_seconds"
+
+  "output/network/failover/state/partner-video-absence-duration":
+    name: "_seconds"
+
+  "override/blackout/fade-time":
+    name: "_seconds"
+
+  # Frequency
+  "output/network/genlock/internal-rate":
+    name: "_hertz"
+
+  "input/ports/*/meta-data/refresh-rate":
+    name: "_hertz"
+
+  # Angle
+  "output/network/shuttersync/angle-settings/shutter-angle":
+    name: "_degrees"
+
+  # Phase offset
+  "output/network/genlock/phase-offset/absolute/lines":
+    name: "_lines"
+
+  "output/network/genlock/phase-offset/absolute/pixels":
+    name: "_pixels"
+
+  # Percentage fields: raw 0-100 (or 0-200) -> 0-1 ratio
+  # proc-amp fields are 0-200 (percent), e.g. contrast=150 means 150%
+  "input/ports/*/proc-amp/*":
+    name: "_ratio"
+    scale: 0.01
+
+  "output/dynacal/*/luminance-only-fraction":
+    name: "_ratio"
+    scale: 0.01
+
+  "output/network/shuttersync/dark-time-percentage":
+    name: "_ratio"
+    scale: 0.01
+
+  "output/network/hidden-markers/background-gain":
+    name: "_ratio"
+    scale: 0.01
+
+  "output/network/hidden-markers/custom/marker-gain/*":
+    name: "_ratio"
+    scale: 0.01
+
+  "output/network/hidden-markers/redspy/marker-gain":
+    name: "_ratio"
+    scale: 0.01
+
+  "output/network/hidden-markers/startracker/*/marker-gain":
+    name: "_ratio"
+    scale: 0.01
+
+  "output/network/startracker/background-gain":
+    name: "_ratio"
+    scale: 0.01
+
+  "output/network/startracker/*/marker-gain":
+    name: "_ratio"
+    scale: 0.01
+
+# Sentinel values: numeric values returned when a field is not applicable
+# (e.g. no input signal). These produce NaN in the metric rather than a
+# misleading number. Do not use a general "if value == -1: skip" rule —
+# the firmware is inconsistent across units and across fields.
+sentinels:
+  "input/ports/*/meta-data/refresh-rate": [-1]
+  "input/ports/*/meta-data/resolution/height": [-1, 0]
+  "input/ports/*/meta-data/resolution/width": [-1, 0]
+
+# Gated fields — documented here for reference; see docs/gated_fields.md
+# for PromQL join patterns. The exporter always exports BOTH gate and gated
+# fields so operators can observe the firmware state directly.
+#
+# gate: field whose value determines whether the gated field is active
+# gated: field whose value is semantically meaningless when the gate is inactive
+gated_fields:
+  - gate: "*/dynacal/white/gamut"
+    gated: "*/dynacal/white/colour-temperature"
+    note: >
+      colour-temperature is a leftover value when gamut != 'colour-temperature'.
+      PromQL: tessera_..._colour_temperature_kelvin and on(instance,port)
+      (tessera_..._gamut_info{value="colour-temperature"} == 1)
+
+  - gate: "output/network/shuttersync/dark-time-mode"
+    gated: "output/network/shuttersync/dark-time"
+    note: >
+      dark-time (ms) is active only when dark-time-mode == 'time'.
+      dark-time-percentage is active when dark-time-mode == 'percentage'.
+
+  - gate: "output/network/shuttersync/mode"
+    gated:
+      - "output/network/shuttersync/speed-settings/*"
+      - "output/network/shuttersync/angle-settings/*"
+    note: >
+      speed-settings active when mode == 'shutter-speed';
+      angle-settings active when mode == 'shutter-angle'.
+
+  - gate: "output/global-colour/brightness-limit/enabled"
+    gated: "output/global-colour/brightness-limit/value"
+
+  - gate: "output/network/shuttersync/angle-settings/use-custom-frame-rate"
+    gated: "output/network/shuttersync/angle-settings/custom-frame-rate"
+
+  - gate: "output/dynacal/*/mode"
+    gated: "output/dynacal/*/{red,green,blue}/mode"
+    note: >
+      Per-channel mode is active only when panel mode == 'custom'.
+      Note: firmware may return '???' for per-channel mode regardless of panel mode.

@@ -1,0 +1,463 @@
+{
+  "api": {
+    "devices": {
+      "items": {
+        "C3D4E5F6A1B2": {"firmware": "3.5.2", "type": "RM1.5"},
+        "D4E5F6A1B2C3": {"firmware": "unknown", "type": "unknown"}
+      },
+      "statistics": {
+        "associated-count": 640,
+        "error-count": 2,
+        "online-count": 638
+      }
+    },
+    "groups": {
+      "items": {
+        "1": {
+          "brightness": 7000,
+          "brightness-limit": {"enabled": true, "value": 8000},
+          "colour-temperature": 5600,
+          "dark-magic": {"enabled": false},
+          "extended-bit-depth": {"enabled": true},
+          "gains": {"blue": 98.5, "green": 100.0, "intensity": 100.0, "red": 101.2},
+          "gamma": 2.4,
+          "global-colour-override": false,
+          "global-gains-override": false,
+          "global-startracker-override": false,
+          "name": "Stage Left",
+          "overdrive": {"enabled": false},
+          "puretone": {"enabled": false},
+          "startracker": {"enabled": false}
+        },
+        "2": {
+          "brightness": 7000,
+          "brightness-limit": {"enabled": true, "value": 8000},
+          "colour-temperature": 5600,
+          "dark-magic": {"enabled": false},
+          "extended-bit-depth": {"enabled": true},
+          "gains": {"blue": 98.5, "green": 100.0, "intensity": 100.0, "red": 101.2},
+          "gamma": 2.4,
+          "global-colour-override": false,
+          "global-gains-override": false,
+          "global-startracker-override": false,
+          "name": "Stage Right",
+          "overdrive": {"enabled": false},
+          "puretone": {"enabled": false},
+          "startracker": {"enabled": false}
+        }
+      }
+    },
+    "input": {
+      "active": {
+        "source": {"port-number": 1, "port-type": "sdi"}
+      },
+      "ports": {
+        "sdi": {
+          "1": {
+            "controls": {
+              "colour-space": {"colour": "rec-2020"},
+              "hdr": {
+                "format": "perceptual-quantiser",
+                "pq": {
+                  "auto-brighten": true,
+                  "gain": 1.0,
+                  "max-cll-override": {"enabled": false, "luminance": 1000}
+                }
+              }
+            },
+            "dynacal": {
+              "blue": {"gamut": "rec-2020", "x": 0.131, "y": 0.046},
+              "green": {"gamut": "rec-2020", "x": 0.170, "y": 0.797},
+              "red": {"gamut": "rec-2020", "x": 0.708, "y": 0.292},
+              "white": {"colour-temperature": 5600, "gamut": "d65", "x": 0.3127, "y": 0.329}
+            },
+            "meta-data": {
+              "refresh-rate": -1,
+              "resolution": {"height": -1, "width": -1}
+            },
+            "proc-amp": {
+              "black-level": 100,
+              "contrast": 100,
+              "hue": 0,
+              "saturation": 100,
+              "highlight": {"blue": 100, "green": 100, "red": 100},
+              "shadow": {"blue": 0, "green": 0, "red": 0}
+            }
+          },
+          "2": {
+            "controls": {
+              "colour-space": {"colour": "rec-709"},
+              "hdr": {
+                "format": "standard-dynamic-range",
+                "pq": {
+                  "auto-brighten": false,
+                  "gain": 1.0,
+                  "max-cll-override": {"enabled": false, "luminance": 1000}
+                }
+              }
+            },
+            "dynacal": {
+              "blue": {"gamut": "rec-709", "x": 0.150, "y": 0.060},
+              "green": {"gamut": "rec-709", "x": 0.265, "y": 0.690},
+              "red": {"gamut": "rec-709", "x": 0.680, "y": 0.320},
+              "white": {"colour-temperature": 5600, "gamut": "d65", "x": 0.3127, "y": 0.329}
+            },
+            "meta-data": {
+              "refresh-rate": -1,
+              "resolution": {"height": -1, "width": -1}
+            },
+            "proc-amp": {
+              "black-level": 100,
+              "contrast": 100,
+              "hue": 0,
+              "saturation": 100,
+              "highlight": {"blue": 100, "green": 100, "red": 100},
+              "shadow": {"blue": 0, "green": 0, "red": 0}
+            }
+          }
+        },
+        "hdmi": {
+          "1": {
+            "controls": {
+              "colour-space": {
+                "colour": "rec-709",
+                "info-frame-override-enabled": false
+              },
+              "hdmi-colour-format": "rgb",
+              "hdr": {
+                "format": "standard-dynamic-range",
+                "pq": {
+                  "auto-brighten": false,
+                  "gain": 1.0,
+                  "max-cll-override": {"enabled": false, "luminance": 1000}
+                }
+              },
+              "quantisation-range": "limited"
+            },
+            "dynacal": {
+              "blue": {"gamut": "rec-709", "x": 0.150, "y": 0.060},
+              "green": {"gamut": "rec-709", "x": 0.265, "y": 0.690},
+              "red": {"gamut": "rec-709", "x": 0.680, "y": 0.320},
+              "white": {"colour-temperature": 6500, "gamut": "rec-709", "x": 0.3127, "y": 0.329}
+            },
+            "meta-data": {
+              "bit-depth": 8,
+              "hdr": {"format": "standard-dynamic-range"},
+              "refresh-rate": -1,
+              "resolution": {"height": -1, "width": -1},
+              "sampling": "444"
+            },
+            "proc-amp": {
+              "black-level": 100,
+              "contrast": 100,
+              "hue": 0,
+              "saturation": 100,
+              "highlight": {"blue": 100, "green": 100, "red": 100},
+              "shadow": {"blue": 0, "green": 0, "red": 0}
+            }
+          }
+        },
+        "dvi": {
+          "1": {
+            "controls": {
+              "colour-space": {"colour": "rec-709"},
+              "dvi-colour-format": "rgb"
+            },
+            "dynacal": {
+              "blue": {"gamut": "rec-709", "x": 0.150, "y": 0.060},
+              "green": {"gamut": "rec-709", "x": 0.265, "y": 0.690},
+              "red": {"gamut": "rec-709", "x": 0.680, "y": 0.320},
+              "white": {"colour-temperature": 6500, "gamut": "rec-709", "x": 0.3127, "y": 0.329}
+            },
+            "meta-data": {
+              "refresh-rate": -1,
+              "resolution": {"height": -1, "width": -1}
+            },
+            "proc-amp": {
+              "black-level": 100,
+              "contrast": 100,
+              "hue": 0,
+              "saturation": 100,
+              "highlight": {"blue": 100, "green": 100, "red": 100},
+              "shadow": {"blue": 0, "green": 0, "red": 0}
+            }
+          }
+        }
+      }
+    },
+    "output": {
+      "dynacal": {
+        "rm1.5-j1-f1-5754-la24121": {
+          "blue": {"mode": "???", "x": 0.150, "y": 0.060},
+          "green": {"mode": "???", "x": 0.265, "y": 0.690},
+          "luminance-only-fraction": 0,
+          "mode": "achievable",
+          "red": {"mode": "???", "x": 0.680, "y": 0.320}
+        }
+      },
+      "global-colour": {
+        "brightness": 7000,
+        "brightness-limit": {"enabled": true, "value": 8000},
+        "colour-temperature": 5600,
+        "dark-magic": {"enabled": false},
+        "dynacal": {
+          "highlight-out-of-gamut-pixels-enabled": false,
+          "highlight-overbright-pixels-enabled": false
+        },
+        "extended-bit-depth": {"enabled": true},
+        "gains": {"blue": 98.5, "green": 100.0, "intensity": 100.0, "red": 101.2},
+        "gamma": 2.4,
+        "overdrive": {"enabled": false},
+        "puretone": {"enabled": false}
+      },
+      "network": {
+        "bit-depth": 10,
+        "cable-redundancy": {
+          "loops": {
+            "0": {"state": "loop-found: A1->B1"},
+            "1": {"state": "no-loop-found: No connection"},
+            "2": {"state": "no-loop-found: No connection"},
+            "3": {"state": "no-loop-found: No connection"}
+          }
+        },
+        "failover": {
+          "actions": {"request-failover": null},
+          "settings": {
+            "enabled": true,
+            "modes": {
+              "on-button-press": "failover",
+              "on-partner-fail": "failover",
+              "on-partner-video-fail": "failover",
+              "prefer-primary": true
+            },
+            "role": "primary"
+          },
+          "state": {
+            "is-active": false,
+            "is-partner-present": true,
+            "partner-absence-duration": 0.0,
+            "partner-name": "Stage Backup",
+            "partner-serial": "033401",
+            "partner-video-absence-duration": 0.0
+          }
+        },
+        "frame-rate-multiplier": 1,
+        "frame-remapping": {
+          "enabled": false,
+          "frames": {
+            "1": {"blue": 0, "green": 0, "mode": "off", "red": 0, "x-offset": 0, "y-offset": 0}
+          }
+        },
+        "genlock": {
+          "internal-rate": 50.0,
+          "phase-offset": {
+            "absolute": {"lines": 0, "pixels": 0},
+            "angle": 0.0,
+            "fraction": 0.0,
+            "mode": "angle"
+          },
+          "source": "internal"
+        },
+        "hidden-markers": {
+          "background-gain": 0,
+          "blackout-affects-markers": false,
+          "closed-shutter-markers": false,
+          "custom": {
+            "data": "",
+            "filename": "",
+            "marker-gain": {"blue": 100, "green": 100, "red": 100},
+            "scaling": 100
+          },
+          "enabled": false,
+          "frames-enabled-on": 1,
+          "mode": "startracker",
+          "redspy": {
+            "distance-to-tracker": 5.0,
+            "marker-gain": 80,
+            "marker-seed": 1,
+            "marker-size-scaler": 100
+          },
+          "startracker": {
+            "blue": {
+              "distance-to-tracker": 5.0,
+              "enabled": true,
+              "marker-gain": 80,
+              "marker-seed": 1,
+              "marker-size-scaler": 100
+            },
+            "green": {
+              "distance-to-tracker": 5.0,
+              "enabled": true,
+              "marker-gain": 80,
+              "marker-seed": 2,
+              "marker-size-scaler": 100
+            },
+            "red": {
+              "distance-to-tracker": 5.0,
+              "enabled": true,
+              "marker-gain": 80,
+              "marker-seed": 3,
+              "marker-size-scaler": 100
+            }
+          }
+        },
+        "shuttersync": {
+          "angle-settings": {
+            "custom-frame-rate": null,
+            "shutter-angle": 180.0,
+            "use-custom-frame-rate": false
+          },
+          "dark-time": 2.5,
+          "dark-time-mode": "time",
+          "dark-time-percentage": 12.5,
+          "insert-dark-time": false,
+          "mode": "disabled",
+          "prioritise-refresh-rate": false,
+          "sensor-readout-time": 8.0,
+          "sensor-type": "rolling",
+          "speed-settings": {"shutter-speed": 50, "time": 0.02},
+          "viewer": "camera"
+        },
+        "startracker": {
+          "background-gain": 0,
+          "blackout-affects-markers": false,
+          "blue": {
+            "distance-to-tracker": 5.0,
+            "enabled": true,
+            "marker-gain": 80,
+            "marker-size-scaler": 100,
+            "star-map-seed": 1
+          },
+          "enabled": false,
+          "frames-enabled-on": 1,
+          "green": {
+            "distance-to-tracker": 5.0,
+            "enabled": true,
+            "marker-gain": 80,
+            "marker-size-scaler": 100,
+            "star-map-seed": 2
+          },
+          "red": {
+            "distance-to-tracker": 5.0,
+            "enabled": true,
+            "marker-gain": 80,
+            "marker-size-scaler": 100,
+            "star-map-seed": 3
+          }
+        }
+      }
+    },
+    "override": {
+      "blackout": {"enabled": false, "fade-time": 1.0},
+      "freeze": {"enabled": false},
+      "test-pattern": {
+        "custom-colour": {"blue": 0, "green": 0, "red": 0},
+        "custom-gradient": {
+          "end-colour": {"blue": 255, "green": 255, "red": 255},
+          "orientation": "horizontal",
+          "start-colour": {"blue": 0, "green": 0, "red": 0}
+        },
+        "enabled": false,
+        "format": "standard-dynamic-range",
+        "frame-store": {
+          "frames": {
+            "7": {
+              "colour-space": "rec-709",
+              "enable-alpha": false,
+              "format": "standard-dynamic-range",
+              "name": "LogoCapture",
+              "scaling-mode": "fit"
+            }
+          }
+        },
+        "restrict-to-achievable-colours": false,
+        "type": 1
+      }
+    },
+    "presets": {
+      "active": {"name": "Show Config", "number": 1},
+      "items": {
+        "1": {"name": "Show Config", "status": "loaded"},
+        "2": {"name": "Camera Check", "status": "available"},
+        "80": {"name": "80", "status": "available"}
+      }
+    },
+    "processing": {
+      "3d-lut": {"data": "", "enabled": false, "filename": "", "strength": 100.0},
+      "colour-correct": {
+        "black": {"blue": 0.0, "green": 0.0, "red": 0.0},
+        "blue": {"brightness": 0.0, "hue": 0.0, "saturation": 0.0},
+        "cobalt": {"brightness": 0.0, "hue": 0.0, "saturation": 0.0},
+        "crimson": {"brightness": 0.0, "hue": 0.0, "saturation": 0.0},
+        "cyan": {"brightness": 0.0, "hue": 0.0, "saturation": 0.0},
+        "enabled": false,
+        "green": {"brightness": 0.0, "hue": 0.0, "saturation": 0.0},
+        "lime": {"brightness": 0.0, "hue": 0.0, "saturation": 0.0},
+        "magenta": {"brightness": 0.0, "hue": 0.0, "saturation": 0.0},
+        "orange": {"brightness": 0.0, "hue": 0.0, "saturation": 0.0},
+        "red": {"brightness": 0.0, "hue": 0.0, "saturation": 0.0},
+        "turquoise": {"brightness": 0.0, "hue": 0.0, "saturation": 0.0},
+        "violet": {"brightness": 0.0, "hue": 0.0, "saturation": 0.0},
+        "white": {"blue": 0.0, "green": 0.0, "red": 0.0},
+        "yellow": {"brightness": 0.0, "hue": 0.0, "saturation": 0.0}
+      },
+      "colour-replace": {
+        "apply-to-brightness": false,
+        "apply-to-hue": true,
+        "apply-to-saturation": true,
+        "brightness-tolerance": 20.0,
+        "colour-from": {"blue": 0, "green": 0, "red": 255},
+        "colour-to": {"blue": 0, "green": 255, "red": 0},
+        "colour-tolerance": 20.0,
+        "enabled": false,
+        "method": "hue",
+        "softness": 10.0,
+        "strength": 100.0,
+        "view-matte": false
+      },
+      "curves": {
+        "blue": {"points": [{"x": "0.000", "y": "0.000"}, {"x": "1.000", "y": "1.000"}]},
+        "enabled": false,
+        "green": {"points": [{"x": "0.000", "y": "0.000"}, {"x": "1.000", "y": "1.000"}]},
+        "red": {"points": [{"x": "0.000", "y": "0.000"}, {"x": "1.000", "y": "1.000"}]},
+        "white": {"points": [{"x": "0.000", "y": "0.000"}, {"x": "1.000", "y": "1.000"}]}
+      },
+      "osca": {"module-correction-enabled": false, "seam-correction-enabled": false},
+      "scaler": {"enabled": false}
+    },
+    "project": {
+      "name": "ShowConfig_2026"
+    },
+    "system": {
+      "actions": {"reboot": null, "shutdown": null},
+      "current-date-time": "2026-08-31T19:15:00",
+      "fan": {
+        "case": {
+          "one": {"speed": 2100.0, "status": true},
+          "two": {"speed": 2080.0, "status": true}
+        },
+        "fpga": {"speed": 2800.0, "status": true}
+      },
+      "processor-name": "Stage Main",
+      "processor-type": "sx40",
+      "serial-number": "022582",
+      "software-version": "3.5.2.15",
+      "temperature": {
+        "ambient": 32.1,
+        "cpu": 51.4,
+        "dsp": 58.7,
+        "ethernet": {
+          "copper": {"a": 39.2, "b": 38.8},
+          "sfp": {"a": 40.1, "b": 40.3, "c": 41.0, "d": 40.7}
+        },
+        "fpga": 54.3,
+        "front": 35.0,
+        "gpu": 61.2,
+        "main": 46.5,
+        "psu": 42.1,
+        "rear": 38.9
+      },
+      "uptime": "50d 1215h 71607m 4294997s"
+    }
+  }
+}
