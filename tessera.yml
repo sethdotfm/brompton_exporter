@@ -1,9 +1,7 @@
-# tessera_exporter configuration
-# Pinned to Tessera firmware 3.5.2. Review after any firmware upgrade.
+# tessera_exporter CONFIGURATION FILE // Version 1.0
+# https://github.com/sethdotfm/tessera_exporter
 #
-# Note: disabling a collector does NOT reduce load on the processor.
-# The full /api/ tree is always fetched. Collector flags only reduce
-# what is forwarded to Prometheus and stored.
+# Note: disabling a collector does NOT reduce load on the processor or the exporter. All endpoints are fetched, then filtered according to this config.
 
 collectors:
   system: true      # processor temps, fans, identity (serial, name, type, version)
@@ -16,33 +14,29 @@ collectors:
   groups: true      # per-group overrides
   devices: true     # per-panel firmware/type
 
-# Override collector settings for specific paths (glob patterns, / is not special in *).
-# include takes priority over collector off; exclude takes priority over collector on.
+# Override collector settings for specific paths.
+# 'include' takes priority over turning a collector off. 'exclude' takes priority over turning a collector on.
 include: []
-  # - "devices/statistics/*"   # enable panel counts even with devices: false
+  # - "devices/statistics/*"   # e.g. Would enable panel counts even with devices: false
 
 exclude: []
-  # - "output/network/hidden-markers/**"  # example: suppress noisy hidden-marker fields
+  # - "output/network/hidden-markers/**"  # e.g. Suppresses noisy hidden-marker fields
 
-# Unit suffixes and scale factors. Path globs matched against the value path
-# (api prefix stripped). First matching entry wins.
+
+# Unit suffixes and scale factors. Path globs matched against the prefix-stripped value path. First match wins.
 # name: suffix appended to the metric name
 # scale: multiply the raw value by this factor before emitting (default 1.0)
-#
-# Units not in the API schema are derived from the firmware 3.5.2 PDF.
-# Update this section when upgrading firmware.
+
+# Units not in the API schema are derived from the 'TesseraIPControl' 3.5.2 PDF available from Brompton.
 suffix:
-  # Temperatures
   "system/temperature/*":
     name: "_celsius"
 
-  # Fan speeds
   "system/fan/*/speed":
     name: "_rpm"
 
-  # Time fields
   "output/network/shuttersync/dark-time":
-    name: "_milliseconds"   # raw value is already in ms; keep as ms to avoid false precision
+    name: "_milliseconds"
 
   "output/network/shuttersync/sensor-readout-time":
     name: "_microseconds"
@@ -59,26 +53,23 @@ suffix:
   "override/blackout/fade-time":
     name: "_seconds"
 
-  # Frequency
   "output/network/genlock/internal-rate":
     name: "_hertz"
 
   "input/ports/*/meta-data/refresh-rate":
     name: "_hertz"
 
-  # Angle
   "output/network/shuttersync/angle-settings/shutter-angle":
     name: "_degrees"
 
-  # Phase offset
   "output/network/genlock/phase-offset/absolute/lines":
     name: "_lines"
 
   "output/network/genlock/phase-offset/absolute/pixels":
     name: "_pixels"
 
-  # Percentage fields: raw 0-100 (or 0-200) -> 0-1 ratio
-  # proc-amp fields are 0-200 (percent), e.g. contrast=150 means 150%
+  # Percentage fields which return raw 0-100 (or 0-200) -> 0-1 ratio
+  # 'proc-amp' fields are 0-200 (percent), e.g. contrast=150 means 150%
   "input/ports/*/proc-amp/*":
     name: "_ratio"
     scale: 0.01
@@ -115,19 +106,14 @@ suffix:
     name: "_ratio"
     scale: 0.01
 
-# Sentinel values: numeric values returned when a field is not applicable
-# (e.g. no input signal). These produce NaN in the metric rather than a
-# misleading number. Do not use a general "if value == -1: skip" rule —
-# the firmware is inconsistent across units and across fields.
+# Sentinel values: numeric values returned when a field is not applicable (e.g. no input signal).
+# These produce NaN in the metric rather than a misleading number. Do not use a general "if value == -1: skip" rule because the firmware is inconsistent across units and across fields.
 sentinels:
   "input/ports/*/meta-data/refresh-rate": [-1]
   "input/ports/*/meta-data/resolution/height": [-1, 0]
   "input/ports/*/meta-data/resolution/width": [-1, 0]
 
-# Gated fields — documented here for reference; see docs/gated_fields.md
-# for PromQL join patterns. The exporter always exports BOTH gate and gated
-# fields so operators can observe the firmware state directly.
-#
+# Gated fields
 # gate: field whose value determines whether the gated field is active
 # gated: field whose value is semantically meaningless when the gate is inactive
 gated_fields:

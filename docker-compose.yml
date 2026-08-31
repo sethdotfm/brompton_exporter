@@ -1,4 +1,7 @@
+# tessera_exporter DOCKER COMPOSE // Version 1.0
+# https://github.com/sethdotfm/tessera_exporter
 services:
+#   ▼▼▼ ADD THESE LINES TO YOUR DOCKER COMPOSE FILE'S 'services:' SECTION ▼▼▼
   tessera-exporter:
     build: .
     ports:
@@ -7,6 +10,7 @@ services:
       - ./tessera.yml:/app/tessera.yml:ro
       - ./targets:/app/targets:ro
     restart: unless-stopped
+#   ▲▲▲ That's it! ▲▲▲
 
   prometheus:
     image: prom/prometheus:latest

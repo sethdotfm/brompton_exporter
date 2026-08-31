@@ -1,3 +1,5 @@
+# tessera_exporter SCHEMA WALKER // Version 1.0
+# https://github.com/sethdotfm/tessera_exporter
 """Schema loading and path matching for the Tessera API (firmware 3.5.2)."""
 
 from __future__ import annotations

@@ -1,3 +1,5 @@
+# tessera_exporter // Version 1.0
+# https://github.com/sethdotfm/tessera_exporter
 #!/usr/bin/env python3
 """Prometheus exporter for Brompton Tessera LED processors.
 
@@ -32,8 +34,7 @@ import schema as _schema
 VERSION = "0.1.0"
 _DEFAULT_CONFIG = Path(__file__).parent / "tessera.yml"
 
-# Fields folded into tessera_info instead of individual metrics.
-# These provide processor identity for join queries.
+# Fields folded into tessera_info instead of individual metrics. Provide processor identity for join queries.
 _IDENTITY_FIELDS: dict[str, str] = {
     "system/serial-number": "serial",
     "system/processor-name": "processor_name",
@@ -42,9 +43,7 @@ _IDENTITY_FIELDS: dict[str, str] = {
     "project/name": "project",
 }
 
-# ---------------------------------------------------------------------------
 # Config
-# ---------------------------------------------------------------------------
 
 def load_config(path: Optional[str] = None) -> dict:
     p = Path(path) if path else _DEFAULT_CONFIG
@@ -52,9 +51,7 @@ def load_config(path: Optional[str] = None) -> dict:
         return yaml.safe_load(f) or {}
 
 
-# ---------------------------------------------------------------------------
 # Target parsing
-# ---------------------------------------------------------------------------
 
 def parse_target(target: str) -> tuple[str, int]:
     """Parse a target string into (host, port).
@@ -110,9 +107,7 @@ def _validate_port(port: int) -> None:
         raise ValueError(f"Port {port} out of valid range 1–65535")
 
 
-# ---------------------------------------------------------------------------
 # JSON flattening
-# ---------------------------------------------------------------------------
 
 def flatten_json(data: dict, prefix: str = "") -> dict:
     """Recursively flatten a nested dict to {path: scalar_or_list} pairs.
@@ -132,9 +127,7 @@ def flatten_json(data: dict, prefix: str = "") -> dict:
     return result
 
 
-# ---------------------------------------------------------------------------
 # Suffix / scale lookup
-# ---------------------------------------------------------------------------
 
 def lookup_suffix(path: str, suffix_config: dict) -> tuple[str, float]:
     """Return (name_suffix, scale_factor) for path from the config suffix map.
@@ -150,10 +143,8 @@ def lookup_suffix(path: str, suffix_config: dict) -> tuple[str, float]:
     return "", 1.0
 
 
-# ---------------------------------------------------------------------------
 # Collector / path filtering
-# ---------------------------------------------------------------------------
-
+# --------------------------------------------------------------------------
 def is_enabled(path: str, config: dict) -> bool:
     """Return True if this path should be processed per the config.
 
@@ -176,9 +167,7 @@ def is_enabled(path: str, config: dict) -> bool:
     return bool(collectors.get(top, True))
 
 
-# ---------------------------------------------------------------------------
 # Sentinel detection
-# ---------------------------------------------------------------------------
 
 def is_sentinel(path: str, value: object, sentinel_config: dict) -> bool:
     """Return True if value is a configured sentinel for this path."""
@@ -188,9 +177,7 @@ def is_sentinel(path: str, value: object, sentinel_config: dict) -> bool:
     return False
 
 
-# ---------------------------------------------------------------------------
 # Metric name generation
-# ---------------------------------------------------------------------------
 
 def make_name(schema_parts: list[str], suffix: str = "") -> str:
     """Build a metric name from schema path parts.
@@ -203,9 +190,7 @@ def make_name(schema_parts: list[str], suffix: str = "") -> str:
     return f"tessera_{slug}{suffix}"
 
 
-# ---------------------------------------------------------------------------
 # Prometheus text formatting
-# ---------------------------------------------------------------------------
 
 def _escape_label_value(v: str) -> str:
     return v.replace("\\", "\\\\").replace('"', '\\"').replace("\n", "\\n")
@@ -246,9 +231,7 @@ def _emit_family(name: str, samples: list) -> list[str]:
     return lines
 
 
-# ---------------------------------------------------------------------------
 # Core metric builder
-# ---------------------------------------------------------------------------
 
 def build_metrics(
     api_data: dict,
@@ -276,10 +259,10 @@ def build_metrics(
     suffix_config: dict = config.get("suffix") or {}
     sentinel_config: dict = config.get("sentinels") or {}
 
-    # Flatten the full api subtree (api key already stripped by schema.load)
+    # Flatten the full api subtree
     flat = flatten_json(api_data.get("api", api_data))
 
-    # ── Identity fields → tessera_info ─────────────────────────────────────
+    # Identity fields -> tessera_info 
     identity_labels: dict[str, str] = {}
     for path, label_name in _IDENTITY_FIELDS.items():
         if path in flat and flat[path] is not None:
@@ -304,25 +287,23 @@ def build_metrics(
     identity_set = frozenset(_IDENTITY_FIELDS.keys())
 
     for path, value in flat.items():
-        # Skip identity fields — they're in tessera_info
+        # Skip identity fields
         if path in identity_set:
             continue
 
-        # ── Collector / include / exclude filter ───────────────────────────
+        # Collector / include / exclude filter 
         if not is_enabled(path, config):
             stats["dropped_collector"] += 1
             continue
 
-        # ── Skip null values silently ──────────────────────────────────────
+        # Skip null values silently 
         if value is None:
             stats["dropped_sentinel_null"] += 1
             continue
 
-        # ── Skip list values (Array type — confirm via classify) ───────────
-        # We let the schema classify handle this, but lists can't be flattened
-        # further anyway. Keep the path so classify() sees it.
+        # Skip list values
 
-        # ── Schema match ───────────────────────────────────────────────────
+        # Schema match 
         schema_parts, raw_labels = _schema.match(path, schema_root)
         if schema_parts is None:
             unmatched_paths.append(path)
@@ -341,19 +322,18 @@ def build_metrics(
 
         meta = _schema.leaf(schema_root, schema_parts)
 
-        # ── Classify ───────────────────────────────────────────────────────
+        # Classify 
         kind = _schema.classify(meta)
         if kind == "drop":
             stats["dropped_wo_type"] += 1
             continue
 
-        # Drop list values (Array / ByteArray already caught by classify, but
-        # a list value at a non-Array path should not crash)
+        # Drop list values
         if isinstance(value, list):
             stats["dropped_wo_type"] += 1
             continue
 
-        # ── Sentinel check ─────────────────────────────────────────────────
+        # Sentinel check 
         if isinstance(value, (int, float)) and is_sentinel(path, value, sentinel_config):
             numeric_value: object = float("nan")
             stats["dropped_sentinel_null"] += 1
@@ -361,7 +341,7 @@ def build_metrics(
         else:
             numeric_value = value
 
-        # ── Suffix / scale lookup ──────────────────────────────────────────
+        # Suffix / scale lookup 
         name_suffix, scale = lookup_suffix(path, suffix_config)
         if scale != 1.0 and isinstance(numeric_value, (int, float)) and not math.isnan(
             float(numeric_value) if isinstance(numeric_value, float) else 0
@@ -369,13 +349,10 @@ def build_metrics(
             if not (isinstance(numeric_value, float) and math.isnan(numeric_value)):
                 numeric_value = numeric_value * scale
 
-        # ── Sanitise labels ────────────────────────────────────────────────
+        # Sanitise labels 
         labels = {**identity_labels, **{name: val for name, val in (raw_labels or [])}}
 
-        # ── Info metrics: move value into label ────────────────────────────
-        # Also demote to info if schema says gauge but firmware returned a string
-        # (firmware/schema mismatch — avoids emitting non-numeric gauge values
-        # that cause Prometheus to reject the entire scrape).
+        # Info metrics: move value into label
         metric_name: str
         if kind == "info" or (kind == "gauge" and isinstance(numeric_value, str)):
             labels["value"] = str(value)
@@ -386,7 +363,7 @@ def build_metrics(
             metric_name = make_name(schema_parts, name_suffix)
             emit_value = numeric_value
 
-        # ── Collision check ────────────────────────────────────────────────
+        # Collision check 
         collision_key = (metric_name, frozenset(labels.items()))
         if collision_key in seen_keys:
             logging.warning(
@@ -402,7 +379,7 @@ def build_metrics(
         families[metric_name].append((help_text, labels, emit_value))
         stats["exported"] += 1
 
-    # ── Format output ──────────────────────────────────────────────────────
+    # Format output 
     lines: list[str] = []
     for name in sorted(families):
         lines.extend(_emit_family(name, families[name]))
@@ -410,9 +387,7 @@ def build_metrics(
     return "\n".join(lines) + "\n" if lines else "", stats, unmatched_paths
 
 
-# ---------------------------------------------------------------------------
 # Failure / success response builders
-# ---------------------------------------------------------------------------
 
 def _failure_lines(reason: str, duration: float) -> list[str]:
     return [
@@ -439,9 +414,7 @@ def _success_prefix_lines(duration: float) -> list[str]:
     ]
 
 
-# ---------------------------------------------------------------------------
 # Probe
-# ---------------------------------------------------------------------------
 
 def probe(
     host: str,
@@ -550,9 +523,7 @@ def probe(
     return prefix + metrics_text, "text/plain; version=0.0.4; charset=utf-8"
 
 
-# ---------------------------------------------------------------------------
 # HTTP handler
-# ---------------------------------------------------------------------------
 
 _LANDING_HTML = """\
 <!DOCTYPE html>
@@ -652,9 +623,7 @@ def _scrape_timeout(headers, default: float = 10.0) -> float:
     return default
 
 
-# ---------------------------------------------------------------------------
 # Entry point
-# ---------------------------------------------------------------------------
 
 def main() -> None:
     parser = argparse.ArgumentParser(

@@ -1,9 +1,14 @@
+# tessera_exporter prometheus.yml // Version 1.0
+# https://github.com/sethdotfm/tessera_exporter
 global:
-  scrape_interval: 30s   # Brompton recommends infrequent polling of live video hardware
+  scrape_interval: 30s
   evaluation_interval: 30s
 
 scrape_configs:
+#   ▼▼▼ ADD THESE LINES TO YOUR PROMETHEUS CONFIGURATION FILE'S 'scrape_configs' SECTION ▼▼▼
+  # https://github.com/sethdotfm/tessera_exporter
   - job_name: tessera
+    scrape_interval: 30s # Brompton officially recommends polling no faster than every 30s
     metrics_path: /probe
     params:
       # No additional params needed
@@ -25,7 +30,8 @@ scrape_configs:
       - target_label: __address__
         replacement: "127.0.0.1:19800"
 
-  # Exporter self-instrumentation
+  # tessera_exporter telemetry
   - job_name: tessera_exporter
     static_configs:
       - targets: ["127.0.0.1:19800"]
+#   ▲▲▲ That's it! ▲▲▲
