@@ -78,6 +78,18 @@ Tessera processors can send their operational log over UDP syslog. `docker compo
 
 Point your processor's syslog target at `<this_host>:514`. To silence routine/noisy messages before they're stored, add a `stage.drop` block in `alloy/config.alloy`.
 
+A "Tessera Syslog" dashboard is provisioned in Grafana with dropdown filters for serial/processor name/type/version/project — the same identity fields `tessera_info` already exposes for Prometheus — that narrow the log view down to a specific unit's syslog.
+
+**On macOS or Windows**, that identity filtering won't work if `alloy` runs in Docker: Docker Desktop rewrites the source IP of UDP traffic arriving on a published port (confirmed even with its host-networking beta setting enabled), so every log line looks like it came from the same address. If you need the filters to work, run Alloy natively on the host instead — Loki/Grafana/Prometheus/tessera-exporter stay in Docker as-is:
+
+```bash
+brew install grafana-alloy   # or the Windows/native build from grafana.com
+# don't start the alloy service from docker-compose — just this one:
+sudo alloy run --storage.path=/opt/homebrew/var/lib/grafana-alloy/data alloy/config-native.alloy
+```
+
+`alloy/config-native.alloy` is the same pipeline as `alloy/config.alloy`, just listening on `:514` directly and pushing to Loki's published port (`127.0.0.1:3100`) instead of compose DNS.
+
 ---
 
 ## Notes

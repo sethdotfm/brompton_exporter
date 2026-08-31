@@ -1,0 +1,66 @@
+// tessera_exporter alloy/config-native.alloy // Version 1.0
+// https://github.com/sethdotfm/tessera_exporter
+//
+// For macOS/Windows hosts running Alloy NATIVELY instead of in Docker.
+// Docker Desktop does not preserve real UDP source addresses for traffic
+// arriving from the LAN on a published port, even with its host-networking
+// beta setting enabled — every packet looks like it came from the same
+// internal address, which breaks any filtering based on source IP (see
+// the "Tessera Syslog" Grafana dashboard). Running Alloy as a native
+// process sidesteps Docker's networking entirely, so it sees genuine
+// source IPs. Loki/Grafana/Prometheus/tessera-exporter stay in Docker as
+// usual — only Alloy runs on the host. See the README for setup.
+//
+// Differences from alloy/config.alloy (the Docker version):
+//   - Listens on :514 directly (no docker-compose port remap to 1514)
+//   - Pushes to Loki via its published host port instead of compose DNS
+
+loki.source.syslog "tessera" {
+  listener {
+    address       = "0.0.0.0:514"
+    protocol      = "udp"
+    syslog_format = "rfc3164"
+    labels        = { job = "tessera_syslog" }
+    // RFC3164 has no year (or timezone) in its timestamp, so trusting it
+    // verbatim can produce bogus dates (e.g. year 0001) that Loki rejects.
+    // Stamp entries with Alloy's own receipt time instead.
+  }
+
+  relabel_rules = loki.relabel.tessera.rules
+  forward_to    = [loki.process.tessera.receiver]
+}
+
+// Promotes the syslog fields Alloy extracts (severity, facility, hostname,
+// app_name, ...) from internal __syslog_* names into real Loki labels.
+loki.relabel "tessera" {
+  forward_to = []
+
+  rule {
+    action = "labelmap"
+    regex  = "__syslog_(.+)"
+  }
+}
+
+// Drop known-routine/noisy messages here before they're stored in Loki.
+// Each stage.drop below matches on the raw message text. Add your own
+// stage.drop blocks for whatever turns out to be noise on your system;
+// these two are just examples from Tessera's own routine autosave chatter.
+loki.process "tessera" {
+  stage.drop {
+    expression          = "(?i)commencing auto save operation"
+    drop_counter_reason = "tessera_routine_autosave"
+  }
+
+  stage.drop {
+    expression          = "(?i)auto save operation succeeded"
+    drop_counter_reason = "tessera_routine_autosave"
+  }
+
+  forward_to = [loki.write.tessera.receiver]
+}
+
+loki.write "tessera" {
+  endpoint {
+    url = "http://127.0.0.1:3100/loki/api/v1/push"
+  }
+}
