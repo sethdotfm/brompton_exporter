@@ -1,4 +1,0 @@
-# tessera_exporter requirements.txt // Version 1.0
-# https://github.com/sethdotfm/tessera_exporter
-
-pyyaml>=6.0
