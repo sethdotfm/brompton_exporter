@@ -72,6 +72,14 @@ volumes:
 
 ---
 
+## Syslog (optional)
+
+Tessera processors can send their operational log over UDP syslog. `docker compose up` also brings up `alloy` (receiver + noise filtering), `loki` (log storage, 30d retention), and `grafana` (view it in Explore) to catch it.
+
+Point your processor's syslog target at `<this_host>:514`. To silence routine/noisy messages before they're stored, add a `stage.drop` block in `alloy/config.alloy`.
+
+---
+
 ## Notes
 
 **IP control must be enabled on each processor.** Go to the Live Control tile in the Tessera UI and enable IP control for the loaded project. If `/probe` returns `tessera_up 0` with `reason="ip_control_disabled"`, this is why.

@@ -25,3 +25,48 @@ services:
     restart: unless-stopped
     depends_on:
       - tessera-exporter
+
+  # ▼▼▼ Syslog: catches Tessera's UDP syslog, filters junk, stores it in ▼▼▼
+  # ▼▼▼ Loki, and shows it in Grafana. Point your processor's syslog     ▼▼▼
+  # ▼▼▼ target at <this_host>:514.                                      ▼▼▼
+  alloy:
+    image: grafana/alloy:latest
+    ports:
+      - "514:1514/udp"
+    volumes:
+      - ./alloy/config.alloy:/etc/alloy/config.alloy:ro
+      - alloy-data:/var/lib/alloy/data
+    command:
+      - "run"
+      - "--server.http.listen-addr=0.0.0.0:12345"
+      - "--storage.path=/var/lib/alloy/data"
+      - "/etc/alloy/config.alloy"
+    restart: unless-stopped
+    depends_on:
+      - loki
+
+  loki:
+    image: grafana/loki:latest
+    volumes:
+      - ./loki/loki-config.yaml:/etc/loki/local-config.yaml:ro
+      - loki-data:/loki
+    command:
+      - "-config.file=/etc/loki/local-config.yaml"
+    restart: unless-stopped
+
+  grafana:
+    image: grafana/grafana:latest
+    ports:
+      - "3000:3000"
+    volumes:
+      - grafana-data:/var/lib/grafana
+      - ./grafana/provisioning:/etc/grafana/provisioning:ro
+    restart: unless-stopped
+    depends_on:
+      - loki
+#   ▲▲▲ That's it! ▲▲▲
+
+volumes:
+  alloy-data:
+  loki-data:
+  grafana-data:

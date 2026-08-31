@@ -1,0 +1,57 @@
+// tessera_exporter alloy/config.alloy // Version 1.0
+// https://github.com/sethdotfm/tessera_exporter
+//
+// Receives Tessera's syslog output (BSD/RFC3164 format, sent over UDP) and
+// forwards it to Loki. Tessera processors send syslog to <this_host>:514 by
+// default; the port mapping in docker-compose.yml maps that to 1514 inside
+// this container so Alloy doesn't need to run as root.
+
+loki.source.syslog "tessera" {
+  listener {
+    address       = "0.0.0.0:1514"
+    protocol      = "udp"
+    syslog_format = "rfc3164"
+    labels        = { job = "tessera_syslog" }
+    // RFC3164 has no year (or timezone) in its timestamp, so trusting it
+    // verbatim can produce bogus dates (e.g. year 0001) that Loki rejects.
+    // Stamp entries with Alloy's own receipt time instead.
+  }
+
+  relabel_rules = loki.relabel.tessera.rules
+  forward_to    = [loki.process.tessera.receiver]
+}
+
+// Promotes the syslog fields Alloy extracts (severity, facility, hostname,
+// app_name, ...) from internal __syslog_* names into real Loki labels.
+loki.relabel "tessera" {
+  forward_to = []
+
+  rule {
+    action = "labelmap"
+    regex  = "__syslog_(.+)"
+  }
+}
+
+// Drop known-routine/noisy messages here before they're stored in Loki.
+// Each stage.drop below matches on the raw message text. Add your own
+// stage.drop blocks for whatever turns out to be noise on your system;
+// these two are just examples from Tessera's own routine autosave chatter.
+loki.process "tessera" {
+  stage.drop {
+    expression          = "(?i)commencing auto save operation"
+    drop_counter_reason = "tessera_routine_autosave"
+  }
+
+  stage.drop {
+    expression          = "(?i)auto save operation succeeded"
+    drop_counter_reason = "tessera_routine_autosave"
+  }
+
+  forward_to = [loki.write.tessera.receiver]
+}
+
+loki.write "tessera" {
+  endpoint {
+    url = "http://loki:3100/loki/api/v1/push"
+  }
+}
