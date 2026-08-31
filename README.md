@@ -14,6 +14,12 @@ Edit `targets/tessera.yml` with your processor IPs and run:
 docker compose up
 ```
 
+Or pull the image directly:
+
+```bash
+docker pull ghcr.io/sethdotfm/tessera_exporter:latest
+```
+
 ---
 
 ## Adding to an existing Prometheus installation
