@@ -102,6 +102,6 @@ sudo brew services stop grafana-alloy
 
 **Start with scrape_interval at 30s.** Brompton warns that frequent polling may cause "adverse performance" on the Tessera hardware. I have been able to push this much harder, but your mileage may vary.
 
-`/metrics` **may look empty.** Processor data is on `/probe`. `/metrics` is exporter self-instrumentation only. Use `/probe?target=192.2.0.50&debug=1` for a human-readable summary of a single scrape.
+`/metrics` **may look empty.** Processor data is on `/probe`. `/metrics` is exporter self-instrumentation only. Use `/probe?target=192.0.2.10&debug=1` for a human-readable summary of a single scrape.
 
 The Tessera IP Control API (3.5.2) sadly does not currently expose per-panel telemetry. `devices/items/{serial}` provides only `firmware` and `type`. Panel temperature, voltage, and per-panel error detail are visible in the Tessera UI but are not queryable via IP control.

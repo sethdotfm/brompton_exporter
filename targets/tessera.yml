@@ -11,7 +11,7 @@
 #       site: "<site-id>"
 #       location: "<human label>"
 
-- targets: ["192.2.0.50"]
+- targets: ["192.0.2.10"]
   labels:
     site: "STUDIO-1"
     location: "MAIN"

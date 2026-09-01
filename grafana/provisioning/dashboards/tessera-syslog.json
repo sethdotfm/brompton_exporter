@@ -67,7 +67,9 @@
         "datasource": { "type": "prometheus", "uid": "prometheus" },
         "query": "label_values(tessera_info{serial=~\"$serial\", processor_name=~\"$processor_name\", processor_type=~\"$processor_type\", software_version=~\"$software_version\", project=~\"$project\"}, instance)",
         "refresh": 2,
-        "multi": true
+        "multi": true,
+        "includeAll": true,
+        "allValue": ".*"
       },
       {
         "name": "severity",

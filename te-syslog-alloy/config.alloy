@@ -19,14 +19,21 @@ loki.source.syslog "tessera" {
   forward_to    = [loki.process.tessera.receiver]
 }
 
-// Promotes the syslog fields Alloy extracts (severity, facility, hostname,
-// app_name, ...) from internal __syslog_* names into real Loki labels.
+// Promotes only the syslog fields the dashboard actually filters on into
+// real Loki labels. Avoid labelmap-ing everything __syslog_* exposes:
+// fields like connection_hostname (DNS-resolved) or message_proc_id
+// (changes on every process restart) are high-cardinality and would blow
+// up Loki's stream count for no query benefit.
 loki.relabel "tessera" {
   forward_to = []
 
   rule {
-    action = "labelmap"
-    regex  = "__syslog_(.+)"
+    source_labels = ["__syslog_connection_ip_address"]
+    target_label  = "connection_ip_address"
+  }
+  rule {
+    source_labels = ["__syslog_message_facility"]
+    target_label  = "message_facility"
   }
 
   // Grafana's Logs panel colors/badges lines by a "level" label using its
