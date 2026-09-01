@@ -1,9 +1,9 @@
-# tessera_exporter TARGETS // Version 1.0
+# tessera_exporter targets/tessera.yml // Version 1.1.0
 # https://github.com/sethdotfm/tessera_exporter
 
 # Tessera processor targets for Prometheus file_sd.
 # Edit this file to add/remove processors without touching prometheus.yml.
-# Prometheus updates automatically (no reload needed).
+# Prometheus updates automatically, no reload needed.
 #
 # Format:
 #   - targets: ["<ip>"]
@@ -11,7 +11,7 @@
 #       site: "<site-id>"
 #       location: "<human label>"
 
-- targets: ["192.2.0.50"]
+- targets: ["192.0.2.10"]
   labels:
     site: "STUDIO-1"
     location: "MAIN"
