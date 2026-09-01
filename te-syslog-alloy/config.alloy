@@ -87,6 +87,6 @@ loki.process "tessera" {
 
 loki.write "tessera" {
   endpoint {
-    url = "http://loki:3100/loki/api/v1/push"
+    url = "http://tessera-exporter-syslog-loki:3100/loki/api/v1/push"
   }
 }

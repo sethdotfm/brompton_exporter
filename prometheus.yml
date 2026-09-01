@@ -1,4 +1,4 @@
-# tessera_exporter prometheus.yml // Version 1.0
+# tessera_exporter prometheus.yaml // Version 1.0
 # https://github.com/sethdotfm/tessera_exporter
 global:
   scrape_interval: 30s
@@ -14,7 +14,7 @@ scrape_configs:
       # No additional params needed
     file_sd_configs:
       - files:
-          - targets/tessera.yml
+          - targets/tessera.yaml
     relabel_configs:
       # Pass the target address to the exporter as the 'target' param
       - source_labels: [__address__]
