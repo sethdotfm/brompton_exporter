@@ -1,7 +1,7 @@
 {
   "uid": "tessera-syslog",
   "title": "Tessera Syslog",
-  "description": "Tessera UDP syslog, filterable by the same processor identity fields (serial, name, type, version, project) used to poll the API. Pick identity values below — they resolve to instance IPs, which are matched against the syslog source address to filter the log panel.",
+  "description": "Tessera UDP syslog, filterable by the same processor identity fields (serial, name, type, version, project) used to poll the API, plus severity. Pick values below — identity fields resolve to instance IPs, which are matched against the syslog source address. Leaving a filter at its default \"All\" (or clearing it back to empty) matches everything for that field.",
   "timezone": "browser",
   "schemaVersion": 39,
   "version": 1,
@@ -68,6 +68,16 @@
         "query": "label_values(tessera_info{serial=~\"$serial\", processor_name=~\"$processor_name\", processor_type=~\"$processor_type\", software_version=~\"$software_version\", project=~\"$project\"}, instance)",
         "refresh": 2,
         "multi": true
+      },
+      {
+        "name": "severity",
+        "type": "query",
+        "datasource": { "type": "loki", "uid": "loki" },
+        "query": "label_values({job=\"tessera_syslog\"}, level)",
+        "refresh": 2,
+        "multi": true,
+        "includeAll": true,
+        "allValue": ".*"
       }
     ]
   },
@@ -75,9 +85,9 @@
     {
       "id": 1,
       "type": "logs",
-      "title": "Syslog — filtered by processor identity",
+      "title": "Syslog — filtered by processor identity and severity",
       "datasource": { "type": "loki", "uid": "loki" },
-      "gridPos": { "h": 18, "w": 24, "x": 0, "y": 0 },
+      "gridPos": { "h": 20, "w": 24, "x": 0, "y": 0 },
       "options": {
         "showTime": true,
         "wrapLogMessage": true,
@@ -87,7 +97,7 @@
         {
           "refId": "A",
           "datasource": { "type": "loki", "uid": "loki" },
-          "expr": "{job=\"tessera_syslog\", connection_ip_address=~\"^(${instance:pipe})$\"}"
+          "expr": "{job=\"tessera_syslog\", connection_ip_address=~\"^(${instance:pipe})$\", level=~\"${severity:pipe}\"}"
         }
       ]
     }

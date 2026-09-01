@@ -39,7 +39,13 @@ compactor:
   retention_delete_delay: 2h
 
 limits_config:
-  retention_period: 720h # 30d
+  retention_period: 720h # 30d default, for anything not matched below
+  retention_stream:
+    # Debug-level chatter is the vast majority of syslog volume and isn't
+    # worth keeping long. Adjust the selector if you want a different split.
+    - selector: '{job="tessera_syslog", level=~"debug|info"}'
+      priority: 1
+      period: 24h
 
 analytics:
   reporting_enabled: false
