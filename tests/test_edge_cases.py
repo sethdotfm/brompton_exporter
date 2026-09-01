@@ -85,6 +85,31 @@ def test_connection_refused_returns_up_0():
     assert 'reason="connection_refused"' in text
 
 
+def test_urlerror_wrapped_failures_classified():
+    """urllib wraps socket errors in URLError — reasons must still classify."""
+    import socket
+    import urllib.error
+    from unittest.mock import patch
+
+    import schema as _schema
+    from tessera_exporter import probe
+
+    schema_root = _schema.load()
+    config = {"collectors": {}, "suffix": {}, "sentinels": {}}
+
+    cases = [
+        (socket.gaierror(8, "nodename nor servname provided"), "dns"),
+        (ConnectionRefusedError(61, "Connection refused"), "connection_refused"),
+        (TimeoutError("timed out"), "timeout"),
+        ("something opaque", "connection_error"),
+    ]
+    for cause, expected in cases:
+        with patch("urllib.request.urlopen", side_effect=urllib.error.URLError(cause)):
+            text, _ = probe("192.0.2.50", 80, schema_root, config)
+        assert "tessera_up 0" in text
+        assert f'reason="{expected}"' in text, f"cause={cause!r}"
+
+
 def test_bad_json_returns_up_0():
     """Malformed JSON in the response body must return tessera_up 0."""
     from unittest.mock import MagicMock, patch

@@ -19,7 +19,7 @@ Parts of this code have been created or assisted by generative large language mo
 Add your processors to `targets/tessera.yml`. Prometheus picks up changes to this file automatically with no reload needed.
 
 ```yaml
-- targets: ["192.2.0.50"]
+- targets: ["192.0.2.50"]
   labels:
     site: "STUDIO-1"
     location: "MAIN"
@@ -70,7 +70,7 @@ Retention is 30 days by default, but `debug`/`info`-level lines expire after 24h
 
 A "Tessera Syslog" dashboard is statically provisioned in Grafana with dropdown filters for serial number, processor name, type, version, and project name. These are the same identity fields `tessera_info` exposes for Prometheus, with an added severity filter derived from the syslog input itself.
 
-**On macOS or Windows**, identity filtering won't work if alloy runs in Docker. This is because Docker Desktop rewrites the source IP of all UDP traffic arriving on a published port, therefore, every log line looks like it came from the same address. Native Linux Docker hosts aren't susceptible to these rewrites.
+**On macOS or Windows**, identity filtering won't work if alloy runs in Docker. This is because Docker Desktop rewrites the source IP of all UDP traffic arriving on a published port; as a result, every log line looks like it came from the same address. Native Linux Docker hosts aren't susceptible to these rewrites.
 
 When running on macOS/Windows, simply run Alloy natively on the host instead. The remaining Loki, Grafana, Prometheus, and tessera-exporter images can remain in Docker.
 

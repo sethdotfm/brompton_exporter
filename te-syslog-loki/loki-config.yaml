@@ -1,4 +1,4 @@
-# tessera_exporter te-syslog-loki/loki-config.yaml // Version 1.0
+# tessera_exporter te-syslog-loki/loki-config.yaml // Version 1.1.0
 # https://github.com/sethdotfm/tessera_exporter
 #
 # Single-binary Loki, filesystem storage, 30d retention (matches this

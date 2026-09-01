@@ -1,4 +1,4 @@
-// tessera_exporter te-syslog-alloy/config.alloy // Version 1.0
+// tessera_exporter te-syslog-alloy/config.alloy // Version 1.1.0
 // https://github.com/sethdotfm/tessera_exporter
 //
 // Receives Tessera's syslog output (BSD/RFC3164 format, sent over UDP) and forwards it to Loki. Tessera processors send syslog to <this_host>:514 by default.

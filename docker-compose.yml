@@ -1,4 +1,4 @@
-# tessera_exporter DOCKER COMPOSE // Version 1.0
+# tessera_exporter DOCKER COMPOSE // Version 1.1.0
 # https://github.com/sethdotfm/tessera_exporter
 name: tessera-exporter
 services:
@@ -10,7 +10,6 @@ services:
       - "19800:19800"
     volumes:
       - ./tessera.yml:/app/tessera.yml:ro
-      - ./targets:/app/targets:ro
     restart: unless-stopped
 #   ▲▲▲ That's it! ▲▲▲
 

@@ -63,7 +63,7 @@ def test_null_does_not_raise(schema_root, config):
     data = _load_fixture("values-022582.json")
     # Must not raise
     text, stats, _ = build_metrics(data, schema_root, config)
-    assert stats["dropped_sentinel_null"] > 0
+    assert stats["dropped_null"] > 0
 
 
 # ── array dropped ─────────────────────────────────────────────────────────────

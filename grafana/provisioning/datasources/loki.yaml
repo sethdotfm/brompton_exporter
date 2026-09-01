@@ -1,4 +1,4 @@
-# tessera_exporter grafana/provisioning/datasources/loki.yaml // Version 1.0
+# tessera_exporter grafana/provisioning/datasources/loki.yaml // Version 1.1.0
 # https://github.com/sethdotfm/tessera_exporter
 apiVersion: 1
 

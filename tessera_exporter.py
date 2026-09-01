@@ -1,6 +1,6 @@
-# tessera_exporter // Version 1.0
-# https://github.com/sethdotfm/tessera_exporter
 #!/usr/bin/env python3
+# tessera_exporter // Version 1.1.0
+# https://github.com/sethdotfm/tessera_exporter
 """Prometheus exporter for Brompton Tessera LED processors.
 
 Multi-target exporter (blackbox_exporter pattern).
@@ -16,14 +16,13 @@ import fnmatch
 import json
 import logging
 import math
-import os
 import socket
 import time
 import urllib.error
 import urllib.parse
 import urllib.request
 from collections import defaultdict
-from http.server import BaseHTTPRequestHandler, HTTPServer
+from http.server import BaseHTTPRequestHandler, ThreadingHTTPServer
 from pathlib import Path
 from typing import Optional
 
@@ -31,7 +30,7 @@ import yaml
 
 import schema as _schema
 
-VERSION = "0.1.0"
+VERSION = "1.1.0"
 _DEFAULT_CONFIG = Path(__file__).parent / "tessera.yml"
 
 # Fields folded into tessera_info instead of individual metrics. Provide processor identity for join queries.
@@ -237,21 +236,22 @@ def build_metrics(
     api_data: dict,
     schema_root: dict,
     config: dict,
-) -> tuple[str, dict]:
+) -> tuple[str, dict, list[str]]:
     """Build Prometheus text output from raw API data.
 
     Returns:
-        (prometheus_text, stats)
+        (prometheus_text, stats, unmatched_paths)
 
     stats keys:
-        exported, dropped_wo_type, dropped_collector,
-        dropped_sentinel_null, collisions, unmatched
+        exported, dropped_wo_type, dropped_collector, dropped_null,
+        sentinel_nan, collisions, unmatched
     """
     stats: dict[str, int] = {
         "exported": 0,
         "dropped_wo_type": 0,
         "dropped_collector": 0,
-        "dropped_sentinel_null": 0,
+        "dropped_null": 0,
+        "sentinel_nan": 0,
         "collisions": 0,
         "unmatched": 0,
     }
@@ -262,7 +262,7 @@ def build_metrics(
     # Flatten the full api subtree
     flat = flatten_json(api_data.get("api", api_data))
 
-    # Identity fields -> tessera_info 
+    # Identity fields -> tessera_info
     identity_labels: dict[str, str] = {}
     for path, label_name in _IDENTITY_FIELDS.items():
         if path in flat and flat[path] is not None:
@@ -291,25 +291,25 @@ def build_metrics(
         if path in identity_set:
             continue
 
-        # Collector / include / exclude filter 
+        # Collector / include / exclude filter
         if not is_enabled(path, config):
             stats["dropped_collector"] += 1
             continue
 
-        # Skip null values silently 
+        # Skip null values silently
         if value is None:
-            stats["dropped_sentinel_null"] += 1
+            stats["dropped_null"] += 1
             continue
 
-        # Skip list values
-
-        # Schema match 
+        # Schema match
         schema_parts, raw_labels = _schema.match(path, schema_root)
         if schema_parts is None:
             unmatched_paths.append(path)
             stats["unmatched"] += 1
-            # Export unmatched paths as info metrics so firmware additions are visible
-            um_labels = {"path": path, "value": str(value)}
+            # Export unmatched paths as info metrics so firmware additions are
+            # visible. Only the path goes into a label — the value would create
+            # a new series every time it changed.
+            um_labels = {"path": path}
             key = ("tessera_unknown_path_info", frozenset(um_labels.items()))
             if key not in seen_keys:
                 seen_keys[key] = path
@@ -322,7 +322,7 @@ def build_metrics(
 
         meta = _schema.leaf(schema_root, schema_parts)
 
-        # Classify 
+        # Classify
         kind = _schema.classify(meta)
         if kind == "drop":
             stats["dropped_wo_type"] += 1
@@ -333,23 +333,19 @@ def build_metrics(
             stats["dropped_wo_type"] += 1
             continue
 
-        # Sentinel check 
+        # Sentinel check — emit as NaN so operators can see the state
         if isinstance(value, (int, float)) and is_sentinel(path, value, sentinel_config):
             numeric_value: object = float("nan")
-            stats["dropped_sentinel_null"] += 1
-            # Fall through — still emit as NaN so operators can see the state
+            stats["sentinel_nan"] += 1
         else:
             numeric_value = value
 
-        # Suffix / scale lookup 
+        # Suffix / scale lookup
         name_suffix, scale = lookup_suffix(path, suffix_config)
-        if scale != 1.0 and isinstance(numeric_value, (int, float)) and not math.isnan(
-            float(numeric_value) if isinstance(numeric_value, float) else 0
-        ):
-            if not (isinstance(numeric_value, float) and math.isnan(numeric_value)):
-                numeric_value = numeric_value * scale
+        if scale != 1.0 and isinstance(numeric_value, (int, float)) and not math.isnan(numeric_value):
+            numeric_value = numeric_value * scale
 
-        # Sanitise labels 
+        # Sanitise labels
         labels = {**identity_labels, **{name: val for name, val in (raw_labels or [])}}
 
         # Info metrics: move value into label
@@ -363,7 +359,7 @@ def build_metrics(
             metric_name = make_name(schema_parts, name_suffix)
             emit_value = numeric_value
 
-        # Collision check 
+        # Collision check
         collision_key = (metric_name, frozenset(labels.items()))
         if collision_key in seen_keys:
             logging.warning(
@@ -379,7 +375,7 @@ def build_metrics(
         families[metric_name].append((help_text, labels, emit_value))
         stats["exported"] += 1
 
-    # Format output 
+    # Format output
     lines: list[str] = []
     for name in sorted(families):
         lines.extend(_emit_family(name, families[name]))
@@ -388,6 +384,9 @@ def build_metrics(
 
 
 # Failure / success response builders
+
+_PROM_CONTENT_TYPE = "text/plain; version=0.0.4; charset=utf-8"
+
 
 def _failure_lines(reason: str, duration: float) -> list[str]:
     return [
@@ -412,6 +411,27 @@ def _success_prefix_lines(duration: float) -> list[str]:
         "# TYPE tessera_scrape_duration_seconds gauge",
         f"tessera_scrape_duration_seconds {format_value(duration)}",
     ]
+
+
+def _fail(reason: str, t0: float) -> tuple[str, str]:
+    """Build a failure response (Prometheus text, content type)."""
+    duration = time.monotonic() - t0
+    return "\n".join(_failure_lines(reason, duration)) + "\n", _PROM_CONTENT_TYPE
+
+
+def _network_reason(exc: BaseException) -> str:
+    """Classify a network-level exception into a probe failure reason.
+
+    urllib usually wraps the underlying OSError in a URLError, so callers
+    pass exc.reason for those; bare OSErrors are classified directly.
+    """
+    if isinstance(exc, socket.gaierror):
+        return "dns"
+    if isinstance(exc, TimeoutError):
+        return "timeout"
+    if isinstance(exc, ConnectionRefusedError):
+        return "connection_refused"
+    return "connection_error"
 
 
 # Probe
@@ -445,53 +465,30 @@ def probe(
         try:
             data = json.loads(raw)
         except json.JSONDecodeError as exc:
-            duration = time.monotonic() - t0
             logging.error("Bad JSON from %s: %s", url, exc)
-            return (
-                "\n".join(_failure_lines("bad_json", duration)) + "\n",
-                "text/plain; version=0.0.4; charset=utf-8",
-            )
+            return _fail("bad_json", t0)
 
         # IP control disabled: API returns a response-code error body
         if isinstance(data, dict) and "response-code" in data:
-            duration = time.monotonic() - t0
             logging.warning(
                 "IP control disabled on %s:%s (response-code: %s)",
                 host, port, data.get("response-code"),
             )
-            return (
-                "\n".join(_failure_lines("ip_control_disabled", duration)) + "\n",
-                "text/plain; version=0.0.4; charset=utf-8",
-            )
+            return _fail("ip_control_disabled", t0)
 
     except urllib.error.HTTPError as exc:
-        duration = time.monotonic() - t0
         logging.error("HTTP %s from %s: %s", exc.code, url, exc.reason)
-        return (
-            "\n".join(_failure_lines("http_error", duration)) + "\n",
-            "text/plain; version=0.0.4; charset=utf-8",
-        )
-    except (socket.timeout, TimeoutError):
-        duration = time.monotonic() - t0
-        logging.warning("Timeout fetching %s", url)
-        return (
-            "\n".join(_failure_lines("timeout", duration)) + "\n",
-            "text/plain; version=0.0.4; charset=utf-8",
-        )
-    except ConnectionRefusedError:
-        duration = time.monotonic() - t0
-        return (
-            "\n".join(_failure_lines("connection_refused", duration)) + "\n",
-            "text/plain; version=0.0.4; charset=utf-8",
-        )
-    except (socket.gaierror, OSError) as exc:
-        duration = time.monotonic() - t0
-        reason = "dns" if isinstance(exc, socket.gaierror) else "connection_refused"
+        return _fail("http_error", t0)
+    except urllib.error.URLError as exc:
+        # urllib wraps the underlying OSError; classify by exc.reason
+        # (which can also be a plain string for some failure modes)
+        cause = exc.reason if isinstance(exc.reason, BaseException) else exc
+        logging.error("Network error fetching %s: %s", url, exc.reason)
+        return _fail(_network_reason(cause), t0)
+    except OSError as exc:
+        # Direct socket errors (e.g. read timeout after connect)
         logging.error("Network error fetching %s: %s", url, exc)
-        return (
-            "\n".join(_failure_lines(reason, duration)) + "\n",
-            "text/plain; version=0.0.4; charset=utf-8",
-        )
+        return _fail(_network_reason(exc), t0)
 
     # Build metrics
     metrics_text, stats, unmatched = build_metrics(data, schema_root, config)
@@ -508,7 +505,8 @@ def probe(
             f"Exported: {stats['exported']}",
             f"Dropped (W/O / type): {stats['dropped_wo_type']}",
             f"Dropped (collector off): {stats['dropped_collector']}",
-            f"Dropped (sentinel/null): {stats['dropped_sentinel_null']}",
+            f"Dropped (null): {stats['dropped_null']}",
+            f"Sentinel -> NaN: {stats['sentinel_nan']}",
             f"Collisions: {stats['collisions']}",
             f"Unmatched: {stats['unmatched']}",
         ]
@@ -520,7 +518,7 @@ def probe(
         return "\n".join(lines) + "\n", "text/plain; charset=utf-8"
 
     prefix = "\n".join(_success_prefix_lines(total_duration)) + "\n"
-    return prefix + metrics_text, "text/plain; version=0.0.4; charset=utf-8"
+    return prefix + metrics_text, _PROM_CONTENT_TYPE
 
 
 # HTTP handler
@@ -597,12 +595,11 @@ class TesseraHandler(BaseHTTPRequestHandler):
 
     def _serve_self_metrics(self) -> None:
         lines = [
-            f'# HELP tessera_exporter_build_info Exporter version info',
-            f'# TYPE tessera_exporter_build_info gauge',
+            '# HELP tessera_exporter_build_info Exporter version info',
+            '# TYPE tessera_exporter_build_info gauge',
             f'tessera_exporter_build_info{{version="{VERSION}"}} 1',
         ]
-        self._send(200, "text/plain; version=0.0.4; charset=utf-8",
-                   ("\n".join(lines) + "\n").encode())
+        self._send(200, _PROM_CONTENT_TYPE, ("\n".join(lines) + "\n").encode())
 
     def _send(self, code: int, ctype: str, body: bytes) -> None:
         self.send_response(code)
@@ -682,7 +679,8 @@ def main() -> None:
     TesseraHandler.schema_root = schema_root
     TesseraHandler.config = config
 
-    server = HTTPServer((host, port), TesseraHandler)
+    # Threading so one slow/unreachable processor can't stall other targets' scrapes
+    server = ThreadingHTTPServer((host, port), TesseraHandler)
     try:
         server.serve_forever()
     except KeyboardInterrupt:
