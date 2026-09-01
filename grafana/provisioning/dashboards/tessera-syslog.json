@@ -1,107 +1,819 @@
 {
   "uid": "tessera-syslog",
   "title": "Tessera Syslog",
-  "description": "Tessera UDP syslog, filterable by the same processor identity fields (serial, name, type, version, project) used to poll the API, plus severity. Pick values below — identity fields resolve to instance IPs, which are matched against the syslog source address. Leaving a filter at its default \"All\" (or clearing it back to empty) matches everything for that field.",
+  "description": "Tessera UDP syslog, filterable by the same processor identity fields (serial, name, type, version, project) used to poll the API, plus severity and a free-text regex search. Identity filters resolve to processor IPs via Prometheus, which are matched against the syslog source address \u2014 so a processor that Prometheus is not scraping will not appear here. The table panel is click-sortable and column-filterable.",
+  "tags": [
+    "tessera",
+    "syslog"
+  ],
   "timezone": "browser",
   "schemaVersion": 39,
   "version": 1,
   "editable": true,
-  "time": { "from": "now-1h", "to": "now" },
+  "graphTooltip": 1,
+  "time": {
+    "from": "now-1h",
+    "to": "now"
+  },
   "refresh": "30s",
   "templating": {
     "list": [
       {
         "name": "serial",
+        "label": "Serial",
+        "description": "Processor serial number.",
         "type": "query",
-        "datasource": { "type": "prometheus", "uid": "prometheus" },
+        "datasource": {
+          "type": "prometheus",
+          "uid": "prometheus"
+        },
         "query": "label_values(tessera_info, serial)",
         "refresh": 2,
+        "sort": 1,
         "multi": true,
         "includeAll": true,
-        "allValue": ".*"
+        "allValue": ".*",
+        "current": {
+          "selected": true,
+          "text": [
+            "All"
+          ],
+          "value": [
+            "$__all"
+          ]
+        }
       },
       {
         "name": "processor_name",
+        "label": "Name",
+        "description": "Processor name as configured in Tessera.",
         "type": "query",
-        "datasource": { "type": "prometheus", "uid": "prometheus" },
+        "datasource": {
+          "type": "prometheus",
+          "uid": "prometheus"
+        },
         "query": "label_values(tessera_info, processor_name)",
         "refresh": 2,
+        "sort": 1,
         "multi": true,
         "includeAll": true,
-        "allValue": ".*"
+        "allValue": ".*",
+        "current": {
+          "selected": true,
+          "text": [
+            "All"
+          ],
+          "value": [
+            "$__all"
+          ]
+        }
       },
       {
         "name": "processor_type",
+        "label": "Type",
+        "description": "Processor model, e.g. sx40.",
         "type": "query",
-        "datasource": { "type": "prometheus", "uid": "prometheus" },
+        "datasource": {
+          "type": "prometheus",
+          "uid": "prometheus"
+        },
         "query": "label_values(tessera_info, processor_type)",
         "refresh": 2,
+        "sort": 1,
         "multi": true,
         "includeAll": true,
-        "allValue": ".*"
+        "allValue": ".*",
+        "current": {
+          "selected": true,
+          "text": [
+            "All"
+          ],
+          "value": [
+            "$__all"
+          ]
+        }
       },
       {
         "name": "software_version",
+        "label": "Version",
+        "description": "Tessera software version.",
         "type": "query",
-        "datasource": { "type": "prometheus", "uid": "prometheus" },
+        "datasource": {
+          "type": "prometheus",
+          "uid": "prometheus"
+        },
         "query": "label_values(tessera_info, software_version)",
         "refresh": 2,
+        "sort": 1,
         "multi": true,
         "includeAll": true,
-        "allValue": ".*"
+        "allValue": ".*",
+        "current": {
+          "selected": true,
+          "text": [
+            "All"
+          ],
+          "value": [
+            "$__all"
+          ]
+        }
       },
       {
         "name": "project",
+        "label": "Project",
+        "description": "Loaded project file.",
         "type": "query",
-        "datasource": { "type": "prometheus", "uid": "prometheus" },
+        "datasource": {
+          "type": "prometheus",
+          "uid": "prometheus"
+        },
         "query": "label_values(tessera_info, project)",
         "refresh": 2,
+        "sort": 1,
         "multi": true,
         "includeAll": true,
-        "allValue": ".*"
+        "allValue": ".*",
+        "current": {
+          "selected": true,
+          "text": [
+            "All"
+          ],
+          "value": [
+            "$__all"
+          ]
+        }
       },
       {
         "name": "instance",
+        "label": "Instance",
         "type": "query",
         "hide": 2,
-        "datasource": { "type": "prometheus", "uid": "prometheus" },
+        "description": "Resolved processor IPs. Hidden; driven by the filters above.",
+        "datasource": {
+          "type": "prometheus",
+          "uid": "prometheus"
+        },
         "query": "label_values(tessera_info{serial=~\"$serial\", processor_name=~\"$processor_name\", processor_type=~\"$processor_type\", software_version=~\"$software_version\", project=~\"$project\"}, instance)",
         "refresh": 2,
+        "sort": 1,
         "multi": true,
         "includeAll": true,
-        "allValue": ".*"
+        "current": {
+          "selected": true,
+          "text": [
+            "All"
+          ],
+          "value": [
+            "$__all"
+          ]
+        }
       },
       {
         "name": "severity",
+        "label": "Severity",
+        "description": "Syslog severity, normalised to Grafana's level vocabulary.",
         "type": "query",
-        "datasource": { "type": "loki", "uid": "loki" },
-        "query": "label_values({job=\"tessera_syslog\"}, level)",
+        "datasource": {
+          "type": "loki",
+          "uid": "loki"
+        },
+        "query": {
+          "label": "level",
+          "stream": "{job=\"tessera_syslog\"}",
+          "type": "label_values",
+          "refId": "LokiVariableQueryEditor-VariableQuery"
+        },
         "refresh": 2,
+        "sort": 1,
         "multi": true,
         "includeAll": true,
-        "allValue": ".*"
+        "allValue": ".*",
+        "current": {
+          "selected": true,
+          "text": [
+            "All"
+          ],
+          "value": [
+            "$__all"
+          ]
+        }
+      },
+      {
+        "name": "search",
+        "label": "Search",
+        "description": "Case-insensitive regex applied to the log line. Leave empty to match everything.",
+        "type": "textbox",
+        "query": "",
+        "current": {
+          "selected": false,
+          "text": "",
+          "value": ""
+        }
       }
     ]
   },
   "panels": [
     {
       "id": 1,
-      "type": "logs",
-      "title": "Syslog — filtered by processor identity and severity",
-      "datasource": { "type": "loki", "uid": "loki" },
-      "gridPos": { "h": 20, "w": 24, "x": 0, "y": 0 },
-      "options": {
-        "showTime": true,
-        "wrapLogMessage": true,
-        "sortOrder": "Descending"
+      "type": "timeseries",
+      "title": "Volume by severity",
+      "description": "Log lines per interval, split by severity. Click-drag to zoom the time range.",
+      "datasource": {
+        "type": "loki",
+        "uid": "loki"
+      },
+      "gridPos": {
+        "h": 6,
+        "w": 12,
+        "x": 0,
+        "y": 0
       },
       "targets": [
         {
           "refId": "A",
-          "datasource": { "type": "loki", "uid": "loki" },
-          "expr": "{job=\"tessera_syslog\", connection_ip_address=~\"^(${instance:pipe})$\", level=~\"${severity:pipe}\"}"
+          "datasource": {
+            "type": "loki",
+            "uid": "loki"
+          },
+          "queryType": "range",
+          "expr": "sum by (level) (count_over_time({job=\"tessera_syslog\", connection_ip_address=~\"^(${instance:pipe})$\", level=~\"${severity:pipe}\"} |~ \"(?i)${search:raw}\" [$__auto]))",
+          "legendFormat": "{{level}}"
         }
-      ]
+      ],
+      "fieldConfig": {
+        "defaults": {
+          "custom": {
+            "drawStyle": "bars",
+            "fillOpacity": 80,
+            "lineWidth": 0,
+            "stacking": {
+              "mode": "normal",
+              "group": "A"
+            },
+            "axisSoftMin": 0,
+            "pointSize": 1,
+            "scaleDistribution": {
+              "type": "linear"
+            }
+          },
+          "unit": "short",
+          "min": 0
+        },
+        "overrides": [
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "critical"
+            },
+            "properties": [
+              {
+                "id": "color",
+                "value": {
+                  "mode": "fixed",
+                  "fixedColor": "purple"
+                }
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "error"
+            },
+            "properties": [
+              {
+                "id": "color",
+                "value": {
+                  "mode": "fixed",
+                  "fixedColor": "red"
+                }
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "warn"
+            },
+            "properties": [
+              {
+                "id": "color",
+                "value": {
+                  "mode": "fixed",
+                  "fixedColor": "orange"
+                }
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "info"
+            },
+            "properties": [
+              {
+                "id": "color",
+                "value": {
+                  "mode": "fixed",
+                  "fixedColor": "green"
+                }
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "debug"
+            },
+            "properties": [
+              {
+                "id": "color",
+                "value": {
+                  "mode": "fixed",
+                  "fixedColor": "blue"
+                }
+              }
+            ]
+          }
+        ]
+      },
+      "options": {
+        "legend": {
+          "displayMode": "list",
+          "placement": "bottom",
+          "showLegend": true,
+          "calcs": [
+            "sum"
+          ]
+        },
+        "tooltip": {
+          "mode": "multi",
+          "sort": "desc"
+        }
+      }
+    },
+    {
+      "id": 2,
+      "type": "table",
+      "title": "Processors",
+      "description": "Processors Prometheus is scraping, after the filters above. A syslog sender absent from this list cannot be matched by the identity filters.",
+      "datasource": {
+        "type": "prometheus",
+        "uid": "prometheus"
+      },
+      "gridPos": {
+        "h": 6,
+        "w": 6,
+        "x": 12,
+        "y": 0
+      },
+      "targets": [
+        {
+          "refId": "A",
+          "datasource": {
+            "type": "prometheus",
+            "uid": "prometheus"
+          },
+          "instant": true,
+          "format": "table",
+          "expr": "tessera_info{serial=~\"$serial\", processor_name=~\"$processor_name\", processor_type=~\"$processor_type\", software_version=~\"$software_version\", project=~\"$project\"}"
+        }
+      ],
+      "transformations": [
+        {
+          "id": "organize",
+          "options": {
+            "excludeByName": {
+              "Time": true,
+              "Value": true,
+              "__name__": true,
+              "job": true,
+              "site": true,
+              "location": true,
+              "processor_type": true,
+              "project": true,
+              "software_version": true
+            },
+            "renameByName": {
+              "instance": "IP",
+              "processor_name": "Name",
+              "serial": "Serial"
+            },
+            "indexByName": {
+              "instance": 0,
+              "serial": 1,
+              "processor_name": 2
+            }
+          }
+        }
+      ],
+      "fieldConfig": {
+        "defaults": {
+          "custom": {
+            "align": "left",
+            "filterable": true,
+            "cellOptions": {
+              "type": "auto"
+            }
+          }
+        },
+        "overrides": [
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "IP"
+            },
+            "properties": [
+              {
+                "id": "custom.width",
+                "value": 120
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "Serial"
+            },
+            "properties": [
+              {
+                "id": "custom.width",
+                "value": 80
+              }
+            ]
+          }
+        ]
+      },
+      "options": {
+        "showHeader": true,
+        "cellHeight": "sm",
+        "sortBy": [
+          {
+            "displayName": "IP",
+            "desc": false
+          }
+        ],
+        "footer": {
+          "show": false,
+          "reducer": [
+            "sum"
+          ],
+          "countRows": false,
+          "fields": ""
+        }
+      }
+    },
+    {
+      "id": 5,
+      "type": "table",
+      "title": "Syslog senders (unfiltered)",
+      "description": "Every IP sending syslog in the current time range, ignoring all filters. An IP here that is absent from the Processors tile is not a Prometheus target, so the identity filters cannot match it and its logs will not appear below. Add it to targets/tessera.yml.",
+      "datasource": {
+        "type": "loki",
+        "uid": "loki"
+      },
+      "gridPos": {
+        "h": 6,
+        "w": 6,
+        "x": 18,
+        "y": 0
+      },
+      "targets": [
+        {
+          "refId": "A",
+          "datasource": {
+            "type": "loki",
+            "uid": "loki"
+          },
+          "queryType": "instant",
+          "expr": "sum by (connection_ip_address) (count_over_time({job=\"tessera_syslog\"}[$__range]))"
+        }
+      ],
+      "transformations": [
+        {
+          "id": "labelsToFields",
+          "options": {}
+        },
+        {
+          "id": "merge",
+          "options": {}
+        },
+        {
+          "id": "organize",
+          "options": {
+            "excludeByName": {
+              "Time": true
+            },
+            "renameByName": {
+              "connection_ip_address": "Source IP",
+              "Value": "Lines"
+            },
+            "indexByName": {
+              "connection_ip_address": 0,
+              "Value": 1
+            }
+          }
+        }
+      ],
+      "fieldConfig": {
+        "defaults": {
+          "custom": {
+            "align": "left",
+            "filterable": true,
+            "cellOptions": {
+              "type": "auto"
+            }
+          }
+        },
+        "overrides": [
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "Lines"
+            },
+            "properties": [
+              {
+                "id": "custom.width",
+                "value": 80
+              },
+              {
+                "id": "custom.align",
+                "value": "right"
+              },
+              {
+                "id": "unit",
+                "value": "short"
+              }
+            ]
+          }
+        ]
+      },
+      "options": {
+        "showHeader": true,
+        "cellHeight": "sm",
+        "sortBy": [
+          {
+            "displayName": "Lines",
+            "desc": true
+          }
+        ],
+        "footer": {
+          "show": false,
+          "reducer": [
+            "sum"
+          ],
+          "countRows": false,
+          "fields": ""
+        }
+      }
+    },
+    {
+      "id": 3,
+      "type": "table",
+      "title": "Syslog \u2014 table view",
+      "description": "Click any column header to sort. Use the funnel icons to filter in-place. Defaults to newest first.",
+      "datasource": {
+        "type": "loki",
+        "uid": "loki"
+      },
+      "gridPos": {
+        "h": 13,
+        "w": 24,
+        "x": 0,
+        "y": 6
+      },
+      "targets": [
+        {
+          "refId": "A",
+          "datasource": {
+            "type": "loki",
+            "uid": "loki"
+          },
+          "queryType": "range",
+          "expr": "{job=\"tessera_syslog\", connection_ip_address=~\"^(${instance:pipe})$\", level=~\"${severity:pipe}\"} |~ \"(?i)${search:raw}\"",
+          "maxLines": 2000,
+          "direction": "backward"
+        }
+      ],
+      "transformations": [
+        {
+          "id": "extractFields",
+          "options": {
+            "source": "labels",
+            "format": "json",
+            "replace": false,
+            "keepTime": false
+          }
+        },
+        {
+          "id": "organize",
+          "options": {
+            "excludeByName": {
+              "labels": true,
+              "labelTypes": true,
+              "tsNs": true,
+              "id": true,
+              "job": true,
+              "service_name": true,
+              "detected_level": true
+            },
+            "renameByName": {
+              "Time": "Time",
+              "connection_ip_address": "Source IP",
+              "level": "Level",
+              "message_facility": "Facility",
+              "Line": "Message"
+            },
+            "indexByName": {
+              "Time": 0,
+              "connection_ip_address": 1,
+              "level": 2,
+              "message_facility": 3,
+              "Line": 4
+            }
+          }
+        }
+      ],
+      "fieldConfig": {
+        "defaults": {
+          "custom": {
+            "align": "left",
+            "filterable": true,
+            "inspect": false,
+            "cellOptions": {
+              "type": "auto"
+            }
+          }
+        },
+        "overrides": [
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "Time"
+            },
+            "properties": [
+              {
+                "id": "custom.width",
+                "value": 180
+              },
+              {
+                "id": "unit",
+                "value": "time:YYYY-MM-DD HH:mm:ss.SSS"
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "Source IP"
+            },
+            "properties": [
+              {
+                "id": "custom.width",
+                "value": 130
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "Facility"
+            },
+            "properties": [
+              {
+                "id": "custom.width",
+                "value": 100
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "Level"
+            },
+            "properties": [
+              {
+                "id": "custom.width",
+                "value": 100
+              },
+              {
+                "id": "custom.cellOptions",
+                "value": {
+                  "type": "color-text"
+                }
+              },
+              {
+                "id": "mappings",
+                "value": [
+                  {
+                    "type": "value",
+                    "options": {
+                      "critical": {
+                        "text": "critical",
+                        "color": "purple",
+                        "index": 0
+                      },
+                      "error": {
+                        "text": "error",
+                        "color": "red",
+                        "index": 1
+                      },
+                      "warn": {
+                        "text": "warn",
+                        "color": "orange",
+                        "index": 2
+                      },
+                      "info": {
+                        "text": "info",
+                        "color": "green",
+                        "index": 3
+                      },
+                      "debug": {
+                        "text": "debug",
+                        "color": "blue",
+                        "index": 4
+                      }
+                    }
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "Message"
+            },
+            "properties": [
+              {
+                "id": "custom.cellOptions",
+                "value": {
+                  "type": "auto",
+                  "wrapText": true
+                }
+              }
+            ]
+          }
+        ]
+      },
+      "options": {
+        "showHeader": true,
+        "cellHeight": "sm",
+        "sortBy": [
+          {
+            "displayName": "Time",
+            "desc": true
+          }
+        ],
+        "footer": {
+          "show": false,
+          "reducer": [
+            "sum"
+          ],
+          "countRows": false,
+          "fields": ""
+        }
+      }
+    },
+    {
+      "id": 4,
+      "type": "logs",
+      "title": "Syslog \u2014 verbatim",
+      "description": "The unedited stream: nothing dropped by the noise filter, and severity left as the original syslog name (warning, informational, notice) rather than Grafana's remap. Columns are IP / facility / severity / app / message, tab separated; export-raw-syslog.sh writes the same records as RFC3164 wire frames for handing to the manufacturer. Timestamps are Alloy's receipt time \u2014 Tessera's frames carry no clock reading, hostname or proc_id of their own. Retained 7 days.",
+      "datasource": {
+        "type": "loki",
+        "uid": "loki"
+      },
+      "gridPos": {
+        "h": 14,
+        "w": 24,
+        "x": 0,
+        "y": 19
+      },
+      "targets": [
+        {
+          "refId": "A",
+          "datasource": {
+            "type": "loki",
+            "uid": "loki"
+          },
+          "queryType": "range",
+          "expr": "{job=\"tessera_syslog_raw\", connection_ip_address=~\"^(${instance:pipe})$\"} |~ \"(?i)${search:raw}\" | line_format \"{{.connection_ip_address}}\\t{{.message_facility}}\\t{{.syslog_severity}}\\t{{ .syslog_app_name | default \\\"tessera\\\" }}\\t{{__line__}}\"",
+          "maxLines": 5000,
+          "direction": "backward"
+        }
+      ],
+      "options": {
+        "showTime": true,
+        "showLabels": false,
+        "showCommonLabels": false,
+        "wrapLogMessage": true,
+        "prettifyLogMessage": false,
+        "enableLogDetails": true,
+        "dedupStrategy": "none",
+        "sortOrder": "Descending",
+        "enableInfiniteScrolling": true
+      }
     }
   ]
 }
