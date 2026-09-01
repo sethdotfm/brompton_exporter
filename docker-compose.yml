@@ -9,7 +9,7 @@ services:
     ports:
       - "19800:19800"
     volumes:
-      - ./tessera.yml:/app/tessera.yml:ro
+      - ./tessera_exporter_config.yml:/app/tessera.yml:ro
     restart: unless-stopped
 #   ▲▲▲ That's it! ▲▲▲
 
