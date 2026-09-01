@@ -112,30 +112,3 @@ sentinels:
   "input/ports/*/meta-data/refresh-rate": [-1]
   "input/ports/*/meta-data/resolution/height": [-1, 0]
   "input/ports/*/meta-data/resolution/width": [-1, 0]
-
-# Gated fields (DOCUMENTATION ONLY — not read by the exporter)
-# Some fields are only meaningful when a companion "gate" field has a specific
-# value; the firmware still returns a leftover number otherwise. The exporter
-# exports both and leaves the join to PromQL. Known pairs:
-#
-#   */dynacal/white/gamut  gates  */dynacal/white/colour-temperature
-#     colour-temperature is a leftover value when gamut != 'colour-temperature'.
-#     PromQL: tessera_..._colour_temperature_kelvin and on(instance,port)
-#             (tessera_..._gamut_info{value="colour-temperature"} == 1)
-#
-#   output/network/shuttersync/dark-time-mode  gates  .../dark-time
-#     dark-time (ms) is active only when dark-time-mode == 'time';
-#     dark-time-percentage is active when dark-time-mode == 'percentage'.
-#
-#   output/network/shuttersync/mode  gates  .../speed-settings/* and .../angle-settings/*
-#     speed-settings active when mode == 'shutter-speed';
-#     angle-settings active when mode == 'shutter-angle'.
-#
-#   output/global-colour/brightness-limit/enabled  gates  .../brightness-limit/value
-#
-#   output/network/shuttersync/angle-settings/use-custom-frame-rate  gates
-#   .../angle-settings/custom-frame-rate
-#
-#   output/dynacal/*/mode  gates  output/dynacal/*/{red,green,blue}/mode
-#     Per-channel mode is active only when panel mode == 'custom'.
-#     Note: firmware may return '???' for per-channel mode regardless of panel mode.
