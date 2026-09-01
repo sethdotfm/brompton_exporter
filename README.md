@@ -62,15 +62,15 @@ volumes:
 
 Tessera processors send their operational log over UDP syslog. By default `docker compose up` also brings up `alloy` (receiver + noise filtering), `loki` (log storage, 30d retention), and `grafana` for visualization.
 
-Point your processors’ syslog target at the IP of this server.
+Point your processors’ syslog target at the IP of this server, port `514`.
 
-Severity is normalized into a `level` label (RFC5424's `informational`/`notice`/`warning`/etc. mapped to Grafana's `debug`/`info`/`warn`/`error`/`critical`) so the Logs panel's built-in level coloring works instead of showing everything as `UNK`(unkown).
+Severity is normalized into a `level` label (RFC5424's `informational`/`notice`/`warning`/etc. mapped to Grafana's `debug`/`info`/`warn`/`error`/`critical`) so the Logs panel's built-in level coloring works instead of showing everything as `UNK` (unknown).
 
-**Retention:** 30 days by default, but `debug`/`info`-level lines (the vast majority of volume) expire after 24h — see `retention_stream` in `loki/loki-config.yaml` if you want a different split. Loki has no built-in hard byte-size cap ("keep at most 1GB"); if that's a hard requirement, enforce it with a filesystem quota on the `loki-data` volume rather than Loki config — 24h of debug logs from a handful of processors measured well under 1GB in testing here, but that's not a guarantee.
+Retention is 30 days by default, but `debug`/`info`-level lines expire after 24h. See `retention_stream` in `te-syslog-loki/loki-config.yaml` to adjust.
 
 A "Tessera Syslog" dashboard is statically provisioned in Grafana with dropdown filters for serial number, processor name, type, version, and project name. These are the same identity fields `tessera_info` exposes for Prometheus, with an added severity filter derived from the syslog input itself.
 
-**On macOS or Windows**, identity filtering won't work if alloy runs in Docker. This is because Docker Desktop rewrites the source IP of all UDP traffic arriving on a published port, therefore, every log line looks like it came from the same address. Native Linux Docker hosts aren't suseptable to these rewrites.
+**On macOS or Windows**, identity filtering won't work if alloy runs in Docker. This is because Docker Desktop rewrites the source IP of all UDP traffic arriving on a published port, therefore, every log line looks like it came from the same address. Native Linux Docker hosts aren't susceptible to these rewrites.
 
 When running on macOS/Windows, simply run Alloy natively on the host instead. The remaining Loki, Grafana, Prometheus, and tessera-exporter images can remain in Docker.
 
@@ -81,8 +81,8 @@ When running on macOS/Windows, simply run Alloy natively on the host instead. Th
 # Install Alloy with homebrew:
 brew install grafana-alloy
 
-# Install the tessera_exporter config
-cp /opt/homebrew/etc/grafana-alloy/config.alloy /opt/homebrew/etc/grafana-alloy/config.alloy.old
+# Install the tessera_exporter config (backing up any existing one first)
+[ -f /opt/homebrew/etc/grafana-alloy/config.alloy ] && cp /opt/homebrew/etc/grafana-alloy/config.alloy /opt/homebrew/etc/grafana-alloy/config.alloy.old
 cp te-syslog-alloy/config-native.alloy /opt/homebrew/etc/grafana-alloy/config.alloy
 
 # To bring up the service
@@ -92,7 +92,7 @@ sudo brew services start grafana-alloy
 sudo brew services stop grafana-alloy
 ```
 
-`alloy/config-native.alloy` is the same pipeline as `alloy/config.alloy`, just listening on `:514` directly and pushing to Loki's published port (`127.0.0.1:3101`) instead of compose DNS.
+`te-syslog-alloy/config-native.alloy` is the same pipeline as `te-syslog-alloy/config.alloy`, just listening on `:514` directly and pushing to Loki's published port (`127.0.0.1:3101`) instead of compose DNS.
 
 ---
 
