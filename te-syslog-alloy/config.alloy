@@ -1,10 +1,8 @@
-// tessera_exporter alloy/config.alloy // Version 1.0
+// tessera_exporter te-syslog-alloy/config.alloy // Version 1.0
 // https://github.com/sethdotfm/tessera_exporter
 //
-// Receives Tessera's syslog output (BSD/RFC3164 format, sent over UDP) and
-// forwards it to Loki. Tessera processors send syslog to <this_host>:514 by
-// default; the port mapping in docker-compose.yml maps that to 1514 inside
-// this container so Alloy doesn't need to run as root.
+// Receives Tessera's syslog output (BSD/RFC3164 format, sent over UDP) and forwards it to Loki. Tessera processors send syslog to <this_host>:514 by default.
+// The port mapping in docker-compose.yml maps that to 1514 inside this container so Alloy doesn't need to run as root.
 
 loki.source.syslog "tessera" {
   listener {
