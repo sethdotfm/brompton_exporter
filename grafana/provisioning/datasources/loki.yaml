@@ -1,0 +1,12 @@
+# tessera_exporter grafana/provisioning/datasources/loki.yaml // Version 1.0
+# https://github.com/sethdotfm/tessera_exporter
+apiVersion: 1
+
+datasources:
+  - name: Loki
+    uid: loki
+    type: loki
+    access: proxy
+    url: http://tessera-exporter-syslog-loki:3100
+    isDefault: true
+    editable: false

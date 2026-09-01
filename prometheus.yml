@@ -28,10 +28,10 @@ scrape_configs:
 
       # Route all probes through the exporter
       - target_label: __address__
-        replacement: "127.0.0.1:19800"
+        replacement: "tessera-exporter:19800"
 
   # tessera_exporter telemetry
   - job_name: tessera_exporter
     static_configs:
-      - targets: ["127.0.0.1:19800"]
+      - targets: ["tessera-exporter:19800"]
 #   ▲▲▲ That's it! ▲▲▲
