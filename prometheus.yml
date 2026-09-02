@@ -1,4 +1,4 @@
-# tessera_exporter prometheus.yml // Version 1.1.0
+# tessera_exporter prometheus.yml // Version 1.1.1
 # https://github.com/sethdotfm/tessera_exporter
 global:
   scrape_interval: 30s

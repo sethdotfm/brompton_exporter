@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-# tessera_exporter // Version 1.1.0
+# tessera_exporter // Version 1.1.1
 # https://github.com/sethdotfm/tessera_exporter
 """Prometheus exporter for Brompton Tessera LED processors.
 
@@ -30,7 +30,7 @@ import yaml
 
 import schema as _schema
 
-VERSION = "1.1.0"
+VERSION = "1.1.1"
 _DEFAULT_CONFIG = Path(__file__).parent / "tessera.yml"
 
 # Fields folded into tessera_info instead of individual metrics. Provide processor identity for join queries.
@@ -454,9 +454,15 @@ def probe(
     http_status = 0
     body_bytes = 0
 
+    # urllib applies `timeout` to each socket operation separately, so a
+    # processor that accepts the connection and then stalls burns it twice
+    # (once on connect, once on read). Halve it so the whole fetch fits in
+    # the budget the caller gave us.
+    sock_timeout = timeout / 2
+
     try:
         req = urllib.request.Request(url)
-        with urllib.request.urlopen(req, timeout=timeout) as resp:
+        with urllib.request.urlopen(req, timeout=sock_timeout) as resp:
             http_status = resp.status
             raw = resp.read()
             body_bytes = len(raw)
@@ -606,17 +612,32 @@ class TesseraHandler(BaseHTTPRequestHandler):
         self.send_header("Content-Type", ctype)
         self.send_header("Content-Length", str(len(body)))
         self.end_headers()
-        self.wfile.write(body)
+        try:
+            self.wfile.write(body)
+        except (BrokenPipeError, ConnectionResetError):
+            # Scraper gave up and closed the connection before we answered.
+            logging.warning("Client disconnected before response was sent")
 
 
-def _scrape_timeout(headers, default: float = 10.0) -> float:
-    """Read X-Prometheus-Scrape-Timeout-Seconds with a 0.5s safety margin."""
+def _scrape_timeout(headers, default: float = 5.0) -> float:
+    """Fetch budget for one probe, from X-Prometheus-Scrape-Timeout-Seconds.
+
+    The scraper's deadline covers connecting to us, our probe, and reading
+    our response back. If we take the whole deadline for the probe alone it
+    hangs up first, and a failed scrape stores no samples at all — so an
+    unreachable processor shows up as an absent tessera_up rather than 0,
+    which is the opposite of what this exporter exists to report. Reserve
+    20% of the deadline (at least 0.5s) so tessera_up 0 makes it back.
+    """
     raw = headers.get("X-Prometheus-Scrape-Timeout-Seconds")
     if raw:
         try:
-            return max(1.0, float(raw) - 0.5)
+            budget = float(raw)
         except ValueError:
-            pass
+            return default
+        # Floor of 0.5s, not 1.0s: at a 1s deadline a 1.0s floor would hand
+        # back the whole budget and leave no headroom at all.
+        return max(0.5, budget - max(0.5, budget * 0.2))
     return default
 
 

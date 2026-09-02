@@ -251,3 +251,75 @@ def test_sentinel_resolution_height_both_values():
     assert is_sentinel("input/ports/sdi/1/meta-data/resolution/height", -1, sentinels)
     assert is_sentinel("input/ports/sdi/1/meta-data/resolution/height", 0, sentinels)
     assert not is_sentinel("input/ports/sdi/1/meta-data/resolution/height", 1080, sentinels)
+
+
+# ── Scrape deadline budget ────────────────────────────────────────────────────
+
+def _headers(value):
+    """Minimal stand-in for the handler's headers mapping."""
+    return {"X-Prometheus-Scrape-Timeout-Seconds": value} if value is not None else {}
+
+
+@pytest.mark.parametrize("scrape_timeout,expected", [
+    (10.0, 8.0),   # 20% reserved
+    (6.0, 4.8),
+    (30.0, 24.0),
+    (2.0, 1.5),    # 20% is under the 0.5s floor, so 0.5s is reserved
+])
+def test_scrape_timeout_reserves_headroom(scrape_timeout, expected):
+    from tessera_exporter import _scrape_timeout
+    assert _scrape_timeout(_headers(str(scrape_timeout))) == pytest.approx(expected)
+
+
+@pytest.mark.parametrize("scrape_timeout", [1.0, 2.0, 6.0, 10.0, 30.0])
+def test_probe_budget_fits_inside_scrape_deadline(scrape_timeout):
+    """The probe must finish early enough for tessera_up 0 to reach the scraper.
+
+    A probe that outruns the deadline gets its connection closed, and a failed
+    scrape stores no samples — leaving tessera_up absent instead of 0.
+    """
+    from tessera_exporter import _scrape_timeout
+    assert _scrape_timeout(_headers(str(scrape_timeout))) < scrape_timeout
+
+
+def test_scrape_timeout_missing_header_uses_default_under_common_deadline():
+    from tessera_exporter import _scrape_timeout
+    # Must stay below the 10s Prometheus default for scrapers that send no header.
+    assert _scrape_timeout(_headers(None)) < 10.0
+
+
+def test_scrape_timeout_garbage_header_falls_back_to_default():
+    from tessera_exporter import _scrape_timeout
+    assert _scrape_timeout(_headers("not-a-number")) == 5.0
+
+
+def test_probe_splits_budget_across_connect_and_read():
+    """urllib times each socket op separately, so the per-op timeout is halved.
+
+    A processor that accepts the connection then stalls would otherwise spend
+    the timeout twice and overrun the scrape deadline.
+    """
+    from unittest.mock import patch
+    import schema as _schema
+    from tessera_exporter import probe
+
+    schema_root = _schema.load()
+    config = {"collectors": {}, "suffix": {}, "sentinels": {}}
+
+    with patch("urllib.request.urlopen", side_effect=TimeoutError()) as mock_open:
+        probe("192.0.2.50", 80, schema_root, config, timeout=8.0)
+
+    assert mock_open.call_args.kwargs["timeout"] == pytest.approx(4.0)
+
+
+def test_send_survives_client_disconnect():
+    """A scraper that hangs up mid-response must not raise out of the handler."""
+    from unittest.mock import MagicMock
+    from tessera_exporter import TesseraHandler
+
+    handler = MagicMock(spec=TesseraHandler)
+    handler.wfile = MagicMock()
+    handler.wfile.write.side_effect = BrokenPipeError(32, "Broken pipe")
+
+    # Must return normally rather than propagating BrokenPipeError.
+    TesseraHandler._send(handler, 200, "text/plain", b"tessera_up 0\n")

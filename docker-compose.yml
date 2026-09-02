@@ -1,4 +1,4 @@
-# tessera_exporter DOCKER COMPOSE // Version 1.1.0
+# tessera_exporter DOCKER COMPOSE // Version 1.1.1
 # https://github.com/sethdotfm/tessera_exporter
 name: tessera-exporter
 services:
