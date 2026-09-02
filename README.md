@@ -30,7 +30,8 @@ Add to `prometheus.yml`:
 ```yaml
 scrape_configs:
   - job_name: tessera
-    scrape_interval: 30s
+    scrape_interval: 6s
+    scrape_timeout: 6s
     metrics_path: /probe
     file_sd_configs:
       - files: [/etc/prometheus/tessera_targets/*.yml]
@@ -100,7 +101,7 @@ sudo brew services stop grafana-alloy
 
 **IP control must be enabled on each processor.** Go to the Live Control tile in the Tessera UI and enable IP control for the loaded project. If `/probe` returns `tessera_up 0` with `reason="ip_control_disabled"`, this is why.
 
-**Start with scrape_interval at 30s.** Brompton warns that frequent polling may cause "adverse performance" on the Tessera hardware. I have been able to push this much harder, but your mileage may vary.
+**scrape_interval is 6s by default.** Brompton's only stated limit is to not poll multiple times per second. They do warn that frequent polling may cause "adverse performance" on the Tessera hardware, so back off if your processors are heavily loaded — but 6s has been solid in practice. `scrape_timeout` is pinned to match the interval: left unset it inherits the 10s global default, which Prometheus silently clamps down to the interval anyway. Setting it *above* the interval is the one thing Prometheus rejects outright.
 
 `/metrics` **may look empty.** Processor data is on `/probe`. `/metrics` is exporter self-instrumentation only. Use `/probe?target=192.0.2.10&debug=1` for a human-readable summary of a single scrape.
 
